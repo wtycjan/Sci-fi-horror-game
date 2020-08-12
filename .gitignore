@@ -1,0 +1,11 @@
+/Logs
+/obj
+/Packages
+/.gitattributes
+/Assembly-CSharp.csproj
+/Assembly-CSharp-Editor-firstpass.csproj
+/Sci-fi.sln
+/UMotionSourceApplication.csproj
+/UMotionSourceEditor.csproj
+/.vs
+/Library
