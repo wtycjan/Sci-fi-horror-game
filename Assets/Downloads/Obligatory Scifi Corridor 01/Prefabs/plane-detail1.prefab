@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 3313392}
   - component: {fileID: 2319722}
   - component: {fileID: 6493344}
-  - component: {fileID: 5988535009210814835}
-  - component: {fileID: 1201451858328267339}
   m_Layer: 10
   m_Name: plane-detail1
   m_TagString: Interactable
@@ -94,31 +92,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300016, guid: b369ce5e301bbf040abe85618537e820, type: 3}
---- !u!136 &5988535009210814835
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 130736}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 0.88898516
-  m_Direction: 1
-  m_Center: {x: 0.0000004768508, y: 0.000000014900735, z: -0.0004578755}
---- !u!114 &1201451858328267339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 130736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f235f6c050743e54bb53d85797c137d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  door: {fileID: 0}
-  open: 0

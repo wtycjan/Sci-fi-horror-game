@@ -22,7 +22,7 @@ public class OpenDoorButton : MonoBehaviour
     {
         doorAnim.SetBool("IsOpen", true);
         yield return new WaitForSeconds(.1f);
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(1.5f);
         open = true;
     }
     public IEnumerator CloseDoor()
@@ -30,7 +30,7 @@ public class OpenDoorButton : MonoBehaviour
         open = false;
         doorAnim.SetBool("IsOpen", false);
         yield return new WaitForSeconds(.1f);
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(1.5f);
         open = false;
     }
 }

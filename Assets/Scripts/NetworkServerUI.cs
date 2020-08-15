@@ -14,9 +14,9 @@ public class NetworkServerUI : MonoBehaviour
     private void OnGUI()
     {
         string ipaddress = LocalIPAddress();
-        GUI.Box(new Rect(10, Screen.height - 50, 100, 50), ipaddress);
-        GUI.Label(new Rect(20, Screen.height - 35, 100, 20), "Status:" + NetworkServer.active);
-        GUI.Label(new Rect(20, Screen.height - 20, 100, 20), "Connnected:" + NetworkServer.connections.Count);
+        //GUI.Box(new Rect(10, Screen.height - 50, 100, 50), ipaddress);
+        //GUI.Label(new Rect(20, Screen.height - 35, 100, 20), "Status:" + NetworkServer.active);
+        //GUI.Label(new Rect(20, Screen.height - 20, 100, 20), "Connnected:" + NetworkServer.connections.Count);
     }
 
     // Start is called before the first frame update
