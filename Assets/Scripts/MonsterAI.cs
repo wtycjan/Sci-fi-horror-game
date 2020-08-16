@@ -10,6 +10,7 @@ public class MonsterAI : MonoBehaviour
     Rigidbody rb2d;
     public RuntimeAnimatorController walkAnim;
     public RuntimeAnimatorController runAnim;
+    public RuntimeAnimatorController jumpAnim;
     public float speed = 3f;
     private Vector3 prevPosition;
     void Start()
@@ -22,6 +23,7 @@ public class MonsterAI : MonoBehaviour
 
     void Update()
     {
+        //rotate
         Vector3 deltaPosition = transform.position - prevPosition;
         if (deltaPosition != Vector3.zero)
         {
@@ -30,7 +32,7 @@ public class MonsterAI : MonoBehaviour
         prevPosition = transform.position;
 
 
-        if (Vector3.Distance(transform.position,player.transform.position) < 5)
+        if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.6f)
         {
             anim.runtimeAnimatorController = runAnim;
             Debug.Log("Attack");
