@@ -11,12 +11,19 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject door2;
     [SerializeField] private GameObject door3;
     [SerializeField] private GameObject door4;
+    [SerializeField] private GameObject door5;
     public Image blackScreen;
     public GameObject monster;
     public GameObject player;
     public RuntimeAnimatorController jumpAnim;
+    private Sounds sound;
     private bool cutscene = false, cameraCutscene = false;
     Quaternion startRot, endRot;
+
+    private void Start()
+    {
+        sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
+    }
     private void Update()
     {
         //Debug only!
@@ -28,6 +35,8 @@ public class GameController : MonoBehaviour
             OpenDoor3();
         if (Input.GetKeyDown("4"))
             OpenDoor4();
+        if (Input.GetKeyDown("5"))
+            OpenDoor5();
 
         //death
         if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene)
@@ -35,7 +44,7 @@ public class GameController : MonoBehaviour
             StartCoroutine("Death");
         }
         if (player.transform.rotation != endRot && cameraCutscene)
-            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, endRot, Time.deltaTime * 1.5f);
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, Quaternion.AngleAxis(90, Vector3.left), Time.deltaTime * 2f);
 
     }
 
@@ -55,6 +64,11 @@ public class GameController : MonoBehaviour
     {
         door4.SendMessage("Interact");
     }
+    void OpenDoor5()
+    {
+        door5.SendMessage("Interact");
+    }
+
     public IEnumerator Death()
     {
         cutscene = true;
@@ -74,19 +88,24 @@ public class GameController : MonoBehaviour
         monster.transform.LookAt(lookpoint);
         player.GetComponent<CharacterController>().enabled = false;
         monster.GetComponentInChildren<CapsuleCollider>().enabled = false;
+        sound.Sound1();
         yield return new WaitForSeconds(.05f);
         monster.GetComponent<Animator>().runtimeAnimatorController = jumpAnim;
         monster.GetComponent<Rigidbody>().AddForce(monster.transform.forward* 100);
         yield return new WaitForSeconds(.3f);
-        monster.gameObject.SetActive(false);
-        endRot = Quaternion.LookRotation(new Vector3(0, 54,0));
+        sound.Sound2();
         cameraCutscene = true;
-        //player.transform.forward = new Vector3(transform.rotation.x, 54, transform.rotation.z);
-        yield return new WaitForSeconds(.7f);
+        yield return new WaitForSeconds(.3f);
+        monster.gameObject.SetActive(false);
+        yield return new WaitForSeconds(.3f);
+        StartCoroutine("Restart");
+    }
+    public IEnumerator Restart()
+    {
         blackScreen.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-}
+    }

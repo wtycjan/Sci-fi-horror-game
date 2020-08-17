@@ -289,8 +289,7 @@ GameObject:
   - component: {fileID: 2371202}
   - component: {fileID: 6453104}
   - component: {fileID: 1341016869}
-  - component: {fileID: 1341016863}
-  - component: {fileID: 1341016868}
+  - component: {fileID: 4051128653807674020}
   m_Layer: 10
   m_Name: detail-led1
   m_TagString: Interactable
@@ -382,32 +381,13 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195538}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.03
   m_Height: 0.06
   m_Direction: 1
   m_Center: {x: -0.00000012107193, y: -0.00000004842878, z: -4.6566126e-10}
---- !u!95 &1341016863
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 195538}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 48632d668d5681949aa0d9ce1e3a9454, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1341016868
+--- !u!114 &4051128653807674020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -416,8 +396,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 195538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f235f6c050743e54bb53d85797c137d4, type: 3}
+  m_Script: {fileID: 11500000, guid: be21a65ffcebeb1439776aa7486cd8a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 0}
-  open: 0
+  gameController: {fileID: 0}
+  failedtxt: {fileID: 0}

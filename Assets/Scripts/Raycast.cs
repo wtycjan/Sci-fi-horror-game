@@ -7,10 +7,12 @@ public class Raycast : MonoBehaviour
 {
     private GameObject raycastedObj;
 
+
     [SerializeField] private int rayLength = 10;
     [SerializeField] private LayerMask layerMaskInteract;
 
     [SerializeField] private Image uiCrosshair;
+    [SerializeField] private Text pickupText;
 
     void Update()
     {
@@ -26,7 +28,7 @@ public class Raycast : MonoBehaviour
 
                 if(Input.GetKeyDown("e"))
                 {
-                    Debug.Log("Open Door");
+                    Debug.Log("Interact");
                     raycastedObj.SendMessage("Interact");
                 }
             }
@@ -41,9 +43,11 @@ public class Raycast : MonoBehaviour
     void CrosshairActive()
     {
         uiCrosshair.color = Color.yellow;
+        pickupText.gameObject.SetActive(true);
     }
     void CrosshairNormal()
     {
         uiCrosshair.color = Color.white;
+        pickupText.gameObject.SetActive(false);
     }
 }

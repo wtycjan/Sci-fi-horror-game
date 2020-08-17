@@ -48,6 +48,9 @@ public class NetworkServerUI : MonoBehaviour
             case "4":
                 gameController.SendMessage("OpenDoor4");
                 break;
+            case "5":
+                gameController.SendMessage("OpenDoor5");
+                break;
         }
 
 
