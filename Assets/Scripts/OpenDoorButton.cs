@@ -4,40 +4,41 @@ using UnityEngine;
 
 public class OpenDoorButton : MonoBehaviour
 {
-    [SerializeField] private GameObject door;
-    private Animator btnAnim;
     private Animator doorAnim;
-    [SerializeField] private bool open = false;
+    private Sounds sounds;
+    [SerializeField] private bool open = false, interacting=false;
     void Start()
     {
-        btnAnim = GetComponent<Animator>();
-        doorAnim = door.GetComponent<Animator>();
+        sounds = GetComponentInChildren<Sounds>();
+        doorAnim = GetComponent<Animator>();
     }
 
     public void Interact()
     {
-        if(open==false)
+        if(open==false && !interacting)
             StartCoroutine("OpenDoor");
-        else
+        else if (open && !interacting)
             StartCoroutine("CloseDoor");
     }
     public IEnumerator OpenDoor()
     {
-        btnAnim.SetBool("IsPressed", true);
         doorAnim.SetBool("IsOpen", true);
+        interacting = true;
+        sounds.Sound1();
         yield return new WaitForSeconds(.1f);
-        btnAnim.SetBool("IsPressed", false);
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(1.3f);
         open = true;
+        interacting = false;
     }
     public IEnumerator CloseDoor()
     {
         open = false;
-        btnAnim.SetBool("IsPressed", true);
+        interacting = true;
+        sounds.Sound2();
         doorAnim.SetBool("IsOpen", false);
         yield return new WaitForSeconds(.1f);
-        btnAnim.SetBool("IsPressed", false);
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(1.3f);
         open = false;
+        interacting = false;
     }
 }
