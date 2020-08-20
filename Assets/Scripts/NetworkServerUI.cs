@@ -57,6 +57,14 @@ public class NetworkServerUI : MonoBehaviour
         Debug.Log(msg.value);
         
     }
+    public void ServerSendMessage(string message)
+    {
+            StringMessage msg = new StringMessage();
+            msg.value = message;
+            NetworkServer.SendToAll(888, msg);
+            Debug.Log("msg sent");
+
+    }
 
     // Update is called once per frame
     void Update()

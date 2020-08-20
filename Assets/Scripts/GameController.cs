@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using System.Text;
 
 public class GameController : MonoBehaviour
 {
@@ -23,6 +25,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
+        RandomPassword();
     }
     private void Update()
     {
@@ -107,5 +110,21 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public string RandomPassword()
+    {
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        var stringChars = new char[5];
+        var random = new System.Random();
+
+        for (int i = 0; i < stringChars.Length; i++)
+        {
+            stringChars[i] = chars[random.Next(chars.Length)];
+        }
+
+        var finalString = new String(stringChars);
+        GameData.password1 = finalString;
+        Debug.Log(finalString);
+        return finalString;
 
     }
+}
