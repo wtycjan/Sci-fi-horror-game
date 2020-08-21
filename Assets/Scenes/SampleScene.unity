@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -88,7 +88,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: b995179f0b34a8546a925357fe93d473,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -5501,10 +5502,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 566480791}
     m_Modifications:
-    - target: {fileID: 132044, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
-      propertyPath: m_Name
-      value: Wall_Arc_90_01
-      objectReference: {fileID: 0}
     - target: {fileID: 418090, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.648541
@@ -5548,6 +5545,10 @@ PrefabInstance:
     - target: {fileID: 418090, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 132044, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
+      propertyPath: m_Name
+      value: Wall_Arc_90_01
       objectReference: {fileID: 0}
     - target: {fileID: 421820, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5733,10 +5734,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 635800388}
     m_Modifications:
-    - target: {fileID: 132044, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
-      propertyPath: m_Name
-      value: Wall_Arc_90_01
-      objectReference: {fileID: 0}
     - target: {fileID: 418090, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.9797635
@@ -5780,6 +5777,10 @@ PrefabInstance:
     - target: {fileID: 418090, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.031000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 132044, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
+      propertyPath: m_Name
+      value: Wall_Arc_90_01
       objectReference: {fileID: 0}
     - target: {fileID: 421820, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7129,10 +7130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 635800388}
     m_Modifications:
-    - target: {fileID: 132044, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
-      propertyPath: m_Name
-      value: Wall_Arc_90_01 (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 418090, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.9
@@ -7176,6 +7173,10 @@ PrefabInstance:
     - target: {fileID: 418090, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.61700004
+      objectReference: {fileID: 0}
+    - target: {fileID: 132044, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
+      propertyPath: m_Name
+      value: Wall_Arc_90_01 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 421820, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -35399,10 +35400,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 635800388}
     m_Modifications:
-    - target: {fileID: 132044, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
-      propertyPath: m_Name
-      value: Wall_Arc_90_01 (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 418090, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.926399
@@ -35446,6 +35443,10 @@ PrefabInstance:
     - target: {fileID: 418090, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.324
+      objectReference: {fileID: 0}
+    - target: {fileID: 132044, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
+      propertyPath: m_Name
+      value: Wall_Arc_90_01 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 421820, guid: e4f34474191354a5688752acf8cf95fe, type: 3}
       propertyPath: m_LocalPosition.x
