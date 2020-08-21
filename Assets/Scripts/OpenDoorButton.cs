@@ -22,6 +22,7 @@ public class OpenDoorButton : MonoBehaviour
     }
     public IEnumerator OpenDoor()
     {
+        Destroy(gameObject.GetComponent<BoxCollider>());
         doorAnim.SetBool("IsOpen", true);
         interacting = true;
         sounds.Sound1();
@@ -32,6 +33,7 @@ public class OpenDoorButton : MonoBehaviour
     }
     public IEnumerator CloseDoor()
     {
+        gameObject.AddComponent<BoxCollider>();
         open = false;
         interacting = true;
         sounds.Sound2();
