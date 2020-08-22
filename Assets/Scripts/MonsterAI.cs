@@ -26,7 +26,7 @@ public class MonsterAI : MonoBehaviour
     {
         //rotate
         rbd.velocity = goForward() * speed;
-
+        rotateMonster();
 
 
 
@@ -93,6 +93,7 @@ public class MonsterAI : MonoBehaviour
     {
         print("colision");
         transform.rotation = Quaternion.Euler(0, Random.Range(-180, 180), 0);
+
     }
 
 }
