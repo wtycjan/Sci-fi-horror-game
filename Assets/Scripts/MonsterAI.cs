@@ -27,9 +27,13 @@ public class MonsterAI : MonoBehaviour
         //rotate
         rbd.velocity = goForward() * speed;
 
+
+
+
         if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.6f)
         {
             rotateMonster();
+
             if (!charge)
             {
                 StartCoroutine("Prepare");
@@ -44,6 +48,7 @@ public class MonsterAI : MonoBehaviour
                 anim.runtimeAnimatorController = runAnim;
                 Debug.Log("Attack");
                 float step = speed * Time.deltaTime; // calculate distance to move
+                
                 rbd.MovePosition(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
             }
 
@@ -83,6 +88,11 @@ public class MonsterAI : MonoBehaviour
         yield return new WaitForSeconds(.4f);
         stop = false;
         charge = true;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        print("colision");
+        transform.rotation = Quaternion.Euler(0, Random.Range(-180, 180), 0);
     }
 
 }
