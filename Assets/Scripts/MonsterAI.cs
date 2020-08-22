@@ -44,9 +44,10 @@ public class MonsterAI : MonoBehaviour
         }
 
         
-        if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.6f)
+        if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
         {
-            rotateMonster();
+            
+            
             if (!charge)
             {
                 StartCoroutine("Prepare");
@@ -60,9 +61,11 @@ public class MonsterAI : MonoBehaviour
             {
                 anim.runtimeAnimatorController = runAnim;
                 Debug.Log("Attack");
-                float step = speed * Time.deltaTime; // calculate distance to move
+                float step = speed* 100 * Time.deltaTime; // calculate distance to move
+                rotateMonster();
+                agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
+                //rbd.MovePosition(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
                 
-                rbd.MovePosition(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
             }
 
         }
