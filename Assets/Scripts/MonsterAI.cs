@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MonsterAI : MonoBehaviour
 {
@@ -10,30 +12,41 @@ public class MonsterAI : MonoBehaviour
     public RuntimeAnimatorController walkAnim;
     public RuntimeAnimatorController runAnim;
     public RuntimeAnimatorController idleAnim;
+    NavMeshAgent agent;
     private Sounds sound;
     public float speed = 3f;
     private Vector3 deltaPosition, prevPosition;
     private bool scream = false, charge = false, stop = false;
+    public List<Transform> Spots;
+    private Transform newSpot;
+
     void Start()
     {
         prevPosition = transform.position;
+        agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         rbd = GetComponent<Rigidbody>();
         sound = GetComponent<Sounds>();
+
+        newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
+        agent.SetDestination(newSpot.transform.position);
     }
 
     void Update()
     {
-        //rotate
-        rbd.velocity = goForward() * speed;
+
         rotateMonster();
+        if (makeNewTarget()) 
+        {
+            print("reach");
+            newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
+            agent.SetDestination(newSpot.transform.position);
+        }
 
-
-
+        
         if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.6f)
         {
             rotateMonster();
-
             if (!charge)
             {
                 StartCoroutine("Prepare");
@@ -64,6 +77,22 @@ public class MonsterAI : MonoBehaviour
 
     }
 
+    private bool makeNewTarget()
+    {
+        if(agent.remainingDistance <= agent.stoppingDistance)
+        {
+            return true;
+        }
+        if(agent.pathStatus == NavMeshPathStatus.PathComplete)
+        {
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private void rotateMonster()
     {
         deltaPosition = transform.position - prevPosition;
@@ -73,14 +102,6 @@ public class MonsterAI : MonoBehaviour
         }
         prevPosition = transform.position;
     }
-
-    private Vector3 goForward()
-    {
-        Vector3 temp = new Vector3();
-        temp = transform.forward;
-        return temp;
-    }
-
     IEnumerator Prepare()
     {
         stop = true;
@@ -89,12 +110,8 @@ public class MonsterAI : MonoBehaviour
         stop = false;
         charge = true;
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        print("colision");
-        transform.rotation = Quaternion.Euler(0, Random.Range(-180, 180), 0);
 
-    }
+
 
 }
 
