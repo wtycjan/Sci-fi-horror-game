@@ -63,6 +63,7 @@ public class TypingInput : MonoBehaviour
             myField.gameObject.transform.position = inputPosition;
             commands.Clear();
             commands.Add("system.Override();", Enter);
+            network.ServerSendMessage("HackingEnd");
         }
             
 
@@ -72,33 +73,29 @@ public class TypingInput : MonoBehaviour
     private void Enter(string command, string input)
     {
         osText.text += "\nAccess granted. Security Level: "+ securityLvl;
-        switch (securityLvl)
-        {
-            case 1:
-                osText.text += "\n\nKernel:/ > ";
-                myField.gameObject.transform.position += new Vector3(95, -64, 0);
-                commands.Add("kernel.Disable();", Kernel);
-                break;
-            case 2:
-                osText.text += "\n\nKernel:/Mainframe:/ > ";
-                myField.gameObject.transform.position += new Vector3(205, -64, 0);
-                commands.Add("mainframe.Disable();", Mainframe);
-                break;
-            case 3:
-                osText.text += "\n\nKernel:/Mainframe:/Firewall:/ > ";
-                myField.gameObject.transform.position += new Vector3(295, -64, 0);
-                commands.Add("firewall.Disable();", Firewall);
-                break;
-        }
-
-        
-        Debug.Log("user");
+        network.ServerSendMessage("HackingStart");
+        osText.text += "\n\nKernel:/Mainframe:/Firewall:/ > ";
+        myField.gameObject.transform.position += new Vector3(295, -64, 0);
+        commands.Add("firewall.Disable();", Firewall);
     }
     private void Firewall(string command, string input)
     {
         osText.text += "\nFirewall has been bypassed.\n\nKernel:/Mainframe:/ > ";
         myField.gameObject.transform.position += new Vector3(-88, -74, 0);
         commands.Add("mainframe.Disable();", Mainframe);
+        switch (securityLvl)
+        {
+            case 1:
+                network.ServerSendMessage("Blocks" + 20);
+                break;
+            case 2:
+                network.ServerSendMessage("Blocks" + 15);
+                break;
+            case 3:
+                network.ServerSendMessage("Blocks" + 10);
+                break;
+        }
+        
     }
 
     private void Mainframe(string command, string input)
@@ -106,12 +103,35 @@ public class TypingInput : MonoBehaviour
         osText.text += "\nMainframe algorithms disabled.\n\nKernel:/ > ";
         myField.gameObject.transform.position += new Vector3(-110, -74, 0);
         commands.Add("kernel.Disable();", Kernel);
+        switch (securityLvl)
+        {
+            case 1:
+                network.ServerSendMessage("Blocks" + 20);
+                break;
+            case 2:
+                network.ServerSendMessage("Blocks" + 15);
+                break;
+            case 3:
+                network.ServerSendMessage("Blocks" + 10);
+                break;
+        }
     }
     private void Kernel(string command, string input)
     {
-        osText.text += "\nKernel breached.\n\tPasscode: "+ GameData.password1;
+        osText.text += "\nKernel breached...";
         myField.gameObject.SetActive(false);
-        network.ServerSendMessage("Pswd "+ GameData.password1);
+        switch (securityLvl)
+        {
+            case 1:
+                network.ServerSendMessage("Blocks" + 20);
+                break;
+            case 2:
+                network.ServerSendMessage("Blocks" + 15);
+                break;
+            case 3:
+                network.ServerSendMessage("Blocks" + 10);
+                break;
+        }
     }
     private void UnlockChest(string command, string input)
     {

@@ -43929,7 +43929,7 @@ PrefabInstance:
     - target: {fileID: 1998657097174649319, guid: 6e92cbe15fddf294a8a888de3310e92a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.87
+      value: 18.86
       objectReference: {fileID: 0}
     - target: {fileID: 1998657097174649319, guid: 6e92cbe15fddf294a8a888de3310e92a,
         type: 3}
@@ -43939,7 +43939,7 @@ PrefabInstance:
     - target: {fileID: 1998657097174649319, guid: 6e92cbe15fddf294a8a888de3310e92a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -25.4
+      value: -25.53
       objectReference: {fileID: 0}
     - target: {fileID: 1998657097174649319, guid: 6e92cbe15fddf294a8a888de3310e92a,
         type: 3}
@@ -44005,26 +44005,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest
       objectReference: {fileID: 0}
-    - target: {fileID: 2591344396503709092, guid: 53574b247cb4fe6408308c6e34bd382b,
-        type: 3}
-      propertyPath: treasure
-      value: 
-      objectReference: {fileID: 1795246194}
-    - target: {fileID: 2591344396503709092, guid: 53574b247cb4fe6408308c6e34bd382b,
-        type: 3}
-      propertyPath: codeScreen
-      value: 
-      objectReference: {fileID: 1222589394}
-    - target: {fileID: 2591344396503709092, guid: 53574b247cb4fe6408308c6e34bd382b,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1497590792}
-    - target: {fileID: 2591344396503709092, guid: 53574b247cb4fe6408308c6e34bd382b,
-        type: 3}
-      propertyPath: network
-      value: 
-      objectReference: {fileID: 2113858537}
     - target: {fileID: 2592143181835107605, guid: 53574b247cb4fe6408308c6e34bd382b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -44080,6 +44060,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2591344396503709092, guid: 53574b247cb4fe6408308c6e34bd382b,
+        type: 3}
+      propertyPath: treasure
+      value: 
+      objectReference: {fileID: 1795246194}
+    - target: {fileID: 2591344396503709092, guid: 53574b247cb4fe6408308c6e34bd382b,
+        type: 3}
+      propertyPath: codeScreen
+      value: 
+      objectReference: {fileID: 1222589394}
+    - target: {fileID: 2591344396503709092, guid: 53574b247cb4fe6408308c6e34bd382b,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1497590792}
+    - target: {fileID: 2591344396503709092, guid: 53574b247cb4fe6408308c6e34bd382b,
+        type: 3}
+      propertyPath: network
+      value: 
+      objectReference: {fileID: 2113858537}
     - target: {fileID: 1315438141972609, guid: 53574b247cb4fe6408308c6e34bd382b, type: 3}
       propertyPath: myField
       value: 
