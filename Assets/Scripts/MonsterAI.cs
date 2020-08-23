@@ -30,6 +30,10 @@ public class MonsterAI : MonoBehaviour
 
         newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
         agent.SetDestination(newSpot.transform.position);
+
+        //random starting position
+        //gameObject.transform.position = Spots[4].transform.position;
+
     }
 
     void Update()
