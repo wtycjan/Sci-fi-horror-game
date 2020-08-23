@@ -11,6 +11,7 @@ public class TypingInput : MonoBehaviour
     public Text osText;
     public Chest chest;
     public NetworkServerUI network;
+    public TimerHacking timer;
     private Dictionary<string, System.Action<string, string>> commands;
     public int securityLvl;
     private string resetText;
@@ -35,6 +36,13 @@ public class TypingInput : MonoBehaviour
     {
         if (myField.isActiveAndEnabled)
             StartTyping();
+        if(securityLvl > 0)
+        if (timer.timer < 0 )
+        {
+            timer.isCounting = false;
+            Alarm();
+            timer.timer = 1;
+        }
     }
     private void OnEndEdit(string input)
     {
@@ -58,12 +66,7 @@ public class TypingInput : MonoBehaviour
         // Do something if the command has not been found
         if (!commandFound && securityLvl>0)
         {
-            Debug.Log("Alarm");
-            osText.text = resetText;
-            myField.gameObject.transform.position = inputPosition;
-            commands.Clear();
-            commands.Add("system.Override();", Enter);
-            network.ServerSendMessage("HackingEnd");
+            Alarm();
         }
             
 
@@ -77,6 +80,22 @@ public class TypingInput : MonoBehaviour
         osText.text += "\n\nKernel:/Mainframe:/Firewall:/ > ";
         myField.gameObject.transform.position += new Vector3(295, -64, 0);
         commands.Add("firewall.Disable();", Firewall);
+        timer.isCounting = true;
+        timer.securityLvl = securityLvl;
+        switch (securityLvl)
+        {
+            case 1:
+                timer.timer = 29;
+                break;
+            case 2:
+                timer.timer = 24;
+                break;
+            case 3:
+                timer.timer = 19;
+                break;
+        }
+
+
     }
     private void Firewall(string command, string input)
     {
@@ -89,10 +108,10 @@ public class TypingInput : MonoBehaviour
                 network.ServerSendMessage("Blocks" + 20);
                 break;
             case 2:
-                network.ServerSendMessage("Blocks" + 15);
+                network.ServerSendMessage("Blocks" + 18);
                 break;
             case 3:
-                network.ServerSendMessage("Blocks" + 10);
+                network.ServerSendMessage("Blocks" + 16);
                 break;
         }
         
@@ -109,10 +128,10 @@ public class TypingInput : MonoBehaviour
                 network.ServerSendMessage("Blocks" + 20);
                 break;
             case 2:
-                network.ServerSendMessage("Blocks" + 15);
+                network.ServerSendMessage("Blocks" + 18);
                 break;
             case 3:
-                network.ServerSendMessage("Blocks" + 10);
+                network.ServerSendMessage("Blocks" + 16);
                 break;
         }
     }
@@ -126,10 +145,10 @@ public class TypingInput : MonoBehaviour
                 network.ServerSendMessage("Blocks" + 20);
                 break;
             case 2:
-                network.ServerSendMessage("Blocks" + 15);
+                network.ServerSendMessage("Blocks" + 18);
                 break;
             case 3:
-                network.ServerSendMessage("Blocks" + 10);
+                network.ServerSendMessage("Blocks" + 16);
                 break;
         }
     }
@@ -144,4 +163,13 @@ public class TypingInput : MonoBehaviour
         myField.ActivateInputField();
     }
 
+    public void Alarm()
+    {
+        Debug.Log("Alarm");
+        osText.text = resetText;
+        myField.gameObject.transform.position = inputPosition;
+        commands.Clear();
+        commands.Add("system.Override();", Enter);
+        network.ServerSendMessage("HackingEnd");
+    }
 }
