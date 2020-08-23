@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading;
 
 public class OpenDoorHandler : MonoBehaviour
 {
@@ -46,7 +45,6 @@ public class OpenDoorHandler : MonoBehaviour
     private void playOrStopAnimation()
     {
         GetComponent<Animator>().enabled = false;
-        Thread.Sleep(1000);
         GetComponent<Animator>().enabled = true;
     }
 }
