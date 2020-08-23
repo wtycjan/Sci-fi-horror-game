@@ -19,6 +19,7 @@ public class MonsterAI : MonoBehaviour
     private bool scream = false, charge = false, stop = false;
     public List<Transform> Spots;
     private Transform newSpot;
+    private Transform spawnSpot;
 
     void Start()
     {
@@ -32,7 +33,8 @@ public class MonsterAI : MonoBehaviour
         agent.SetDestination(newSpot.transform.position);
 
         //random starting position
-        //gameObject.transform.position = Spots[4].transform.position;
+        spawnSpot = Spots[UnityEngine.Random.Range(2, Spots.Count)];
+        gameObject.transform.position = spawnSpot.transform.position;
 
     }
 
