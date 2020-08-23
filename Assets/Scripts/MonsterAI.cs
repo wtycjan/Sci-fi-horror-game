@@ -1,42 +1,55 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MonsterAI : MonoBehaviour
 {
     Animator anim;
     public GameObject player;
-    FollowPath path;
-    Rigidbody rb2d;
+    Rigidbody rbd;
     public RuntimeAnimatorController walkAnim;
     public RuntimeAnimatorController runAnim;
     public RuntimeAnimatorController idleAnim;
+    NavMeshAgent agent;
     private Sounds sound;
     public float speed = 3f;
     private Vector3 deltaPosition, prevPosition;
     private bool scream = false, charge = false, stop = false;
+    public List<Transform> Spots;
+    private Transform newSpot;
+
     void Start()
     {
         prevPosition = transform.position;
-        path = GetComponent<FollowPath>();
+        agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        rb2d = GetComponent<Rigidbody>();
+        rbd = GetComponent<Rigidbody>();
         sound = GetComponent<Sounds>();
+
+        newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
+        agent.SetDestination(newSpot.transform.position);
+
+        //random starting position
+        //gameObject.transform.position = Spots[4].transform.position;
+
     }
 
     void Update()
     {
-        //rotate
-        deltaPosition = transform.position - prevPosition;
-        if (deltaPosition != Vector3.zero && !stop)
+        rotateMonster();
+        if (makeNewTarget()) 
         {
-            transform.forward = deltaPosition;
+            newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
+            agent.SetDestination(newSpot.transform.position);
         }
-        prevPosition = transform.position;
 
-
-        if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.6f)
+        
+        if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
         {
+            
+            
             if (!charge)
             {
                 StartCoroutine("Prepare");
@@ -50,31 +63,58 @@ public class MonsterAI : MonoBehaviour
             {
                 anim.runtimeAnimatorController = runAnim;
                 Debug.Log("Attack");
-                float step = speed * Time.deltaTime; // calculate distance to move
-                rb2d.MovePosition(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
+                float step = speed* 100 * Time.deltaTime; // calculate distance to move
+                rotateMonster();
+                agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
+                //rbd.MovePosition(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
+                
             }
 
         }
         else
         {
             anim.runtimeAnimatorController = walkAnim;
-            path.attacking = false; //performance !
             scream = false;
             charge = false;
         }
-            
+
 
 
     }
 
+    private bool makeNewTarget()
+    {
+        if(agent.remainingDistance <= agent.stoppingDistance)
+        {
+            return true;
+        }
+        if(agent.pathStatus == NavMeshPathStatus.PathComplete)
+        {
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void rotateMonster()
+    {
+        deltaPosition = transform.position - prevPosition;
+        if (deltaPosition != Vector3.zero && !stop)
+        {
+            transform.forward = deltaPosition;
+        }
+        prevPosition = transform.position;
+    }
     IEnumerator Prepare()
     {
         stop = true;
         anim.runtimeAnimatorController = idleAnim;
-        path.attacking = true;
         yield return new WaitForSeconds(.4f);
         stop = false;
         charge = true;
     }
+
 }
 
