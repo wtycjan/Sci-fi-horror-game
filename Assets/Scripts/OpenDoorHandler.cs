@@ -5,36 +5,41 @@ using System.Threading;
 
 public class OpenDoorHandler : MonoBehaviour
 {
+    [SerializeField] private GameObject door1;
+    [SerializeField] private GameObject door2;
+    [SerializeField] private GameObject door3;
+    [SerializeField] private GameObject door4;
+    [SerializeField] private GameObject door5;
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name == "Door (1)")
         {
             playOrStopAnimation();
-            SendMessage("OpenDoor1");
+            door1.SendMessage("Interact");
         }
         else if (collision.gameObject.name == "Door (2)")
         {
             playOrStopAnimation();
-            SendMessage("OpenDoor2");
+            door2.SendMessage("Interact");
         }
         else if (collision.gameObject.name == "Door (3)")
         {
             playOrStopAnimation();
-            SendMessage("OpenDoor3");
+            door3.SendMessage("Interact");
         }
         else if (collision.gameObject.name == "Door (4)")
         {
             playOrStopAnimation();
-            SendMessage("OpenDoor4");
+            door4.SendMessage("Interact");
         }
         else if (collision.gameObject.name == "Door (5)")
         {
             playOrStopAnimation();
-            SendMessage("OpenDoor5");
+            door5.SendMessage("Interact");
         }
         else
         {
-            print("Hit");
+            
         }
     }
 

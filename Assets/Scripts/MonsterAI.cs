@@ -34,11 +34,9 @@ public class MonsterAI : MonoBehaviour
 
     void Update()
     {
-
         rotateMonster();
         if (makeNewTarget()) 
         {
-            print("reach");
             newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
             agent.SetDestination(newSpot.transform.position);
         }
@@ -113,8 +111,6 @@ public class MonsterAI : MonoBehaviour
         stop = false;
         charge = true;
     }
-
-
 
 }
 

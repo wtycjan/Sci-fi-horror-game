@@ -15,14 +15,18 @@ public class OpenDoorButton : MonoBehaviour
 
     public void Interact()
     {
-        if(open==false && !interacting)
+        if (open == false && !interacting)
+        { 
             StartCoroutine("OpenDoor");
+        }
         else if (open && !interacting)
+        {
             StartCoroutine("CloseDoor");
-    }
+        }
+        }
     public IEnumerator OpenDoor()
     {
-        Destroy(gameObject.GetComponent<BoxCollider>());
+        gameObject.GetComponent<BoxCollider>().enabled = false;
         doorAnim.SetBool("IsOpen", true);
         interacting = true;
         sounds.Sound1();
@@ -33,7 +37,7 @@ public class OpenDoorButton : MonoBehaviour
     }
     public IEnumerator CloseDoor()
     {
-        gameObject.AddComponent<BoxCollider>();
+        gameObject.GetComponent<BoxCollider>().enabled = true;
         open = false;
         interacting = true;
         sounds.Sound2();
