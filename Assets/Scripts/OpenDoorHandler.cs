@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class OpenDoorHandler : MonoBehaviour
 {
@@ -11,30 +12,31 @@ public class OpenDoorHandler : MonoBehaviour
     [SerializeField] private GameObject door5;
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.name == "Door (1)")
+        if (collision.gameObject.name == "Door (1)")
         {
-            playOrStopAnimation();
-            door1.SendMessage("Interact");
+            
+            StartCoroutine(playOrStopAnimation());
+            door1.SendMessage("openMonsterDoor");
         }
         else if (collision.gameObject.name == "Door (2)")
         {
-            playOrStopAnimation();
-            door2.SendMessage("Interact");
+            StartCoroutine(playOrStopAnimation());
+            door2.SendMessage("openMonsterDoor");
         }
         else if (collision.gameObject.name == "Door (3)")
         {
-            playOrStopAnimation();
-            door3.SendMessage("Interact");
+            StartCoroutine(playOrStopAnimation());
+            door3.SendMessage("openMonsterDoor");
         }
         else if (collision.gameObject.name == "Door (4)")
         {
-            playOrStopAnimation();
-            door4.SendMessage("Interact");
+            StartCoroutine(playOrStopAnimation());
+            door4.SendMessage("openMonsterDoor");
         }
         else if (collision.gameObject.name == "Door (5)")
         {
-            playOrStopAnimation();
-            door5.SendMessage("Interact");
+            StartCoroutine(playOrStopAnimation());
+            door5.SendMessage("openMonsterDoor");
         }
         else
         {
@@ -42,9 +44,16 @@ public class OpenDoorHandler : MonoBehaviour
         }
     }
 
-    private void playOrStopAnimation()
+    IEnumerator playOrStopAnimation()
     {
-        GetComponent<Animator>().enabled = false;
-        GetComponent<Animator>().enabled = true;
+        
+        gameObject.GetComponent<NavMeshAgent>().isStopped = true;
+        SendMessage("prepareMonsterToStay");
+
+        yield return new WaitForSeconds(1.3f);
+        
+        SendMessage("prepareMonsterToWalk");
+        gameObject.GetComponent<NavMeshAgent>().isStopped = false;
     }
+    
 }

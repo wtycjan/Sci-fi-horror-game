@@ -16,7 +16,7 @@ public class MonsterAI : MonoBehaviour
     private Sounds sound;
     public float speed = 3f;
     private Vector3 deltaPosition, prevPosition;
-    private bool scream = false, charge = false, stop = false;
+    private bool scream = false, charge = false, stop = false, isStay = false;
     public List<Transform> Spots;
     private Transform newSpot;
     private Transform spawnSpot;
@@ -57,13 +57,35 @@ public class MonsterAI : MonoBehaviour
         }
         else
         {
-            anim.runtimeAnimatorController = walkAnim;
-            scream = false;
-            charge = false;
+            if(isStay)
+            {
+                prepareMonsterToStay();
+            }
+            else
+            {
+                prepareMonsterToWalk();
+            }
         }
 
 
 
+    }
+
+    private void prepareMonsterToWalk()
+    {
+        anim.runtimeAnimatorController = walkAnim;
+        scream = false;
+        charge = false;
+        isStay = false;
+    }
+
+    private void prepareMonsterToStay()
+    {
+        print("I worked");
+        anim.runtimeAnimatorController = idleAnim;
+        scream = false;
+        charge = false;
+        isStay = true;
     }
 
     private void prepareMonsterToRun()
@@ -101,7 +123,8 @@ public class MonsterAI : MonoBehaviour
 
     private bool makeNewTarget()
     {
-        if(agent.remainingDistance <= agent.stoppingDistance)
+        float radiusAroundTargetPoint = 1f;
+        if(agent.remainingDistance <= (agent.stoppingDistance + radiusAroundTargetPoint))
         {
             return true;
         }

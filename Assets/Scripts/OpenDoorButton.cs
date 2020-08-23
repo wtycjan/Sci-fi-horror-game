@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,11 +7,27 @@ public class OpenDoorButton : MonoBehaviour
 {
     private Animator doorAnim;
     private Sounds sounds;
-    [SerializeField] private bool open = false, interacting=false;
+    [SerializeField] private bool open = false, interacting=false, isMonsterOpen = false;
     void Start()
     {
         sounds = GetComponentInChildren<Sounds>();
         doorAnim = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+            StartCoroutine(waitAndCloseDoor());
+    }
+
+    public IEnumerator waitAndCloseDoor()
+    {
+        if(isMonsterOpen && open)
+        { 
+            yield return new WaitForSeconds(3f);
+            isMonsterOpen = false;
+            StartCoroutine(CloseDoor());
+        }
+        
     }
 
     public void Interact()
@@ -46,5 +63,11 @@ public class OpenDoorButton : MonoBehaviour
         yield return new WaitForSeconds(1.3f);
         open = false;
         interacting = false;
+    }
+    private void openMonsterDoor()
+    {
+        
+        StartCoroutine(OpenDoor());
+        isMonsterOpen = true;
     }
 }
