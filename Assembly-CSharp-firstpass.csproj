@@ -295,8 +295,17 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.14f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>C:/Users/Tycjan/Documents/UnityProjectsss/Sci-fi/Assets/Downloads/FirstPersonController/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
+    </Reference>
     <Reference Include="UMotionApplication">
       <HintPath>C:/Users/Tycjan/Documents/UnityProjectsss/Sci-fi/Assets/Downloads/UMotionEditor/Plugins/Application/UMotionApplication.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-Runtime">
+      <HintPath>C:/Users/Tycjan/Documents/UnityProjectsss/Sci-fi/Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-Editor">
+      <HintPath>C:/Users/Tycjan/Documents/UnityProjectsss/Sci-fi/Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.14f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

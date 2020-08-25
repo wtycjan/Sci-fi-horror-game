@@ -9,7 +9,7 @@ public class Sounds : MonoBehaviour
     public AudioClip sound3;
     public AudioClip sound4;
     public AudioClip sound5;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -36,28 +36,23 @@ public class Sounds : MonoBehaviour
     {
         audioSource.PlayOneShot(sound2);
     }
-    public void SoundRandom(float y)
+    public void Sound1Loop()
     {
-        int x = Random.Range(1, 6);
-        switch (x)
-        {
-            case 1:
-                audioSource.PlayOneShot(sound1,y);
-                break;
-            case 2:
-                audioSource.PlayOneShot(sound2, y);
-                break;
-            case 3:
-                audioSource.PlayOneShot(sound3, y);
-                break;
-            case 4:
-                audioSource.PlayOneShot(sound4, y);
-                break;
-            case 5:
-                audioSource.PlayOneShot(sound5, y);
-                break;
-        }
-        
+        float x = Random.Range(0, 4f);
+        audioSource.loop = true;
+        audioSource.clip = sound1;
+        audioSource.time = x;
+        audioSource.Play();
+    }
+    public void Sound2Loop()
+    {
+        if (audioSource.clip == sound1)
+            Stop();
+        float x = Random.Range(0, 3f);
+        audioSource.loop = true;
+        audioSource.clip = sound2;
+        audioSource.time = x;
+        audioSource.Play();
     }
     public void Stop()
     {
@@ -67,5 +62,12 @@ public class Sounds : MonoBehaviour
     public void Volume(float x)
     {
         audioSource.volume = x;
+    }
+    public bool IsPlaying()
+    {
+        if (audioSource.isPlaying)
+            return true;
+        else
+            return false;
     }
 }

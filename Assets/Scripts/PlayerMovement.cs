@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
 
     private Sounds sounds;
+    private MouseLook mouse;
     Vector3 velocity;
     bool isGrounded;
     bool stop = false;
@@ -24,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         sounds = GetComponentInChildren<Sounds>();
-        StartCoroutine(Footsteps());
+        mouse = GetComponentInChildren<MouseLook>();
     }
     void Update()
     {
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
+        //walking
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -42,6 +44,37 @@ public class PlayerMovement : MonoBehaviour
 
         if (!stop)
             controller.Move(move * speed * Time.deltaTime);
+
+
+        //sprint
+        if (Input.GetKey(KeyCode.LeftShift) && !sprint && !stop)
+        {
+            sprint = true;
+            speed = 6;
+            mouse.mouseSensitivity = 60;
+        }
+        else if (!Input.GetKey(KeyCode.LeftShift) && sprint)
+        {
+            sounds.Stop();
+            sprint = false;
+            speed = 2.5f;
+            mouse.mouseSensitivity = 140;
+        }
+
+        if ((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) && !sprint && !stop && !sounds.IsPlaying())
+        {
+           if (!sounds.IsPlaying())
+             sounds.Sound1Loop();
+        }
+        else if ((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) && sprint)
+        {
+            if(sounds.audioSource.clip==sounds.sound1)
+                sounds.Stop();
+            if (!sounds.IsPlaying())
+                sounds.Sound2Loop();
+        }
+        else if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0 && sounds.IsPlaying())
+            sounds.Stop();
 
 
         //jump removed
@@ -54,10 +87,13 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
+        //peek/lean
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q) && !sprint)
         {
             stop = true;
+            sounds.Stop();
+            mouse.blockY = true;
             if (cameraControl.localPosition.x>-1f)
             {
                 cameraControl.Rotate(new Vector3(0, 0, 30) * Time.deltaTime);
@@ -68,13 +104,16 @@ public class PlayerMovement : MonoBehaviour
         else if (!Input.GetKey(KeyCode.Q) && cameraControl.localPosition.x < 0)
         {
             stop = false;
+            mouse.blockY = false;
             cameraControl.Rotate(new Vector3(0, 0, -30) * Time.deltaTime);
             cameraControl.localPosition = new Vector3(cameraControl.localPosition.x + 3.5f * Time.deltaTime, cameraControl.localPosition.y, cameraControl.localPosition.z);
         }
 
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E) && !sprint)
         {
             stop = true;
+            sounds.Stop();
+            mouse.blockY = true;
             if (cameraControl.localPosition.x < 1f)
             {
                 cameraControl.Rotate(new Vector3(0, 0, -30) * Time.deltaTime);
@@ -84,38 +123,12 @@ public class PlayerMovement : MonoBehaviour
         else if (!Input.GetKey(KeyCode.E) && cameraControl.localPosition.x > 0)
         {
             stop = false;
+            mouse.blockY = false;
             cameraControl.Rotate(new Vector3(0, 0, 30) * Time.deltaTime);
             cameraControl.localPosition = new Vector3(cameraControl.localPosition.x - 3.5f * Time.deltaTime, cameraControl.localPosition.y, cameraControl.localPosition.z);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && !sprint)
-        {
-            sprint = true;
-            speed =6;
-        }
-        else if(!Input.GetKey(KeyCode.LeftShift) && sprint)
-        {
-            sprint = false;
-            speed =2.5f;
-        }
+
     }
 
-    private IEnumerator Footsteps()
-    {
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        {
-            if (sprint)
-            {
-                sounds.SoundRandom(1);
-            }
-            else
-            {
-                sounds.SoundRandom(.55f);
-                yield return new WaitForSeconds(.5f);
-                
-            }
-        }
-        yield return new WaitForSeconds(.35f);
-        StartCoroutine(Footsteps());
-    }
 }
