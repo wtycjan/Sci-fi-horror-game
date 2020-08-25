@@ -11,6 +11,7 @@ public class NetworkServerUI : MonoBehaviour
 {
     CrossPlatformInputManager.VirtualButton doorBtn;
     public GameController gameController;
+    bool infoSent = false;
     private void OnGUI()
     {
         string ipaddress = LocalIPAddress();
@@ -62,14 +63,20 @@ public class NetworkServerUI : MonoBehaviour
             StringMessage msg = new StringMessage();
             msg.value = message;
             NetworkServer.SendToAll(888, msg);
-            Debug.Log("msg sent");
+            Debug.Log("msg sent" + msg.value);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (NetworkServer.connections.Count > 0 && !infoSent)
+        {
+            ServerSendMessage("Pswd " + GameData.password1);
+            infoSent = true;
+        }  
+        else if (NetworkServer.connections.Count == 0)
+            infoSent = false;
     }
     public string LocalIPAddress()
     {

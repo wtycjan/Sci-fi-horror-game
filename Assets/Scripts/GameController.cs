@@ -22,10 +22,13 @@ public class GameController : MonoBehaviour
     private bool cutscene = false, cameraCutscene = false;
     Quaternion startRot, endRot;
 
+    private void Awake()
+    {
+        GameData.password1= RandomPassword();
+    }
     private void Start()
     {
         sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
-        RandomPassword();
     }
     private void Update()
     {
@@ -122,7 +125,6 @@ public class GameController : MonoBehaviour
         }
 
         var finalString = new String(stringChars);
-        GameData.password1 = finalString;
         Debug.Log(finalString);
         return finalString;
 

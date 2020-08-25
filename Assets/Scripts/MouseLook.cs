@@ -8,6 +8,9 @@ public class MouseLook : MonoBehaviour
     public Transform playerBody;
 
     float xRotation = 0f;
+    float yRotation = 0f;
+
+    public bool blockY = false;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -19,10 +22,18 @@ public class MouseLook : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation,- 90f,  90f);
+
+        yRotation -= mouseX;
+        /*if (blockY)
+        { 
+            yRotation = Mathf.Clamp(yRotation, yRotation -90f, yRotation + 45f);
+        }
+        Debug.Log(yRotation);*/
 
         transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        playerBody.Rotate(Vector3.up * mouseX);
+        playerBody.transform.localRotation = Quaternion.Euler(0, -yRotation, 0);
+        //playerBody.Rotate(Vector3.up * mouseX);
 
     }
 }
