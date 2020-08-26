@@ -31,8 +31,8 @@ namespace VHS
         #region Custom Methods
             void GetInteractionInputData()
             {
-                interactionInputData.InteractedClicked = Input.GetKeyDown(KeyCode.E);
-                interactionInputData.InteractedReleased = Input.GetKeyUp(KeyCode.E);
+                interactionInputData.InteractedClicked = Input.GetKeyDown(KeyCode.F);
+                interactionInputData.InteractedReleased = Input.GetKeyUp(KeyCode.F);
             }
 
             void GetCameraInput()

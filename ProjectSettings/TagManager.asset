@@ -7,6 +7,8 @@ TagManager:
   - Interactable
   - Fire
   - SoundController
+  - PlayerSounds
+  - PlayerSounds2
   layers:
   - Default
   - TransparentFX
