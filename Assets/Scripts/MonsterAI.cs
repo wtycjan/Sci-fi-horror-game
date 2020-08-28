@@ -20,6 +20,7 @@ public class MonsterAI : MonoBehaviour
     public List<Transform> Spots;
     private Transform newSpot;
     private Transform spawnSpot;
+    [SerializeField] public float timeWaitAndObserve = 3f;
 
     //delete this
     public bool isPlayerOpenDoor = false;
@@ -45,15 +46,11 @@ public class MonsterAI : MonoBehaviour
         rotateMonster();
         if (makeNewTarget())
         {
-            print("2");
             setNewPointDestinationToMoster();
-            print("3");
         }
         if(isPlayerOpenDoor)
         {
-            print("0");
             prepareMonsterRunToDoor(actualDoor);
-            print("1");
         }    
         else if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
         {
@@ -128,7 +125,6 @@ public class MonsterAI : MonoBehaviour
         else
         {
             startMonsterRunToDoor(targetObject);
-
         }
     }
 
@@ -138,7 +134,6 @@ public class MonsterAI : MonoBehaviour
         float step = speed * 100 * Time.deltaTime; // calculate distance to move
         rotateMonster();
         agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(targetObject.transform.position.x, transform.position.y, targetObject.transform.position.z), step));
-        print("5");
     }
 
     private void startMonsterRun()
@@ -152,9 +147,9 @@ public class MonsterAI : MonoBehaviour
 
     private void setNewPointDestinationToMoster()
     {
+
         newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
         agent.SetDestination(newSpot.transform.position);
-        print("6");
     }
 
     private bool makeNewTarget()
@@ -162,12 +157,12 @@ public class MonsterAI : MonoBehaviour
         float radiusAroundTargetPoint = 1f;
         if(agent.remainingDistance <= (agent.stoppingDistance + radiusAroundTargetPoint))
         {
+            StartCoroutine("stayAndObserve");
             isPlayerOpenDoor = false;
             return true;
         }
         if(agent.pathStatus == NavMeshPathStatus.PathComplete)
         {
-            print("8");
             return false;
         }
         else
@@ -193,10 +188,18 @@ public class MonsterAI : MonoBehaviour
         stop = false;
         charge = true;
     }
-    IEnumerator WaitAndObserve()
+
+    IEnumerator stayAndObserve()
     {
+
+        agent.isStopped = true;
         prepareMonsterToStay();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+        transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(0, 180, 0), timeWaitAndObserve);
+        yield return new WaitForSeconds(timeWaitAndObserve);
+        prepareMonsterToWalk();
+        agent.isStopped = false;
+        
     }
 }
 

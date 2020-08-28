@@ -50,7 +50,7 @@ public class OpenDoorHandler : MonoBehaviour
         gameObject.GetComponent<NavMeshAgent>().isStopped = true;
         SendMessage("prepareMonsterToStay");
 
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(2f);
         
         SendMessage("prepareMonsterToWalk");
         gameObject.GetComponent<NavMeshAgent>().isStopped = false;
