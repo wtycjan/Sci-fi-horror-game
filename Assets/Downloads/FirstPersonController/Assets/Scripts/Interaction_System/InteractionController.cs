@@ -87,7 +87,7 @@ namespace VHS
                 if(interactionData.IsEmpty())
                     return;
 
-                if(interactionInputData.InteractedClicked)
+                if(Input.GetKeyDown(KeyCode.F))
                 {
                     m_interacting = true;
                     m_holdTimer = 0f;
