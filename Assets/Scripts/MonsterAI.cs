@@ -16,10 +16,15 @@ public class MonsterAI : MonoBehaviour
     private Sounds sound;
     public float speed = 3f;
     private Vector3 deltaPosition, prevPosition;
-    private bool scream = false, charge = false, stop = false;
+    private bool scream = false, charge = false, stop = false, isStay = false;
     public List<Transform> Spots;
     private Transform newSpot;
     private Transform spawnSpot;
+    [SerializeField] public float timeWaitAndObserve = 3f;
+
+    //delete this
+    public bool isPlayerOpenDoor = false;
+    public GameObject actualDoor;
 
     void Start()
     {
@@ -29,65 +34,131 @@ public class MonsterAI : MonoBehaviour
         rbd = GetComponent<Rigidbody>();
         sound = GetComponent<Sounds>();
 
-        newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
-        agent.SetDestination(newSpot.transform.position);
+        setNewPointDestinationToMoster();
 
         //random starting position
-        spawnSpot = Spots[UnityEngine.Random.Range(2, Spots.Count)];
-        gameObject.transform.position = spawnSpot.transform.position;
+        spawnMonsterInRandomPlace();
 
     }
 
     void Update()
     {
         rotateMonster();
-        if (makeNewTarget()) 
+        if (makeNewTarget())
         {
-            newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
-            agent.SetDestination(newSpot.transform.position);
+            setNewPointDestinationToMoster();
         }
-
-        
-        if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
+        if(isPlayerOpenDoor)
         {
-            
-            
-            if (!charge)
-            {
-                StartCoroutine("Prepare");
-            }
-            else if (!scream)
-            {
-                sound.Sound1();
-                scream = true;
-            }
-            else
-            {
-                anim.runtimeAnimatorController = runAnim;
-                Debug.Log("Attack");
-                float step = speed* 100 * Time.deltaTime; // calculate distance to move
-                rotateMonster();
-                agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
-                //rbd.MovePosition(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
-                
-            }
-
+            prepareMonsterRunToDoor(actualDoor);
+        }    
+        else if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
+        {
+            prepareMonsterToRun();
         }
         else
         {
-            anim.runtimeAnimatorController = walkAnim;
-            scream = false;
-            charge = false;
+            if(isStay)
+            {
+                prepareMonsterToStay();
+            }
+            else
+            {
+                prepareMonsterToWalk();
+            }
         }
 
 
 
     }
 
+    private void spawnMonsterInRandomPlace()
+    {
+        spawnSpot = Spots[UnityEngine.Random.Range(2, Spots.Count)];
+        gameObject.transform.position = spawnSpot.transform.position;
+    }
+
+    private void prepareMonsterToWalk()
+    {
+        anim.runtimeAnimatorController = walkAnim;
+        scream = false;
+        charge = false;
+        isStay = false;
+    }
+
+    private void prepareMonsterToStay()
+    {
+        anim.runtimeAnimatorController = idleAnim;
+        scream = false;
+        charge = false;
+        isStay = true;
+    }
+
+    private void prepareMonsterToRun()
+    {
+        if (!charge)
+        {
+            StartCoroutine("Prepare");
+        }
+        else if (!scream)
+        {
+            sound.Sound1();
+            scream = true;
+        }
+        else
+        {
+            startMonsterRun();
+        }
+    }
+
+    public void prepareMonsterRunToDoor(GameObject targetObject)
+    {
+        if (!charge)
+        {
+            StartCoroutine("Prepare");
+        }
+        else if (!scream)
+        {
+            sound.Sound1();
+            scream = true;
+        }
+        else
+        {
+            startMonsterRunToDoor(targetObject);
+        }
+    }
+
+    private void startMonsterRunToDoor(GameObject targetObject)
+    {
+        anim.runtimeAnimatorController = runAnim;
+        float step = speed * 100 * Time.deltaTime; // calculate distance to move
+        rotateMonster();
+        agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(targetObject.transform.position.x, transform.position.y, targetObject.transform.position.z), step));
+    }
+
+    private void startMonsterRun()
+    {
+        anim.runtimeAnimatorController = runAnim;
+        float step = speed * 100 * Time.deltaTime; // calculate distance to move
+        rotateMonster();
+        agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
+        //rbd.MovePosition(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
+    }
+
+    private void setNewPointDestinationToMoster()
+    {
+
+        newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
+        agent.SetDestination(newSpot.transform.position);
+    }
+
     private bool makeNewTarget()
     {
-        if(agent.remainingDistance <= agent.stoppingDistance)
+        float radiusAroundTargetPoint = 1f;
+        if(agent.remainingDistance <= (agent.stoppingDistance + radiusAroundTargetPoint))
         {
+            StartCoroutine("stayAndObserve");
+            isPlayerOpenDoor = false;
             return true;
         }
         if(agent.pathStatus == NavMeshPathStatus.PathComplete)
@@ -118,5 +189,17 @@ public class MonsterAI : MonoBehaviour
         charge = true;
     }
 
+    IEnumerator stayAndObserve()
+    {
+
+        agent.isStopped = true;
+        prepareMonsterToStay();
+        yield return new WaitForSeconds(1f);
+        transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(0, 180, 0), timeWaitAndObserve);
+        yield return new WaitForSeconds(timeWaitAndObserve);
+        prepareMonsterToWalk();
+        agent.isStopped = false;
+        
+    }
 }
 
