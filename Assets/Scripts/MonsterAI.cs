@@ -40,12 +40,6 @@ public class MonsterAI : MonoBehaviour
 
     }
 
-    private void spawnMonsterInRandomPlace()
-    {
-        spawnSpot = Spots[UnityEngine.Random.Range(2, Spots.Count)];
-        gameObject.transform.position = spawnSpot.transform.position;
-    }
-
     void Update()
     {
         rotateMonster();
@@ -79,6 +73,12 @@ public class MonsterAI : MonoBehaviour
 
 
 
+    }
+
+    private void spawnMonsterInRandomPlace()
+    {
+        spawnSpot = Spots[UnityEngine.Random.Range(2, Spots.Count)];
+        gameObject.transform.position = spawnSpot.transform.position;
     }
 
     private void prepareMonsterToWalk()

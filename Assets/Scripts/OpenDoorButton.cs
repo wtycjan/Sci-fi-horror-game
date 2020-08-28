@@ -7,7 +7,7 @@ public class OpenDoorButton : MonoBehaviour
 {
     private Animator doorAnim;
     private Sounds sounds;
-    [SerializeField] private bool open = false, interacting = false, isMonsterOpen = false, isMonsterCheckOpenDoor = false;
+    [SerializeField] private bool open = false, interacting = false, isMonsterOpen = false, isMonsterCheckOpenDoor = false, isMonsterInDoorRange = false;
     [SerializeField] private GameObject monster;
     public MonsterAI monsterScript;
     void Start()
@@ -46,6 +46,7 @@ public class OpenDoorButton : MonoBehaviour
         }
     public IEnumerator OpenDoor()
     {
+        detectIsMonsterInDoorRange();
         gameObject.GetComponent<BoxCollider>().enabled = false;
         doorAnim.SetBool("IsOpen", true);
         interacting = true;
@@ -55,6 +56,19 @@ public class OpenDoorButton : MonoBehaviour
         open = true;
         interacting = false;
     }
+
+    private void detectIsMonsterInDoorRange()
+    {
+        if ((Vector3.Distance(transform.position, monster.transform.position) < 15))
+        {
+            isMonsterInDoorRange = true;
+        }
+        else
+        {
+            isMonsterInDoorRange = false;
+        }
+    }
+
     public IEnumerator CloseDoor()
     {
         if(isMonsterCheckOpenDoor)
@@ -80,9 +94,9 @@ public class OpenDoorButton : MonoBehaviour
 
     private void alarmMonsterAboutOpenDoor()
     {
-        if(open && !isMonsterOpen && !isMonsterCheckOpenDoor && Vector3.Distance(transform.position, monster.transform.position) < 15f)
+        if(open && !isMonsterOpen && !isMonsterCheckOpenDoor && isMonsterInDoorRange)
         {
-            //todo start monster run to open door
+  
             monsterScript.actualDoor = gameObject;
             monsterScript.isPlayerOpenDoor = true;
             isMonsterCheckOpenDoor = true;
