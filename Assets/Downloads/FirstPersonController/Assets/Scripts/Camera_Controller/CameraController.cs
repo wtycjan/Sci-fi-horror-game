@@ -29,10 +29,14 @@ namespace VHS
 
                private float m_desiredYaw;
                private float m_desiredPitch;
+                private float m_tilt;
+                private float _tiltAmount=0;
+                private bool isTilting = false;
 
                 #region Components                    
                     private Transform m_pitchTranform;
                     private Camera m_cam;
+
                 #endregion
             #endregion
             
@@ -53,6 +57,7 @@ namespace VHS
                 SmoothRotation();
                 ApplyRotation();
                 HandleZoom();
+                Peak();
             }
         #endregion
 
@@ -87,11 +92,13 @@ namespace VHS
             {
                 m_yaw = Mathf.Lerp(m_yaw,m_desiredYaw, smoothAmount.x * Time.deltaTime);
                 m_pitch = Mathf.Lerp(m_pitch,m_desiredPitch, smoothAmount.y * Time.deltaTime);
-            }
+                m_tilt = Mathf.Lerp(m_tilt, _tiltAmount, 2.5f*Time.deltaTime);
+        }
 
             void ApplyRotation()
             {
-                transform.eulerAngles = new Vector3(0f,m_yaw,0f);
+
+                transform.eulerAngles = new Vector3(0f,m_yaw, m_tilt);
                 m_pitchTranform.localEulerAngles = new Vector3(m_pitch,0f,0f);
             }
 
@@ -117,6 +124,27 @@ namespace VHS
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+
+            void Peak()
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                _tiltAmount = 14;
+            }
+            else if (Input.GetKeyUp(KeyCode.Q))
+            {
+                _tiltAmount = 0;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                _tiltAmount = -14;
+            }
+            else if (Input.GetKeyUp(KeyCode.E))
+            {
+                _tiltAmount = 0;
+            }
+        }
         #endregion
     }
 }
