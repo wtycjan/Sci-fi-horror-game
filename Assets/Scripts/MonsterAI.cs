@@ -21,6 +21,10 @@ public class MonsterAI : MonoBehaviour
     private Transform newSpot;
     private Transform spawnSpot;
 
+    //delete this
+    public bool isPlayerOpenDoor = false;
+    public GameObject actualDoor;
+
     void Start()
     {
         prevPosition = transform.position;
@@ -47,11 +51,17 @@ public class MonsterAI : MonoBehaviour
         rotateMonster();
         if (makeNewTarget())
         {
+            print("2");
             setNewPointDestinationToMoster();
+            print("3");
         }
-
-
-        if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
+        if(isPlayerOpenDoor)
+        {
+            print("0");
+            prepareMonsterRunToDoor(actualDoor);
+            print("1");
+        }    
+        else if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
         {
             prepareMonsterToRun();
         }
@@ -81,7 +91,6 @@ public class MonsterAI : MonoBehaviour
 
     private void prepareMonsterToStay()
     {
-        print("I worked");
         anim.runtimeAnimatorController = idleAnim;
         scream = false;
         charge = false;
@@ -105,10 +114,36 @@ public class MonsterAI : MonoBehaviour
         }
     }
 
+    public void prepareMonsterRunToDoor(GameObject targetObject)
+    {
+        if (!charge)
+        {
+            StartCoroutine("Prepare");
+        }
+        else if (!scream)
+        {
+            sound.Sound1();
+            scream = true;
+        }
+        else
+        {
+            startMonsterRunToDoor(targetObject);
+
+        }
+    }
+
+    private void startMonsterRunToDoor(GameObject targetObject)
+    {
+        anim.runtimeAnimatorController = runAnim;
+        float step = speed * 100 * Time.deltaTime; // calculate distance to move
+        rotateMonster();
+        agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(targetObject.transform.position.x, transform.position.y, targetObject.transform.position.z), step));
+        print("5");
+    }
+
     private void startMonsterRun()
     {
         anim.runtimeAnimatorController = runAnim;
-        Debug.Log("Attack");
         float step = speed * 100 * Time.deltaTime; // calculate distance to move
         rotateMonster();
         agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
@@ -119,6 +154,7 @@ public class MonsterAI : MonoBehaviour
     {
         newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
         agent.SetDestination(newSpot.transform.position);
+        print("6");
     }
 
     private bool makeNewTarget()
@@ -126,10 +162,12 @@ public class MonsterAI : MonoBehaviour
         float radiusAroundTargetPoint = 1f;
         if(agent.remainingDistance <= (agent.stoppingDistance + radiusAroundTargetPoint))
         {
+            isPlayerOpenDoor = false;
             return true;
         }
         if(agent.pathStatus == NavMeshPathStatus.PathComplete)
         {
+            print("8");
             return false;
         }
         else
@@ -155,6 +193,10 @@ public class MonsterAI : MonoBehaviour
         stop = false;
         charge = true;
     }
-
+    IEnumerator WaitAndObserve()
+    {
+        prepareMonsterToStay();
+        yield return new WaitForSeconds(2f);
+    }
 }
 

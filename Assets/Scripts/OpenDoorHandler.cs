@@ -40,7 +40,7 @@ public class OpenDoorHandler : MonoBehaviour
         }
         else
         {
-            
+
         }
     }
 
