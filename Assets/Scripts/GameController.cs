@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
             OpenDoor5();
 
         //death
-        if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene)
+        if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.5f && !cutscene)
         {
             StartCoroutine("Death");
         }
@@ -79,8 +79,13 @@ public class GameController : MonoBehaviour
     {
         cutscene = true;
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
+
         foreach (MonoBehaviour c in scripts)
         {
+            if(c == null)
+            {
+                continue;
+            }
             c.enabled = false;
         }
         MonoBehaviour[] scripts2 = monster.GetComponentsInChildren<MonoBehaviour>();

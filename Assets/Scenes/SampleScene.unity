@@ -40593,7 +40593,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1958581692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1453722849, guid: 89f0137620f6af44b9ba852b4190e64e, type: 3}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -40606,8 +40606,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 163292f6f226d954593d45b079f8aae0, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: 163292f6f226d954593d45b079f8aae0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -40616,6 +40616,7 @@ MonoBehaviour:
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
+  m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
@@ -40989,24 +40990,24 @@ Transform:
   - {fileID: 1957168228}
   - {fileID: 971496323}
   - {fileID: 2046123806}
+  - {fileID: 998603138}
   - {fileID: 85209161}
-  - {fileID: 1584005025}
   - {fileID: 327148589}
   - {fileID: 1606847589}
   - {fileID: 1869995765}
   - {fileID: 1068642812}
   - {fileID: 1125789923}
-  - {fileID: 998603138}
-  - {fileID: 1256258771}
-  - {fileID: 1924845142}
-  - {fileID: 467708823}
-  - {fileID: 1221311428}
-  - {fileID: 2008681170}
-  - {fileID: 150488394}
   - {fileID: 1359421024}
+  - {fileID: 1256258771}
+  - {fileID: 1247349468}
+  - {fileID: 467708823}
+  - {fileID: 2008681170}
+  - {fileID: 1221311428}
+  - {fileID: 1584005025}
+  - {fileID: 150488394}
+  - {fileID: 1924845142}
   - {fileID: 88811729}
   - {fileID: 970142763}
-  - {fileID: 1247349468}
   - {fileID: 625547794}
   - {fileID: 527845554}
   - {fileID: 1262573618}
@@ -43480,6 +43481,11 @@ PrefabInstance:
       propertyPath: Spots.Array.data[9]
       value: 
       objectReference: {fileID: 28932468}
+    - target: {fileID: 648759432129622368, guid: a65e93b8b5683784d8c7295ca05ae3d7,
+        type: 3}
+      propertyPath: actualDoor
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8014365383665208922, guid: a65e93b8b5683784d8c7295ca05ae3d7,
         type: 3}
       propertyPath: m_LocalPosition.x

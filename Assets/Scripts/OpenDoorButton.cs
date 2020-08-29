@@ -8,6 +8,7 @@ public class OpenDoorButton : MonoBehaviour
     private Animator doorAnim;
     private Sounds sounds;
     [SerializeField] private bool open = false, interacting = false, isMonsterOpen = false, isMonsterCheckOpenDoor = false, isMonsterInDoorRange = false;
+    private bool isMonsterNearbyAndOpen = false;
     [SerializeField] private GameObject monster;
     public MonsterAI monsterScript;
     void Start()
@@ -24,11 +25,13 @@ public class OpenDoorButton : MonoBehaviour
 
     public IEnumerator waitAndCloseDoor()
     {
-        if(isMonsterOpen && open)
-        { 
+        if(isMonsterNearbyAndOpen && open)
+        {
+            isMonsterNearbyAndOpen = false;
             yield return new WaitForSeconds(3f);
             isMonsterOpen = false;
             StartCoroutine(CloseDoor());
+
         }
         
     }
@@ -89,6 +92,7 @@ public class OpenDoorButton : MonoBehaviour
     {
         
         StartCoroutine(OpenDoor());
+        isMonsterNearbyAndOpen = true;
         isMonsterOpen = true;
     }
 

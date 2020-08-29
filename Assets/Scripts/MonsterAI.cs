@@ -14,13 +14,14 @@ public class MonsterAI : MonoBehaviour
     public RuntimeAnimatorController idleAnim;
     NavMeshAgent agent;
     private Sounds sound;
-    public float speed = 3f;
+    private float runSpeed = 5f;
+    private float normalSpeed = 1.5f;
     private Vector3 deltaPosition, prevPosition;
     private bool scream = false, charge = false, stop = false, isStay = false;
     public List<Transform> Spots;
     private Transform newSpot;
     private Transform spawnSpot;
-    [SerializeField] public float timeWaitAndObserve = 3f;
+    private float timeWaitAndObserve = 3f;
 
     //delete this
     public bool isPlayerOpenDoor = false;
@@ -52,7 +53,7 @@ public class MonsterAI : MonoBehaviour
         {
             prepareMonsterRunToDoor(actualDoor);
         }    
-        else if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
+        else if (Vector3.Distance(transform.position, player.transform.position) < 9 && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
         {
             prepareMonsterToRun();
         }
@@ -80,6 +81,7 @@ public class MonsterAI : MonoBehaviour
 
     private void prepareMonsterToWalk()
     {
+        agent.speed = normalSpeed;
         anim.runtimeAnimatorController = walkAnim;
         scream = false;
         charge = false;
@@ -88,6 +90,7 @@ public class MonsterAI : MonoBehaviour
 
     private void prepareMonsterToStay()
     {
+        agent.speed = 0f;
         anim.runtimeAnimatorController = idleAnim;
         scream = false;
         charge = false;
@@ -130,18 +133,20 @@ public class MonsterAI : MonoBehaviour
 
     private void startMonsterRunToDoor(GameObject targetObject)
     {
+        agent.speed = runSpeed;
         anim.runtimeAnimatorController = runAnim;
-        float step = speed * 100 * Time.deltaTime; // calculate distance to move
-        rotateMonster();
+        float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move
         agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(targetObject.transform.position.x, transform.position.y, targetObject.transform.position.z), step));
+        rotateMonster();
     }
 
     private void startMonsterRun()
     {
+        agent.speed = runSpeed;
         anim.runtimeAnimatorController = runAnim;
-        float step = speed * 100 * Time.deltaTime; // calculate distance to move
-        rotateMonster();
+        float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move
         agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
+        rotateMonster();
         //rbd.MovePosition(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
     }
 
@@ -182,6 +187,7 @@ public class MonsterAI : MonoBehaviour
     }
     IEnumerator Prepare()
     {
+        agent.speed = 0f;
         stop = true;
         anim.runtimeAnimatorController = idleAnim;
         yield return new WaitForSeconds(.4f);
@@ -191,7 +197,6 @@ public class MonsterAI : MonoBehaviour
 
     IEnumerator stayAndObserve()
     {
-
         agent.isStopped = true;
         prepareMonsterToStay();
         yield return new WaitForSeconds(1f);
@@ -199,7 +204,7 @@ public class MonsterAI : MonoBehaviour
         yield return new WaitForSeconds(timeWaitAndObserve);
         prepareMonsterToWalk();
         agent.isStopped = false;
-        
+
     }
 }
 
