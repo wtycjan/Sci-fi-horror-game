@@ -8,21 +8,21 @@ public class MonsterAI : MonoBehaviour
 {
     Animator anim;
     public GameObject player;
-    Rigidbody rbd;
     public RuntimeAnimatorController walkAnim;
     public RuntimeAnimatorController runAnim;
     public RuntimeAnimatorController idleAnim;
     NavMeshAgent agent;
     private Sounds sound;
-    public float speed = 3f;
+    private float runSpeed = 5f, normalSpeed = 1.5f;
+    private float detectionRange = 7f;
     private Vector3 deltaPosition, prevPosition;
     private bool scream = false, charge = false, stop = false, isStay = false;
     public List<Transform> Spots;
     private Transform newSpot;
     private Transform spawnSpot;
-    [SerializeField] public float timeWaitAndObserve = 3f;
+    private float timeWaitAndObserve = 3f;
 
-    //delete this
+    public VHS.FirstPersonController playerMovement;
     public bool isPlayerOpenDoor = false;
     public GameObject actualDoor;
 
@@ -31,7 +31,6 @@ public class MonsterAI : MonoBehaviour
         prevPosition = transform.position;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        rbd = GetComponent<Rigidbody>();
         sound = GetComponent<Sounds>();
 
         setNewPointDestinationToMoster();
@@ -43,6 +42,7 @@ public class MonsterAI : MonoBehaviour
 
     void Update()
     {
+        checkPlayerMovementMode();
         rotateMonster();
         if (makeNewTarget())
         {
@@ -52,7 +52,7 @@ public class MonsterAI : MonoBehaviour
         {
             prepareMonsterRunToDoor(actualDoor);
         }    
-        else if (Vector3.Distance(transform.position, player.transform.position) < 5 && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
+        else if (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
         {
             prepareMonsterToRun();
         }
@@ -72,6 +72,22 @@ public class MonsterAI : MonoBehaviour
 
     }
 
+    private void checkPlayerMovementMode()
+    {
+        if (playerMovement.movementInputData.IsRunning)
+        {
+            detectionRange = 12f;
+        }
+        else if(playerMovement.movementInputData.IsCrouching)
+        {
+            detectionRange = 2f;
+        }
+        else
+        {
+            detectionRange = 7f;
+        }
+    }
+
     private void spawnMonsterInRandomPlace()
     {
         spawnSpot = Spots[UnityEngine.Random.Range(2, Spots.Count)];
@@ -80,6 +96,7 @@ public class MonsterAI : MonoBehaviour
 
     private void prepareMonsterToWalk()
     {
+        agent.speed = normalSpeed;
         anim.runtimeAnimatorController = walkAnim;
         scream = false;
         charge = false;
@@ -88,6 +105,7 @@ public class MonsterAI : MonoBehaviour
 
     private void prepareMonsterToStay()
     {
+        agent.speed = 0f;
         anim.runtimeAnimatorController = idleAnim;
         scream = false;
         charge = false;
@@ -130,18 +148,20 @@ public class MonsterAI : MonoBehaviour
 
     private void startMonsterRunToDoor(GameObject targetObject)
     {
+        agent.speed = runSpeed;
         anim.runtimeAnimatorController = runAnim;
-        float step = speed * 100 * Time.deltaTime; // calculate distance to move
-        rotateMonster();
+        float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move
         agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(targetObject.transform.position.x, transform.position.y, targetObject.transform.position.z), step));
+        rotateMonster();
     }
 
     private void startMonsterRun()
     {
+        agent.speed = runSpeed;
         anim.runtimeAnimatorController = runAnim;
-        float step = speed * 100 * Time.deltaTime; // calculate distance to move
-        rotateMonster();
+        float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move
         agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
+        rotateMonster();
         //rbd.MovePosition(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
     }
 
@@ -157,7 +177,10 @@ public class MonsterAI : MonoBehaviour
         float radiusAroundTargetPoint = 1f;
         if(agent.remainingDistance <= (agent.stoppingDistance + radiusAroundTargetPoint))
         {
-            StartCoroutine("stayAndObserve");
+            if (agent.speed != runSpeed)
+            {
+                StartCoroutine("stayAndObserve");
+            }
             isPlayerOpenDoor = false;
             return true;
         }
@@ -182,8 +205,9 @@ public class MonsterAI : MonoBehaviour
     }
     IEnumerator Prepare()
     {
-        stop = true;
+        agent.speed = 0f;
         anim.runtimeAnimatorController = idleAnim;
+        stop = true;
         yield return new WaitForSeconds(.4f);
         stop = false;
         charge = true;
@@ -191,7 +215,6 @@ public class MonsterAI : MonoBehaviour
 
     IEnumerator stayAndObserve()
     {
-
         agent.isStopped = true;
         prepareMonsterToStay();
         yield return new WaitForSeconds(1f);
@@ -199,7 +222,6 @@ public class MonsterAI : MonoBehaviour
         yield return new WaitForSeconds(timeWaitAndObserve);
         prepareMonsterToWalk();
         agent.isStopped = false;
-        
     }
 }
 

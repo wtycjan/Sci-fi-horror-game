@@ -8,6 +8,7 @@ public class OpenDoorButton : MonoBehaviour
     private Animator doorAnim;
     private Sounds sounds;
     [SerializeField] private bool open = false, interacting = false, isMonsterOpen = false, isMonsterCheckOpenDoor = false, isMonsterInDoorRange = false;
+    private bool isMonsterNearbyAndOpen = false, isMonsterClose = false;
     [SerializeField] private GameObject monster;
     public MonsterAI monsterScript;
     void Start()
@@ -24,10 +25,12 @@ public class OpenDoorButton : MonoBehaviour
 
     public IEnumerator waitAndCloseDoor()
     {
-        if(isMonsterOpen && open)
-        { 
+        if(isMonsterNearbyAndOpen && open)
+        {
+            isMonsterNearbyAndOpen = false;
             yield return new WaitForSeconds(3f);
             isMonsterOpen = false;
+            isMonsterClose = true;
             StartCoroutine(CloseDoor());
         }
         
@@ -41,9 +44,10 @@ public class OpenDoorButton : MonoBehaviour
         }
         else if (open && !interacting)
         {
+            isMonsterClose = false;
             StartCoroutine("CloseDoor");
         }
-        }
+    }
     public IEnumerator OpenDoor()
     {
         detectIsMonsterInDoorRange();
@@ -87,20 +91,20 @@ public class OpenDoorButton : MonoBehaviour
     }
     private void openMonsterDoor()
     {
-        
         StartCoroutine(OpenDoor());
+        isMonsterInDoorRange = false;
+        isMonsterNearbyAndOpen = true;
         isMonsterOpen = true;
     }
 
     private void alarmMonsterAboutOpenDoor()
     {
-        if(open && !isMonsterOpen && !isMonsterCheckOpenDoor && isMonsterInDoorRange)
+        if ((open && !isMonsterOpen && !isMonsterCheckOpenDoor && isMonsterInDoorRange) ||
+            (!isMonsterClose && !isMonsterCheckOpenDoor && isMonsterInDoorRange))
         {
-  
             monsterScript.actualDoor = gameObject;
             monsterScript.isPlayerOpenDoor = true;
             isMonsterCheckOpenDoor = true;
-           
         }
     }
 }
