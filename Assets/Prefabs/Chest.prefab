@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 2591344396503709091}
   - component: {fileID: 2591344396503709092}
   - component: {fileID: 1315438141972609}
+  - component: {fileID: 121259462}
   m_Layer: 10
   m_Name: Chest
   m_TagString: Interactable
@@ -301,6 +302,23 @@ MonoBehaviour:
   network: {fileID: 0}
   timer: {fileID: 0}
   securityLvl: 0
+--- !u!114 &121259462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2590380802460256069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d9de6c2cdff324fac7fd8f67875e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdInteract: 0
+  holdDuration: 1
+  multipleUse: 0
+  isInteractable: 1
+  tooltipMessage: (F) ACCESS CHEST
 --- !u!1 &2591183424048606843
 GameObject:
   m_ObjectHideFlags: 0
