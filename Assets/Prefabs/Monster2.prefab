@@ -2316,10 +2316,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  walkAnim: {fileID: 0}
-  runAnim: {fileID: 0}
-  idleAnim: {fileID: 0}
-  speed: 5
+  walkAnim: {fileID: 9100000, guid: 75d3a58b3d7879f41926561701407a48, type: 2}
+  runAnim: {fileID: 9100000, guid: 6cc513001c84c714baa94b6d24a332c4, type: 2}
+  idleAnim: {fileID: 9100000, guid: a8555c0cff30527479e32562cef9141f, type: 2}
+  Spots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isPlayerOpenDoor: 0
+  actualDoor: {fileID: 0}
 --- !u!1 &8014365383665046460
 GameObject:
   m_ObjectHideFlags: 0

@@ -162,7 +162,10 @@ public class MonsterAI : MonoBehaviour
         float radiusAroundTargetPoint = 1f;
         if(agent.remainingDistance <= (agent.stoppingDistance + radiusAroundTargetPoint))
         {
-            StartCoroutine("stayAndObserve");
+            if (agent.speed != runSpeed)
+            {
+                StartCoroutine("stayAndObserve");
+            }
             isPlayerOpenDoor = false;
             return true;
         }
@@ -188,8 +191,8 @@ public class MonsterAI : MonoBehaviour
     IEnumerator Prepare()
     {
         agent.speed = 0f;
-        stop = true;
         anim.runtimeAnimatorController = idleAnim;
+        stop = true;
         yield return new WaitForSeconds(.4f);
         stop = false;
         charge = true;
