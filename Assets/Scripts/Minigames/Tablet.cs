@@ -6,21 +6,20 @@ public class Tablet : MonoBehaviour
 {
     bool interacting = false;
     public Image hackingScreen;
-    public GameObject player;
+    private GameObject player;
     public NetworkServerUI network;
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            StopHacking();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void Interact()
     {
         if (!interacting)
-            Hacking();
+            Open();
     }
-    void Hacking()
+    void Open()
     {
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
@@ -32,7 +31,7 @@ public class Tablet : MonoBehaviour
         hackingScreen.gameObject.SetActive(true);
         network.ServerSendMessage("OpenHelp");
     }
-    void StopHacking()
+    void Close()
     {
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)

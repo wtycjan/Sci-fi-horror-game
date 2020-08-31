@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject door5;
     public Image blackScreen;
     public GameObject monster;
-    public GameObject player;
+    private GameObject player;
     public RuntimeAnimatorController jumpAnim;
     private Sounds sound;
     private bool cutscene = false, cameraCutscene = false;
@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
     private void Update()
     {

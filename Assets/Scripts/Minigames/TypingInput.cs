@@ -9,7 +9,7 @@ public class TypingInput : MonoBehaviour
 {
     public InputField myField;
     public Text osText;
-    public Chest chest;
+    public Text tipText;
     public NetworkServerUI network;
     public TimerHacking timer;
     private Dictionary<string, System.Action<string, string>> commands;
@@ -35,7 +35,10 @@ public class TypingInput : MonoBehaviour
     private void Update()
     {
         if (myField.isActiveAndEnabled)
+        {
             StartTyping();
+            Stop();
+        }    
         if(securityLvl > 0)
         if (timer.timer < 0 )
         {
@@ -78,7 +81,9 @@ public class TypingInput : MonoBehaviour
         osText.text += "\nAccess granted. Security Level: "+ securityLvl;
         network.ServerSendMessage("HackingStart");
         osText.text += "\n\nKernel:/Mainframe:/Firewall:/ > ";
-        myField.gameObject.transform.position += new Vector3(295, -64, 0);
+        tipText.gameObject.transform.position += new Vector3(275, -61, 0);
+        myField.gameObject.transform.position += new Vector3(275, -61, 0);
+        tipText.text = "firewall.Disable();";
         commands.Add("firewall.Disable();", Firewall);
         timer.isCounting = true;
         timer.securityLvl = securityLvl;
@@ -100,8 +105,10 @@ public class TypingInput : MonoBehaviour
     private void Firewall(string command, string input)
     {
         osText.text += "\nFirewall has been bypassed.\n\nKernel:/Mainframe:/ > ";
-        myField.gameObject.transform.position += new Vector3(-88, -74, 0);
+        tipText.gameObject.transform.position += new Vector3(-80, -69, 0);
+        myField.gameObject.transform.position += new Vector3(-80, -69, 0);
         commands.Add("mainframe.Disable();", Mainframe);
+        tipText.text = "mainframe.Disable();";
         switch (securityLvl)
         {
             case 1:
@@ -120,8 +127,10 @@ public class TypingInput : MonoBehaviour
     private void Mainframe(string command, string input)
     {
         osText.text += "\nMainframe algorithms disabled.\n\nKernel:/ > ";
-        myField.gameObject.transform.position += new Vector3(-110, -74, 0);
+        tipText.gameObject.transform.position += new Vector3(-100, -69, 0);
+        myField.gameObject.transform.position += new Vector3(-100, -69, 0);
         commands.Add("kernel.Disable();", Kernel);
+        tipText.text = "kernel.Disable();";
         switch (securityLvl)
         {
             case 1:
@@ -138,6 +147,7 @@ public class TypingInput : MonoBehaviour
     private void Kernel(string command, string input)
     {
         osText.text += "\nKernel breached...";
+        tipText.text = "";
         myField.gameObject.SetActive(false);
         switch (securityLvl)
         {
@@ -154,22 +164,30 @@ public class TypingInput : MonoBehaviour
     }
     private void UnlockChest(string command, string input)
     {
-        chest.CloseCode();
-        chest.Open();
+        SendMessage("Close");
+        SendMessage("Unlock");
     }
     public void StartTyping()
     {
         EventSystem.current.SetSelectedGameObject(myField.gameObject);
         myField.ActivateInputField();
     }
-
+    public void Stop()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            SendMessage("Close");
+    }
     public void Alarm()
     {
         Debug.Log("Alarm");
+        myField.gameObject.SetActive(true);
         osText.text = resetText;
+        tipText.text = "";
+        tipText.gameObject.transform.position = inputPosition;
         myField.gameObject.transform.position = inputPosition;
         commands.Clear();
         commands.Add("system.Override();", Enter);
         network.ServerSendMessage("HackingEnd");
+        SendMessage("Close");
     }
 }
