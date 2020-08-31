@@ -14,9 +14,9 @@ public class MonsterAI : MonoBehaviour
     NavMeshAgent agent;
     private Sounds sound;
     private float runSpeed = 5f, normalSpeed = 1.5f;
-    private float detectionRange = 7f;
+    public float detectionRange = 2f;
     private Vector3 deltaPosition, prevPosition;
-    private bool scream = false, charge = false, stop = false, isStay = false;
+    private bool scream = false, charge = false, stop = false, isStay = false, isPlayerDetect = false;
     public List<Transform> Spots;
     private Transform newSpot;
     private Transform spawnSpot;
@@ -42,24 +42,26 @@ public class MonsterAI : MonoBehaviour
 
     void Update()
     {
-        checkPlayerMovementMode();
+        checkPlayerDetection();
         rotateMonster();
         if (makeNewTarget())
         {
             setNewPointDestinationToMoster();
         }
-        if(isPlayerOpenDoor)
+        if (isPlayerOpenDoor)
         {
             prepareMonsterRunToDoor(actualDoor);
-        }    
+        }
         else if (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
         {
+
             prepareMonsterToRun();
         }
         else
         {
-            if(isStay)
+            if (isStay)
             {
+                isPlayerDetect = false;
                 prepareMonsterToStay();
             }
             else
@@ -72,19 +74,31 @@ public class MonsterAI : MonoBehaviour
 
     }
 
+    private void checkPlayerDetection()
+    {
+        if (!isPlayerDetect)
+        {
+            checkPlayerMovementMode();
+        }
+    }
+
     private void checkPlayerMovementMode()
     {
-        if (playerMovement.movementInputData.IsRunning)
+        if (playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsRunning && !playerMovement.movementInputData.IsCrouching)
         {
-            detectionRange = 12f;
+            detectionRange = 9f;
         }
-        else if(playerMovement.movementInputData.IsCrouching)
+        else if(playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsCrouching)
         {
             detectionRange = 2f;
         }
+        else if(!playerMovement.movementInputData.HasInput)
+        {
+            detectionRange = 0f;
+        }
         else
         {
-            detectionRange = 7f;
+            detectionRange = 5f;
         }
     }
 
@@ -157,6 +171,7 @@ public class MonsterAI : MonoBehaviour
 
     private void startMonsterRun()
     {
+        isPlayerDetect = true;
         agent.speed = runSpeed;
         anim.runtimeAnimatorController = runAnim;
         float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move
