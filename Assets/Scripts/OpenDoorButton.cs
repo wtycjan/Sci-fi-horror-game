@@ -32,7 +32,6 @@ public class OpenDoorButton : MonoBehaviour
             isMonsterOpen = false;
             isMonsterClose = true;
             StartCoroutine(CloseDoor());
-
         }
         
     }
@@ -48,7 +47,7 @@ public class OpenDoorButton : MonoBehaviour
             isMonsterClose = false;
             StartCoroutine("CloseDoor");
         }
-        }
+    }
     public IEnumerator OpenDoor()
     {
         detectIsMonsterInDoorRange();
@@ -92,7 +91,6 @@ public class OpenDoorButton : MonoBehaviour
     }
     private void openMonsterDoor()
     {
-        
         StartCoroutine(OpenDoor());
         isMonsterInDoorRange = false;
         isMonsterNearbyAndOpen = true;
@@ -104,11 +102,9 @@ public class OpenDoorButton : MonoBehaviour
         if ((open && !isMonsterOpen && !isMonsterCheckOpenDoor && isMonsterInDoorRange) ||
             (!isMonsterClose && !isMonsterCheckOpenDoor && isMonsterInDoorRange))
         {
-
             monsterScript.actualDoor = gameObject;
             monsterScript.isPlayerOpenDoor = true;
             isMonsterCheckOpenDoor = true;
-
         }
     }
 }
