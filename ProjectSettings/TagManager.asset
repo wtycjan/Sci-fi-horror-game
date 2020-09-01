@@ -9,6 +9,7 @@ TagManager:
   - SoundController
   - PlayerSounds
   - PlayerSounds2
+  - Ball
   layers:
   - Default
   - TransparentFX

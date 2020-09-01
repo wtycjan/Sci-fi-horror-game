@@ -6,36 +6,26 @@ using UnityEngine.UI;
 public class Lockpicking : MonoBehaviour
 {
     public Image codeScreen;
-    private GameObject player;
-    public NetworkServerUI network;
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
+    public Material openMaterial;
+    public int securityLvl = 1;
 
     public void Interact()
     {
         Open();
     }
+    void Update()
+    {
+        //if unlocked
+        if(GameData.door1)
+        {
+            GetComponentInChildren<Light>().color = Color.green;
+            GetComponent<MeshRenderer>().material = openMaterial;
+            gameObject.layer = 0; //isInteractable = false;
+        }
+    }
     void Open()
     {
-        MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
-        foreach (MonoBehaviour c in scripts)
-        {
-            c.enabled = false;
-        }
-
         codeScreen.gameObject.SetActive(true);
-        network.ServerSendMessage("OpenLockpicking");
-    }
-    public void Close()
-    {
-        MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
-        foreach (MonoBehaviour c in scripts)
-        {
-            c.enabled = true;
-        }
-        codeScreen.gameObject.SetActive(false);
-        network.ServerSendMessage("ClooseLockpicking");
+        codeScreen.BroadcastMessage("BeginGame",securityLvl);
     }
 }
