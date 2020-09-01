@@ -29,6 +29,10 @@ public class Chest : MonoBehaviour
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
         {
+            if (c == null)
+            {
+                continue;
+            }
             c.enabled = false;
         }
 
@@ -40,6 +44,10 @@ public class Chest : MonoBehaviour
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
         {
+            if (c == null)
+            {
+                continue;
+            }
             c.enabled = true;
         }
         codeScreen.gameObject.SetActive(false);

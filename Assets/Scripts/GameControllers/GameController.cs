@@ -82,11 +82,19 @@ public class GameController : MonoBehaviour
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
         {
+            if (c == null)
+            {
+                continue;
+            }
             c.enabled = false;
         }
         MonoBehaviour[] scripts2 = monster.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts2)
         {
+            if (c == null)
+            {
+                continue;
+            }
             c.enabled = false;
         }
         Vector3 lookpoint = monster.GetComponentInChildren<BoxCollider>().transform.position;

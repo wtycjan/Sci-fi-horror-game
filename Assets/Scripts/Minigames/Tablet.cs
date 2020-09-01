@@ -24,6 +24,10 @@ public class Tablet : MonoBehaviour
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
         {
+            if (c == null)
+            {
+                continue;
+            }
             c.enabled = false;
         }
 
@@ -36,6 +40,10 @@ public class Tablet : MonoBehaviour
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
         {
+            if (c == null)
+            {
+                continue;
+            }
             c.enabled = true;
         }
         interacting = false;

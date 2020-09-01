@@ -31,6 +31,10 @@ public class LockpickingGame : MonoBehaviour
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
         {
+            if (c == null)
+            {
+                continue;
+            }
             c.enabled = true;
         }
         codeScreen.gameObject.SetActive(false);
@@ -43,6 +47,10 @@ public class LockpickingGame : MonoBehaviour
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
         {
+            if (c == null)
+            {
+                continue;
+            }
             c.enabled = false;
         }
         network.ServerSendMessage("OpenLockpicking");
