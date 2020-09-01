@@ -15,7 +15,7 @@ namespace VHS
             
             [Space] 
             [SerializeField] private bool multipleUse = false;
-            [SerializeField] private bool isInteractable = true;
+            [SerializeField] public bool isInteractable = true;
 
             [SerializeField] private string tooltipMessage = "interact";
         #endregion
