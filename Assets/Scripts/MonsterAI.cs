@@ -32,12 +32,16 @@ public class MonsterAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         sound = GetComponent<Sounds>();
+        spawnMonster();
 
         setNewPointDestinationToMoster();
 
-        //random starting position
-        spawnMonsterInRandomPlace();
+    }
 
+    private void spawnMonster()
+    {
+        spawnSpot = Spots[6];
+        transform.position = spawnSpot.position;
     }
 
     void Update()
@@ -86,7 +90,7 @@ public class MonsterAI : MonoBehaviour
     {
         if (playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsRunning && !playerMovement.movementInputData.IsCrouching)
         {
-            detectionRange = 9f;
+            detectionRange = 10f;
         }
         else if(playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsCrouching)
         {
@@ -100,12 +104,6 @@ public class MonsterAI : MonoBehaviour
         {
             detectionRange = 5f;
         }
-    }
-
-    private void spawnMonsterInRandomPlace()
-    {
-        spawnSpot = Spots[UnityEngine.Random.Range(2, Spots.Count)];
-        gameObject.transform.position = spawnSpot.transform.position;
     }
 
     private void prepareMonsterToWalk()
