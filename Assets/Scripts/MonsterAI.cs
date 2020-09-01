@@ -21,6 +21,7 @@ public class MonsterAI : MonoBehaviour
     private Transform newSpot;
     private Transform spawnSpot;
     private float timeWaitAndObserve = 3f;
+    private int startSpotsIndex = 2;
 
     public VHS.FirstPersonController playerMovement;
     public bool isPlayerOpenDoor = false;
@@ -32,16 +33,21 @@ public class MonsterAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         sound = GetComponent<Sounds>();
+        spawnMonster();
 
         setNewPointDestinationToMoster();
 
-        //random starting position
-        spawnMonsterInRandomPlace();
+    }
 
+    private void spawnMonster()
+    {
+        spawnSpot = Spots[6];
+        transform.position = spawnSpot.position;
     }
 
     void Update()
     {
+        checkIsDoorBlocked();
         checkPlayerDetection();
         rotateMonster();
         if (makeNewTarget())
@@ -54,7 +60,6 @@ public class MonsterAI : MonoBehaviour
         }
         else if (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
         {
-
             prepareMonsterToRun();
         }
         else
@@ -74,19 +79,26 @@ public class MonsterAI : MonoBehaviour
 
     }
 
+    private void checkIsDoorBlocked()
+    {
+        if (GameData.door1)
+            startSpotsIndex = 0;
+        else
+            startSpotsIndex = 2;
+
+    }
+
     private void checkPlayerDetection()
     {
         if (!isPlayerDetect)
-        {
             checkPlayerMovementMode();
-        }
     }
 
     private void checkPlayerMovementMode()
     {
         if (playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsRunning && !playerMovement.movementInputData.IsCrouching)
         {
-            detectionRange = 9f;
+            detectionRange = 10f;
         }
         else if(playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsCrouching)
         {
@@ -100,12 +112,6 @@ public class MonsterAI : MonoBehaviour
         {
             detectionRange = 5f;
         }
-    }
-
-    private void spawnMonsterInRandomPlace()
-    {
-        spawnSpot = Spots[UnityEngine.Random.Range(2, Spots.Count)];
-        gameObject.transform.position = spawnSpot.transform.position;
     }
 
     private void prepareMonsterToWalk()
@@ -183,7 +189,7 @@ public class MonsterAI : MonoBehaviour
     private void setNewPointDestinationToMoster()
     {
 
-        newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
+        newSpot = Spots[UnityEngine.Random.Range(startSpotsIndex, Spots.Count)];
         agent.SetDestination(newSpot.transform.position);
     }
 
