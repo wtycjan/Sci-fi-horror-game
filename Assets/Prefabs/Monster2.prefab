@@ -2431,7 +2431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8014365383665208922
 Transform:
   m_ObjectHideFlags: 0
@@ -2505,6 +2505,7 @@ MonoBehaviour:
   idleAnim: {fileID: 9100000, guid: a8555c0cff30527479e32562cef9141f, type: 2}
   detectionRange: 2
   Spots:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

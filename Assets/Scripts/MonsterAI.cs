@@ -21,6 +21,7 @@ public class MonsterAI : MonoBehaviour
     private Transform newSpot;
     private Transform spawnSpot;
     private float timeWaitAndObserve = 3f;
+    private int startSpotsIndex = 2;
 
     public VHS.FirstPersonController playerMovement;
     public bool isPlayerOpenDoor = false;
@@ -46,6 +47,7 @@ public class MonsterAI : MonoBehaviour
 
     void Update()
     {
+        checkIsDoorBlocked();
         checkPlayerDetection();
         rotateMonster();
         if (makeNewTarget())
@@ -58,7 +60,6 @@ public class MonsterAI : MonoBehaviour
         }
         else if (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
         {
-
             prepareMonsterToRun();
         }
         else
@@ -78,12 +79,19 @@ public class MonsterAI : MonoBehaviour
 
     }
 
+    private void checkIsDoorBlocked()
+    {
+        if (GameData.door1)
+            startSpotsIndex = 0;
+        else
+            startSpotsIndex = 2;
+
+    }
+
     private void checkPlayerDetection()
     {
         if (!isPlayerDetect)
-        {
             checkPlayerMovementMode();
-        }
     }
 
     private void checkPlayerMovementMode()
@@ -181,7 +189,7 @@ public class MonsterAI : MonoBehaviour
     private void setNewPointDestinationToMoster()
     {
 
-        newSpot = Spots[UnityEngine.Random.Range(0, Spots.Count)];
+        newSpot = Spots[UnityEngine.Random.Range(startSpotsIndex, Spots.Count)];
         agent.SetDestination(newSpot.transform.position);
     }
 
