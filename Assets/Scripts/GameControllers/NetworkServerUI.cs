@@ -52,6 +52,16 @@ public class NetworkServerUI : MonoBehaviour
             case "5":
                 gameController.SendMessage("OpenDoor5");
                 break;
+            case "Red":
+                gameController.SendMessage("RedButtonPressed");
+                break;
+            case "Yellow":
+                gameController.SendMessage("YellowButtonPressed");
+                break;
+            case "Blue":
+                gameController.SendMessage("BlueButtonPressed");
+                break;
+
         }
 
 

@@ -10,7 +10,7 @@ public class LockpickingGame : MonoBehaviour
     public NetworkServerUI network;
     public Image codeScreen;
     bool lockpicking = false;
-    private int open;
+    public int open;
     private int ball;
 
     // Update is called once per frame
@@ -56,6 +56,7 @@ public class LockpickingGame : MonoBehaviour
         network.ServerSendMessage("OpenLockpicking");
         //creatte neww balls
         ball = x * 3 + 2;
+        open = ball;
         StartCoroutine("BeginGame2");
         
     }
@@ -65,12 +66,13 @@ public class LockpickingGame : MonoBehaviour
         for (var i = 0; i < gameObjects.Length; i++)
             Destroy(gameObjects[i]);
     }
-    void StopGame()
+    public void StopGame()
     {
         lockpicking = false;
         if(open==0)
         {
             GameData.door1 = true;
+            network.ServerSendMessage("UnlockDoor1");
         }
         Close();
     }

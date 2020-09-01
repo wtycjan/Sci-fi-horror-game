@@ -14,6 +14,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject door3;
     [SerializeField] private GameObject door4;
     [SerializeField] private GameObject door5;
+    [SerializeField] private GameObject redButton;
+    [SerializeField] private GameObject yellowButton;
+    [SerializeField] private GameObject blueButton;
     public Image blackScreen;
     public GameObject monster;
     private GameObject player;
@@ -35,7 +38,8 @@ public class GameController : MonoBehaviour
     {
         //Debug only!
         if (Input.GetKeyDown("1"))
-            OpenDoor1();
+            if(GameData.door1)
+                OpenDoor1();
         if (Input.GetKeyDown("2"))
             OpenDoor2();
         if (Input.GetKeyDown("3"))
@@ -137,5 +141,18 @@ public class GameController : MonoBehaviour
         Debug.Log(finalString);
         return finalString;
 
+    }
+
+    void RedButtonPressed()
+    {
+        redButton.SendMessage("Interact");
+    }
+    void YellowButtonPressed()
+    {
+        yellowButton.SendMessage("Interact");
+    }
+    void BlueButtonPressed()
+    {
+        blueButton.SendMessage("Interact");
     }
 }
