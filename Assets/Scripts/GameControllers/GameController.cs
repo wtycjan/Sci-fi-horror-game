@@ -18,9 +18,10 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject yellowButton;
     [SerializeField] private GameObject blueButton;
     public Image blackScreen;
-    public GameObject monster;
+    public MonsterAI monster;
     private GameObject player;
     public RuntimeAnimatorController jumpAnim;
+    public NetworkServerUI network;
     private Sounds sound;
     private bool cutscene = false, cameraCutscene = false;
     Quaternion startRot, endRot;
@@ -33,12 +34,12 @@ public class GameController : MonoBehaviour
     {
         sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
         player = GameObject.FindGameObjectWithTag("Player");
+        StartCoroutine("UpdatePosition");
     }
     private void Update()
     {
         //Debug only!
         if (Input.GetKeyDown("1"))
-            if(GameData.door1)
                 OpenDoor1();
         if (Input.GetKeyDown("2"))
             OpenDoor2();
@@ -50,7 +51,7 @@ public class GameController : MonoBehaviour
             OpenDoor5();
 
         //death
-        if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene)
+        if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene /*&& monster.isPlayerDetect*/ )
         {
             StartCoroutine("Death");
         }
@@ -154,5 +155,20 @@ public class GameController : MonoBehaviour
     void BlueButtonPressed()
     {
         blueButton.SendMessage("Interact");
+    }
+
+    public IEnumerator UpdatePosition()
+    {
+        Vector2 pos = new Vector2(player.transform.position.x, player.transform.position.z);
+        network.ServerSendMessage("player: " + pos.x + " " + pos.y);
+        if (Vector3.Distance(monster.transform.position, player.transform.position) < 15f)
+        {
+            pos = new Vector2(monster.transform.position.x, monster.transform.position.z);
+            network.ServerSendMessage("monster: " + pos.x + " " + pos.y);
+        }
+        else
+            network.ServerSendMessage("monster: " + -999+ " " + -999);
+        yield return new WaitForSeconds(1f);
+        StartCoroutine("UpdatePosition");
     }
 }

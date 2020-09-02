@@ -23,13 +23,13 @@ public class TimerHacking : MonoBehaviour
             switch (securityLvl)
             {
                 case 1:
-                    rectangle.sizeDelta = new Vector2(rectangle.sizeDelta.x - Time.deltaTime * 28.3f, rectangle.sizeDelta.y);
+                    rectangle.sizeDelta = new Vector2(rectangle.sizeDelta.x - Time.deltaTime * 39f, rectangle.sizeDelta.y);
                     break;
                 case 2:
-                    rectangle.sizeDelta = new Vector2(rectangle.sizeDelta.x - Time.deltaTime * 34.25f, rectangle.sizeDelta.y);
+                    rectangle.sizeDelta = new Vector2(rectangle.sizeDelta.x - Time.deltaTime * 50f, rectangle.sizeDelta.y);
                     break;
                 case 3:
-                    rectangle.sizeDelta = new Vector2(rectangle.sizeDelta.x - Time.deltaTime * 43.25f, rectangle.sizeDelta.y);
+                    rectangle.sizeDelta = new Vector2(rectangle.sizeDelta.x - Time.deltaTime * 71f, rectangle.sizeDelta.y);
                     break;
             }
             if (timer < 0)

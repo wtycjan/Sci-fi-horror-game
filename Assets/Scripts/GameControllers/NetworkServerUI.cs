@@ -9,9 +9,8 @@ using UnityEngine;
 
 public class NetworkServerUI : MonoBehaviour
 {
-    CrossPlatformInputManager.VirtualButton doorBtn;
     public GameController gameController;
-    bool infoSent = false;
+    private int connections = 0;
     private void OnGUI()
     {
         string ipaddress = LocalIPAddress();
@@ -23,11 +22,22 @@ public class NetworkServerUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        doorBtn = new CrossPlatformInputManager.VirtualButton("Fire3");
-        CrossPlatformInputManager.RegisterVirtualButton(doorBtn);
-
+        if (!NetworkServer.active)
+        { 
         NetworkServer.Listen(25000);
         NetworkServer.RegisterHandler(888, ServerRecieveMessage);
+        }
+
+    }
+
+    private void Update()
+    {
+        //send data to any new connections
+        if(NetworkServer.connections.Count>connections)
+        {
+            ServerSendMessage("Pswd " + GameData.password1);
+            connections++;
+        }
     }
 
     void ServerRecieveMessage (NetworkMessage message)
@@ -74,20 +84,9 @@ public class NetworkServerUI : MonoBehaviour
             msg.value = message;
             NetworkServer.SendToAll(888, msg);
             Debug.Log("msg sent" + msg.value);
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (NetworkServer.connections.Count > 0 && !infoSent)
-        {
-            ServerSendMessage("Pswd " + GameData.password1);
-            infoSent = true;
-        }  
-        else if (NetworkServer.connections.Count == 0)
-            infoSent = false;
-    }
+
     public string LocalIPAddress()
     {
         IPHostEntry host;
@@ -103,4 +102,7 @@ public class NetworkServerUI : MonoBehaviour
         }
         return localIP;
     }
+
+
+
 }
