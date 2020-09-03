@@ -13,10 +13,11 @@ public class MonsterAI : MonoBehaviour
     public RuntimeAnimatorController idleAnim;
     NavMeshAgent agent;
     private Sounds sound;
-    private float runSpeed = 5f, normalSpeed = 1.5f;
+    public float runSpeed = 5f, normalSpeed = 1.5f;
     public float detectionRange = 2f;
     private Vector3 deltaPosition, prevPosition;
-    private bool scream = false, charge = false, stop = false, isStay = false, isPlayerDetect = false;
+    private bool scream = false, charge = false, stop = false, isStay = false;
+    public bool isPlayerDetect = false;
     public List<Transform> Spots;
     private Transform newSpot;
     private Transform spawnSpot;
@@ -26,6 +27,8 @@ public class MonsterAI : MonoBehaviour
     public VHS.FirstPersonController playerMovement;
     public bool isPlayerOpenDoor = false;
     public GameObject actualDoor;
+    [SerializeField] GameObject chest;
+    [SerializeField] TypingInput alarm;
 
     void Start()
     {
@@ -50,20 +53,40 @@ public class MonsterAI : MonoBehaviour
         checkIsDoorBlocked();
         checkPlayerDetection();
         rotateMonster();
-        if (makeNewTarget())
+        if(!alarm.isAlarm)
         {
-            setNewPointDestinationToMoster();
+            if (makeNewTarget())
+            {
+                print("5");
+                print(newSpot);
+                setNewPointDestinationToMoster();
+            }
         }
+      
+        moveMonster();
+
+    }
+
+    private void moveMonster()
+    {
         if (isPlayerOpenDoor)
         {
+            print("1");
             prepareMonsterRunToDoor(actualDoor);
+        }
+        else if (alarm.isAlarm)
+        {
+            print("2");
+            prepareMonsterRunToDoor(chest);
         }
         else if (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
         {
+            print("3");
             prepareMonsterToRun();
         }
         else
         {
+            print("4");
             if (isStay)
             {
                 isPlayerDetect = false;
@@ -74,10 +97,34 @@ public class MonsterAI : MonoBehaviour
                 prepareMonsterToWalk();
             }
         }
-
-
-
     }
+
+    public void prepareMonsterCheckAlarm()
+    {
+        if (!charge)
+        {
+            StartCoroutine("Prepare");
+        }
+        else if (!scream)
+        {
+            sound.Sound1();
+            scream = true;
+        }
+        else
+        {
+            startMonsterRunToAlarm();
+        }
+    }
+
+    private void startMonsterRunToAlarm()
+    {
+        agent.speed = runSpeed;
+        anim.runtimeAnimatorController = runAnim;
+        float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move
+        agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(chest.transform.position.x, transform.position.y, chest.transform.position.z), step));
+        rotateMonster();
+    }
+
 
     private void checkIsDoorBlocked()
     {

@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
     private Sounds sound;
     private bool cutscene = false, cameraCutscene = false;
     Quaternion startRot, endRot;
+    [SerializeField] TypingInput tp;
 
     private void Awake()
     {
@@ -48,6 +49,17 @@ public class GameController : MonoBehaviour
             OpenDoor4();
         if (Input.GetKeyDown("5"))
             OpenDoor5();
+        if (Input.GetKeyDown("6"))
+        {
+            GameData.door1 = true;
+            tp.isAlarm = true;
+        }
+       if (Input.GetKeyDown("7"))
+       {
+            tp.isAlarm = false;
+            GameData.door1 = false; 
+       }
+           
 
         //death
         if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene)

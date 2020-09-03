@@ -10,6 +10,7 @@ public class OpenDoorHandler : MonoBehaviour
     [SerializeField] private GameObject door3;
     [SerializeField] private GameObject door4;
     [SerializeField] private GameObject door5;
+ 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "Door (1)")
@@ -50,7 +51,7 @@ public class OpenDoorHandler : MonoBehaviour
         gameObject.GetComponent<NavMeshAgent>().isStopped = true;
         SendMessage("prepareMonsterToStay");
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f); 
         
         SendMessage("prepareMonsterToWalk");
         gameObject.GetComponent<NavMeshAgent>().isStopped = false;
