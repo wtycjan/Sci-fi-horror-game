@@ -97,8 +97,9 @@ namespace VHS
                     private RaycastHit m_hitInfo;
                     private IEnumerator m_CrouchRoutine;
                     private IEnumerator m_LandRoutine;
-                    private float stamina=0f;
+                    private float stamina=0f, breath=0f;
                     private bool rechargeStamina=false, tired=false;
+                    public bool isHoldingBreath=false;
                 #endregion
 
                 #region Debug
@@ -185,14 +186,13 @@ namespace VHS
                     HandleCameraSway();
                     HandleLanding();
 
-                    //LeanLeft();
-                    //LeanRight();
-
                     ApplyGravity();
                     ApplyMovement();
+                    HoldBreath();
 
                     MovementSounds();
                     RechargeStamina();
+                    RechargeBreath();
                     m_previouslyGrounded = m_isGrounded;
                 }
             }
@@ -332,7 +332,7 @@ namespace VHS
                         _normalizedDir = m_smoothFinalMoveDir.normalized;
 
                     float _dot = Vector3.Dot(transform.forward,_normalizedDir);
-                    return _dot >= canRunThreshold && stamina <=staminaLimit && !tired && !movementInputData.IsCrouching ? true : false;
+                    return _dot >= canRunThreshold && stamina <=staminaLimit && !tired &&!isHoldingBreath && !movementInputData.IsCrouching ? true : false;
                 }
 
                 protected virtual void CalculateMovementDirection()
@@ -539,7 +539,7 @@ namespace VHS
                         stamina+= Time.deltaTime;
                     }
 
-                    if(movementInputData.RunReleased || !movementInputData.HasInput || m_hitWall || m_currentSpeed != runSpeed || stamina >= staminaLimit)
+                    if(movementInputData.RunReleased || !movementInputData.HasInput || m_hitWall || (m_currentSpeed != runSpeed && movementInputData.IsRunning) || stamina >= staminaLimit)
                     {
                         if(m_duringRunAnimation)
                         {
@@ -598,39 +598,26 @@ namespace VHS
                     transform.rotation = Quaternion.Slerp(_currentRot,_desiredRot,Time.deltaTime * smoothRotateSpeed);
                 }
 
-                protected virtual void LeanLeft()
-        {
-            if (Input.GetKey(KeyCode.Q) && m_isGrounded && !m_hitWall && !movementInputData.HasInput)
-            {
-                Vector3 left = transform.TransformDirection(Vector3.left);
-                m_characterController.Move(left * 3.5f*Time.deltaTime);
-
-            }
-            else if (!Input.GetKey(KeyCode.Q) && m_yawTransform.localPosition.x < 0 && !movementInputData.HasInput)
-            {
-                m_yawTransform.Rotate(new Vector3(0, 0, -40) * Time.deltaTime);
-                m_yawTransform.localPosition = new Vector3(m_yawTransform.localPosition.x + 3.5f * Time.deltaTime, m_yawTransform.localPosition.y, m_yawTransform.localPosition.z);
-            }
-
-        }
-
-        protected void LeanRight()
-        {
-
-            if (Input.GetKey(KeyCode.E) && m_isGrounded && !m_hitWall && !movementInputData.HasInput)
-            {
-                if (m_yawTransform.localPosition.x < 1f)
+                protected virtual void HoldBreath()
                 {
-                    m_yawTransform.Rotate(new Vector3(0, 0, -40) * Time.deltaTime);
-                    m_yawTransform.localPosition = new Vector3(m_yawTransform.localPosition.x + 3.5f * Time.deltaTime, m_yawTransform.localPosition.y, m_yawTransform.localPosition.z);
-                }
-            }
-            else if (!Input.GetKey(KeyCode.E) && m_yawTransform.localPosition.x > 0 && !movementInputData.HasInput)
+            if (Input.GetKeyDown(KeyCode.Q) && breath<1)
             {
-                m_yawTransform.Rotate(new Vector3(0, 0, 40) * Time.deltaTime);
-                m_yawTransform.localPosition = new Vector3(m_yawTransform.localPosition.x - 3.5f * Time.deltaTime, m_yawTransform.localPosition.y, m_yawTransform.localPosition.z);
+                m_cameraController.ChangeRunFOV(false);
+                sounds2.Sound2();
+                isHoldingBreath = true;
             }
-        }
+            else if (( Input.GetKeyUp(KeyCode.Q) && isHoldingBreath) || breath > 7)
+            {
+                m_cameraController.ChangeRunFOV(true);
+                if (breath > 5)
+                    sounds2.Sound4();
+                else
+                    sounds2.Sound3();
+                isHoldingBreath = false;
+            }
+
+                }
+
         protected virtual void MovementSounds()
         {
             if (movementInputData.HasInput && !sounds.IsPlaying() && !movementInputData.IsRunning &&!movementInputData.IsCrouching)
@@ -638,7 +625,11 @@ namespace VHS
                 sounds.Sound1Loop();
             }
             else if ((!movementInputData.HasInput && sounds.IsPlaying()) || movementInputData.CrouchClicked)
+            {
+                print("stop_sound");
                 sounds.Stop();
+            }
+                
         }
         protected void RechargeStamina()
         {
@@ -648,6 +639,14 @@ namespace VHS
             if (stamina<.5f)
                 tired = false;
         }
+        protected void RechargeBreath()
+        {
+            if (isHoldingBreath)
+                 breath += Time.deltaTime;
+            else if (!isHoldingBreath && breath > 0)
+                breath -= Time.deltaTime * 2;
+        }
+
         #endregion
         #endregion
     }

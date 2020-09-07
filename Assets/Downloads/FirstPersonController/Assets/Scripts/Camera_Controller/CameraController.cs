@@ -57,7 +57,7 @@ namespace VHS
                 SmoothRotation();
                 ApplyRotation();
                 HandleZoom();
-                Peak();
+                //Peak();
             }
         #endregion
 
@@ -125,26 +125,26 @@ namespace VHS
                 Cursor.visible = false;
             }
 
-            void Peak()
+        /*void Peak()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                _tiltAmount = 14;
-            }
-            else if (Input.GetKeyUp(KeyCode.Q))
-            {
-                _tiltAmount = 0;
-            }
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                _tiltAmount = -14;
-            }
-            else if (Input.GetKeyUp(KeyCode.E))
-            {
-                _tiltAmount = 0;
-            }
+            _tiltAmount = 14;
         }
+        else if (Input.GetKeyUp(KeyCode.Q))
+        {
+            _tiltAmount = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _tiltAmount = -14;
+        }
+        else if (Input.GetKeyUp(KeyCode.E))
+        {
+            _tiltAmount = 0;
+        }
+    }*/
         #endregion
     }
 }

@@ -121,4 +121,4 @@ MonoBehaviour:
   holdDuration: 1
   multipleUse: 0
   isInteractable: 1
-  tooltipMessage: (F) Pickup Keycard
+  tooltipMessage: (E) Pickup Keycard

@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class NetworkServerUI : MonoBehaviour
 {
-    public GameController gameController;
+    private GameController gameController;
     private int connections = 0;
     private void OnGUI()
     {
@@ -25,9 +25,10 @@ public class NetworkServerUI : MonoBehaviour
         if (!NetworkServer.active)
         { 
         NetworkServer.Listen(25000);
-        NetworkServer.RegisterHandler(888, ServerRecieveMessage);
+        
         }
-
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        NetworkServer.RegisterHandler(888, ServerRecieveMessage);
     }
 
     private void Update()
@@ -83,7 +84,7 @@ public class NetworkServerUI : MonoBehaviour
             StringMessage msg = new StringMessage();
             msg.value = message;
             NetworkServer.SendToAll(888, msg);
-            Debug.Log("msg sent" + msg.value);
+            //Debug.Log("msg sent" + msg.value);
     }
 
 

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using System.Text;
+using VHS;
 
 public class GameController : MonoBehaviour
 {
@@ -18,8 +19,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject yellowButton;
     [SerializeField] private GameObject blueButton;
     public Image blackScreen;
+    public Image blackScreen2;
     public MonsterAI monster;
-    private GameObject player;
+    private FirstPersonController player;
     public RuntimeAnimatorController jumpAnim;
     public NetworkServerUI network;
     private Sounds sound;
@@ -29,12 +31,18 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         GameData.password1= RandomPassword();
+        GameData.level1 = false;
+        GameData.door1 = false;
     }
     private void Start()
     {
         sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
         StartCoroutine("UpdatePosition");
+        //*************************
+        //Enable before building
+        //StartCoroutine("Intro");
+        //*************************
     }
     private void Update()
     {
@@ -58,6 +66,14 @@ public class GameController : MonoBehaviour
         if (player.transform.rotation != endRot && cameraCutscene)
             player.transform.rotation = Quaternion.Slerp(player.transform.rotation, Quaternion.AngleAxis(90, Vector3.left), Time.deltaTime * 2f);
 
+    }
+    public IEnumerator Intro()
+    {
+        sound.Sound5();
+        blackScreen2.GetComponent<Animation>().Play();
+        yield return new WaitForSeconds(12f);
+        Destroy(blackScreen2);
+        OpenDoor5();
     }
 
     void OpenDoor1()
@@ -107,6 +123,7 @@ public class GameController : MonoBehaviour
         lookpoint = player.GetComponentInChildren<BoxCollider>().transform.position;
         monster.transform.LookAt(lookpoint);
         player.GetComponent<CharacterController>().enabled = false;
+        player.GetComponentInChildren<Sounds>().Stop();
         monster.GetComponentInChildren<CapsuleCollider>().enabled = false;
         sound.Sound1();
         yield return new WaitForSeconds(.05f);

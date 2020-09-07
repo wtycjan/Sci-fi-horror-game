@@ -141,9 +141,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sound1: {fileID: 8300000, guid: cadc8e5590444be4fb71055ba649505b, type: 3}
-  sound2: {fileID: 0}
-  sound3: {fileID: 0}
-  sound4: {fileID: 0}
+  sound2: {fileID: 8300000, guid: c848ed2590b0561409b4609d84deb579, type: 3}
+  sound3: {fileID: 8300000, guid: e0f2b8eb1be053447a6c2489dcad2ec1, type: 3}
+  sound4: {fileID: 8300000, guid: 467c604aca21b3e42b261d7f86004a18, type: 3}
   sound5: {fileID: 0}
   audioSource: {fileID: 1534965305}
 --- !u!1 &1734749122
@@ -913,6 +913,7 @@ MonoBehaviour:
   smoothHeadBobSpeed: 2
   experimental: 0
   smoothInputMagnitudeSpeed: 5
+  isHoldingBreath: 0
   m_inputVector: {x: 0, y: 0}
   m_smoothInputVector: {x: 0, y: 0}
   m_finalMoveDir: {x: 0, y: 0, z: 0}

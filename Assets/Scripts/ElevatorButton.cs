@@ -8,6 +8,11 @@ public class ElevatorButton : MonoBehaviour
     bool interacting = false;
     public GameController gameController;
     public Text failedtxt;
+    private Sounds sound;
+    private void Start()
+    {
+        sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
+    }
     public void Interact()
     {
         if (!interacting)
@@ -18,7 +23,11 @@ public class ElevatorButton : MonoBehaviour
     {
         interacting = true;
         if (GameData.level1)
+        {
             gameController.StartCoroutine("Restart");
+            sound.Sound5();
+        }
+            
         else
             StartCoroutine("Text");
     }

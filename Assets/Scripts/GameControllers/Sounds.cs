@@ -26,15 +26,15 @@ public class Sounds : MonoBehaviour
     }
     public void Sound3()
     {
-        audioSource.PlayOneShot(sound2);
+        audioSource.PlayOneShot(sound3);
     }
     public void Sound4()
     {
-        audioSource.PlayOneShot(sound2);
+        audioSource.PlayOneShot(sound4);
     }
     public void Sound5()
     {
-        audioSource.PlayOneShot(sound2);
+        audioSource.PlayOneShot(sound5);
     }
     public void Sound1Loop()
     {
@@ -70,4 +70,6 @@ public class Sounds : MonoBehaviour
         else
             return false;
     }
+
+
 }

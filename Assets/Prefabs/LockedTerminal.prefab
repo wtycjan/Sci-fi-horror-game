@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 8541978170876194797}
   - component: {fileID: 8541978170875161809}
   - component: {fileID: 8541978170878880037}
-  m_Layer: 0
+  - component: {fileID: 1291310197}
+  - component: {fileID: 1291310198}
+  m_Layer: 10
   m_Name: LockedTerminal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2ef98ae93ad7a444ca7b8fa1679f3ebf, type: 2}
+  - {fileID: 2100000, guid: a1333e724e8eaba488e988121d53a768, type: 2}
   - {fileID: 2100000, guid: 10de6384af0c3b54e8166f9c3f936e88, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -93,6 +95,38 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.575557, y: 1.1406751, z: 0.08711934}
   m_Center: {x: -0.004444003, y: -0.004318118, z: 0.02264297}
+--- !u!114 &1291310197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541978170873002881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d9de6c2cdff324fac7fd8f67875e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdInteract: 0
+  holdDuration: 1
+  multipleUse: 0
+  isInteractable: 1
+  tooltipMessage: (E) To override
+--- !u!114 &1291310198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541978170873002881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfbe0ecf25da77a47b1d01691ca02623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  codeScreen: {fileID: 0}
+  openMaterial: {fileID: 2100000, guid: c60bebb13b9994a439f1f71f40673b63, type: 2}
+  securityLvl: 1
 --- !u!1 &8541978171835782423
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8541978171835782422}
   - component: {fileID: 8541978171835782417}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

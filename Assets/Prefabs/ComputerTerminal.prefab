@@ -218,4 +218,4 @@ MonoBehaviour:
   holdDuration: 1
   multipleUse: 0
   isInteractable: 1
-  tooltipMessage: (F) ACCESS COMPUTER
+  tooltipMessage: (E) ACCESS COMPUTER

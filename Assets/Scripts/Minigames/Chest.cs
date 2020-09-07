@@ -9,10 +9,12 @@ public class Chest : MonoBehaviour
     public Image codeScreen;
     private GameObject player;
     public NetworkServerUI network;
+    private Sounds sounds;
     void Start()
     {
         anim = GetComponent<Animation>();
         player = GameObject.FindGameObjectWithTag("Player");
+        sounds = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
     }
     public void Interact()
     {
@@ -23,6 +25,7 @@ public class Chest : MonoBehaviour
         gameObject.layer = 0;
         anim.Play();
         treasure.SetActive(true);
+        sounds.Sound4();
     }
     void Open()
     {

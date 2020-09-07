@@ -22,7 +22,7 @@ public class FollowPath : MonoBehaviour
 
     #region Private Variables
     private IEnumerator<Transform> pointInPath; //Used to reference points returned from MyPath.GetNextPathPoint
-    Rigidbody rb2d;
+    //Rigidbody rb2d;
     #endregion //Private Variables
 
 
@@ -30,7 +30,7 @@ public class FollowPath : MonoBehaviour
     #region Main Methods
     public void Start()
     {
-        rb2d = GetComponent<Rigidbody>();
+        //rb2d = GetComponent<Rigidbody>();
         //Make sure there is a path assigned
         if (MyPath == null)
         {
@@ -40,10 +40,10 @@ public class FollowPath : MonoBehaviour
 
         //Sets up a reference to an instance of the coroutine GetNextPathPoint
         pointInPath = MyPath.GetNextPathPoint();
-        Debug.Log(pointInPath.Current);
+        //Debug.Log(pointInPath.Current);
         //Get the next point in the path to move to (Gets the Default 1st value)
         pointInPath.MoveNext();
-        Debug.Log(pointInPath.Current);
+        //Debug.Log(pointInPath.Current);
 
         //Make sure there is a point to move to
         if (pointInPath.Current == null)
@@ -68,10 +68,11 @@ public class FollowPath : MonoBehaviour
         if (Type == MovementType.MoveTowards && !attacking) //If you are using MoveTowards movement type
         {
             //Move to the next point in path using MoveTowards
-            rb2d.MovePosition(
+            transform.position=
                 Vector3.MoveTowards(transform.position,
                                     pointInPath.Current.position,
-                                    Time.deltaTime * Speed));
+                                    Time.deltaTime * Speed);
+
         }
         else if (Type == MovementType.LerpTowards) //If you are using LerpTowards movement type
         {

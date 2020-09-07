@@ -282,7 +282,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treasure: {fileID: 0}
   codeScreen: {fileID: 0}
-  player: {fileID: 0}
   network: {fileID: 0}
 --- !u!114 &1315438141972609
 MonoBehaviour:
@@ -298,10 +297,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myField: {fileID: 0}
   osText: {fileID: 0}
-  chest: {fileID: 2591344396503709092}
-  network: {fileID: 0}
-  timer: {fileID: 0}
-  securityLvl: 0
 --- !u!114 &121259462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,7 +313,7 @@ MonoBehaviour:
   holdDuration: 1
   multipleUse: 0
   isInteractable: 1
-  tooltipMessage: (F) ACCESS CHEST
+  tooltipMessage: (E) ACCESS CHEST
 --- !u!1 &2591183424048606843
 GameObject:
   m_ObjectHideFlags: 0

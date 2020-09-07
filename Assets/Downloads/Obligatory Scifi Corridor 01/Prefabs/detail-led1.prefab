@@ -290,6 +290,8 @@ GameObject:
   - component: {fileID: 6453104}
   - component: {fileID: 1341016869}
   - component: {fileID: 4051128653807674020}
+  - component: {fileID: 51712758}
+  - component: {fileID: 51712759}
   m_Layer: 10
   m_Name: detail-led1
   m_TagString: Interactable
@@ -306,7 +308,7 @@ Transform:
   m_GameObject: {fileID: 195538}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.79, y: 0.061758548, z: 4.59}
-  m_LocalScale: {x: 2.2348874, y: 2.2348874, z: 9.757295}
+  m_LocalScale: {x: 2.2348888, y: 3.2439978, z: 9.7572975}
   m_Children:
   - {fileID: 481820}
   - {fileID: 437770}
@@ -401,3 +403,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
   failedtxt: {fileID: 0}
+--- !u!208 &51712758
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195538}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.045, y: 0.045, z: 0.011000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &51712759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d9de6c2cdff324fac7fd8f67875e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdInteract: 0
+  holdDuration: 1
+  multipleUse: 0
+  isInteractable: 1
+  tooltipMessage: (E) USE ELEVATOR
