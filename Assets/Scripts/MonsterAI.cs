@@ -28,10 +28,17 @@ public class MonsterAI : MonoBehaviour
     public bool isPlayerOpenDoor = false;
     public GameObject actualDoor;
     [SerializeField] GameObject chest;
-    [SerializeField] TypingInput alarm;
+    [SerializeField] TypingInput chestAlarm;
+    [SerializeField] GameObject computer;
+    [SerializeField] TypingInput computerAlarm;
+    [SerializeField] GameObject terminal;
+    [SerializeField] Lockpicking terminalAlarm;
+    [SerializeField] SkinnedMeshRenderer monsterMesh;
 
     void Start()
     {
+
+        monsterMesh.enabled = false;
         prevPosition = transform.position;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
@@ -53,40 +60,57 @@ public class MonsterAI : MonoBehaviour
         checkIsDoorBlocked();
         checkPlayerDetection();
         rotateMonster();
-        if(!alarm.isAlarm)
+        showMonster();
+        if(!chestAlarm.isAlarm && !computerAlarm.isAlarm && !terminalAlarm.isAlarm)
         {
             if (makeNewTarget())
             {
-                print("5");
-                print(newSpot);
                 setNewPointDestinationToMoster();
             }
         }
-      
         moveMonster();
 
+    }
+
+    private void showMonster()
+    {
+        if(Vector3.Distance(transform.position, player.transform.position) < 2f)
+        {
+            monsterMesh.enabled = true;
+        }
+        else
+        {
+            monsterMesh.enabled = false;
+        }
     }
 
     private void moveMonster()
     {
         if (isPlayerOpenDoor)
         {
-            print("1");
             prepareMonsterRunToDoor(actualDoor);
         }
-        else if (alarm.isAlarm)
+        else if (chestAlarm.isAlarm)
         {
-            print("2");
-            prepareMonsterRunToDoor(chest);
+            prepareMonsterCheckAlarm(chest);
+            turnOffAlarm();
+        }
+        else if (computerAlarm.isAlarm)
+        {
+            prepareMonsterCheckAlarm(computer);
+            turnOffAlarm();
+        }
+        else if (terminalAlarm.isAlarm)
+        {
+            prepareMonsterCheckAlarm(terminal);
+            turnOffAlarm();
         }
         else if (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
         {
-            print("3");
             prepareMonsterToRun();
         }
         else
         {
-            print("4");
             if (isStay)
             {
                 isPlayerDetect = false;
@@ -99,7 +123,29 @@ public class MonsterAI : MonoBehaviour
         }
     }
 
-    public void prepareMonsterCheckAlarm()
+    void turnOffAlarm()
+    {
+        if (Vector3.Distance(transform.position, chest.transform.position) < 1.5f)
+        {
+            chestAlarm.isAlarm = false;
+            chestAlarm.alarm.Stop();
+            StartCoroutine("stayAndObserve");
+        }
+        if (Vector3.Distance(transform.position, computer.transform.position) < 1.5f)
+        {
+            computerAlarm.isAlarm = false;
+            computerAlarm.alarm.Stop();
+            StartCoroutine("stayAndObserve");
+        }
+        if (Vector3.Distance(transform.position, terminal.transform.position) < 2f)
+        {
+            terminalAlarm.isAlarm = false;
+            terminalAlarm.alarm.Stop();
+            StartCoroutine("stayAndObserve");
+        }
+    }
+
+    public void prepareMonsterCheckAlarm(GameObject alarmSource)
     {
         if (!charge)
         {
@@ -112,17 +158,18 @@ public class MonsterAI : MonoBehaviour
         }
         else
         {
-            startMonsterRunToAlarm();
+            startMonsterRunToAlarm(alarmSource);
         }
     }
 
-    private void startMonsterRunToAlarm()
+    private void startMonsterRunToAlarm(GameObject alarmSource)
     {
         agent.speed = runSpeed;
         anim.runtimeAnimatorController = runAnim;
         float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move
-        agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(chest.transform.position.x, transform.position.y, chest.transform.position.z), step));
+        agent.SetDestination(alarmSource.transform.position);
         rotateMonster();
+
     }
 
 
@@ -242,10 +289,10 @@ public class MonsterAI : MonoBehaviour
 
     private bool makeNewTarget()
     {
-        float radiusAroundTargetPoint = 1f;
+        float radiusAroundTargetPoint = 1.5f;
         if(agent.remainingDistance <= (agent.stoppingDistance + radiusAroundTargetPoint))
         {
-            if (agent.speed != runSpeed)
+            if (agent.speed != runSpeed && !chestAlarm.isAlarm && !computerAlarm.isAlarm && !terminalAlarm.isAlarm)
             {
                 StartCoroutine("stayAndObserve");
             }

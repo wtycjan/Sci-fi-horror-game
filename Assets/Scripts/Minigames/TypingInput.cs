@@ -17,6 +17,7 @@ public class TypingInput : MonoBehaviour
     private string resetText;
     private Vector3 inputPosition;
     public bool isAlarm = false;
+    public AudioSource alarm;
     void Start()
     {
         commands = new Dictionary<string, System.Action<string, string>>();
@@ -181,7 +182,7 @@ public class TypingInput : MonoBehaviour
     public void Alarm()
     {
         isAlarm = true;
-        Debug.Log("Alarm");
+        alarm.Play();
         myField.gameObject.SetActive(true);
         osText.text = resetText;
         tipText.text = "";

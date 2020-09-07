@@ -9,6 +9,8 @@ public class GuitarHeroCircle : MonoBehaviour
     private bool isClickable = false;
     private GameObject ball;
     private LockpickingGame lockpick;
+    [SerializeField] Lockpicking terminalAlarm;
+
     void Start()
     {
         col = GetComponent<CircleCollider2D>();
@@ -34,7 +36,11 @@ public class GuitarHeroCircle : MonoBehaviour
             lockpick.open--;
         }
         else
+        {
+            terminalAlarm.Alarm();
             lockpick.StopGame();
+        }
+
 
     }
     private IEnumerator animControl()
