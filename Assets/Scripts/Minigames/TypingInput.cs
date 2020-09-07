@@ -10,11 +10,12 @@ public class TypingInput : MonoBehaviour
     public InputField myField;
     public Text osText;
     private Dictionary<string, System.Action<string, string>> commands;
+    public bool isAlarm = false;
+    public AudioSource alarm;
     void Start()
     {
         commands = new Dictionary<string, System.Action<string, string>>();
         commands.Add(GameData.password1, UnlockChest);
-
         // Listen when the inputfield is validated
         myField.onEndEdit.AddListener(OnEndEdit);
     }
@@ -25,7 +26,7 @@ public class TypingInput : MonoBehaviour
         {
             StartTyping();
             Stop();
-        }    
+        }
     }
     private void OnEndEdit(string input)
     {
@@ -38,7 +39,7 @@ public class TypingInput : MonoBehaviour
         // Find the command
         foreach (var item in commands)
         {
-            if (item.Key.Equals(input)) 
+            if (item.Key.Equals(input))
             {
                 commandFound = true;
                 item.Value(item.Key, input);
@@ -49,9 +50,9 @@ public class TypingInput : MonoBehaviour
         // Do something if the command has not been found
         if (!commandFound)
         {
-            print("no coommand");
+            Alarm();
         }
-            
+
 
         // Clear the input field (if you want)
         myField.text = "";
@@ -71,5 +72,11 @@ public class TypingInput : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             SendMessage("Close");
+    }
+    public void Alarm()
+    {
+        isAlarm = true;
+        alarm.Play();
+        SendMessage("Close");
     }
 }

@@ -8,6 +8,7 @@ public class HackingGame : MonoBehaviour
     private TimerHacking timer;
     public GameObject player;
     public NetworkServerUI network;
+    [SerializeField] Tablet tablet;
     private string phrase, phrase1= "system.Override();", phrase2="firewall.Bypass();", phrase3="mainframe.DisableAlgorithms();", phrase4="kernel.GrantAccess();";
     string[] Alphabet;
     public int securityLvl=1;
@@ -28,7 +29,10 @@ public class HackingGame : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Return) && !stop)
         {
-            EnterCommand(inputText.text.Substring(inputText.text.Length-phrase.Length));
+            if(phrase==phrase1)
+                EnterCommand(inputText.text);
+            else
+             EnterCommand(inputText.text.Substring(inputText.text.Length-phrase.Length));
         }
         else if (Input.GetKeyDown(KeyCode.Backspace) && lettersTyped>0)
         {
@@ -181,7 +185,7 @@ public class HackingGame : MonoBehaviour
     //Stop Hacking
     public void Alarm()
     {
-        Debug.Log("Alarm");
+        tablet.Alarm();
         Close();
     }
     void Close()

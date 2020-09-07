@@ -30,7 +30,7 @@ public class MonsterAI : MonoBehaviour
     [SerializeField] GameObject chest;
     [SerializeField] TypingInput chestAlarm;
     [SerializeField] GameObject computer;
-    [SerializeField] TypingInput computerAlarm;
+    [SerializeField] Tablet computerAlarm;
     [SerializeField] GameObject terminal;
     [SerializeField] Lockpicking terminalAlarm;
     [SerializeField] SkinnedMeshRenderer monsterMesh;
@@ -192,19 +192,19 @@ public class MonsterAI : MonoBehaviour
     {
         if (playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsRunning && !playerMovement.movementInputData.IsCrouching)
         {
-            detectionRange = 10f;
+            detectionRange = 12f;
         }
-        else if(playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsCrouching)
+        else if ((playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsCrouching) || (!playerMovement.movementInputData.HasInput && !playerMovement.isHoldingBreath))
         {
-            detectionRange = 2f;
+            detectionRange = 4.5f;
         }
-        else if(!playerMovement.movementInputData.HasInput)
+        else if (!playerMovement.movementInputData.HasInput && playerMovement.isHoldingBreath)
         {
             detectionRange = 0f;
         }
         else
         {
-            detectionRange = 5f;
+            detectionRange = 6.7f;
         }
     }
 
@@ -262,6 +262,7 @@ public class MonsterAI : MonoBehaviour
 
     private void startMonsterRunToDoor(GameObject targetObject)
     {
+        isPlayerDetect = false;
         agent.speed = runSpeed;
         anim.runtimeAnimatorController = runAnim;
         float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move
@@ -282,7 +283,7 @@ public class MonsterAI : MonoBehaviour
 
     private void setNewPointDestinationToMoster()
     {
-
+        isPlayerDetect = false;
         newSpot = Spots[UnityEngine.Random.Range(startSpotsIndex, Spots.Count)];
         agent.SetDestination(newSpot.transform.position);
     }

@@ -9,7 +9,7 @@ public class SpiderControl : MonoBehaviour
     void Start()
     {
         prevPosition = transform.position;
-        Destroy(gameObject, 2.5f);
+        Destroy(gameObject, 2.2f);
     }
 
     // Update is called once per frame

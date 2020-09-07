@@ -10,6 +10,8 @@ TagManager:
   - PlayerSounds
   - PlayerSounds2
   - Ball
+  - Enemy
+  - MusicController
   layers:
   - Default
   - TransparentFX

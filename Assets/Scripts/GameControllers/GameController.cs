@@ -27,10 +27,10 @@ public class GameController : MonoBehaviour
     private Sounds sound;
     private bool cutscene = false, cameraCutscene = false;
     Quaternion startRot, endRot;
-    [SerializeField] TypingInput tp;
+   /* [SerializeField] TypingInput tp;
     [SerializeField] TypingInput ctp;
     [SerializeField] Lockpicking gtp;
-
+    */
     private void Awake()
     {
         GameData.password1= RandomPassword();
@@ -60,44 +60,44 @@ public class GameController : MonoBehaviour
             OpenDoor4();
         if (Input.GetKeyDown("5"))
             OpenDoor5();
-        if (Input.GetKeyDown("b"))
+        /* if (Input.GetKeyDown("b"))
+         {
+             tp.Alarm();
+             GameData.door1 = true;
+             tp.isAlarm = true;
+         }
+        if (Input.GetKeyDown("g"))
         {
-            tp.Alarm();
-            GameData.door1 = true;
-            tp.isAlarm = true;
+             tp.isAlarm = false;
+             GameData.door1 = false; 
         }
-       if (Input.GetKeyDown("g"))
-       {
-            tp.isAlarm = false;
-            GameData.door1 = false; 
-       }
-        if (Input.GetKeyDown("n"))
-        {
-            ctp.Alarm();
-            GameData.door1 = true;
-            ctp.isAlarm = true;
-        }
-        if (Input.GetKeyDown("h"))
-        {
-            ctp.isAlarm = false;
-            GameData.door1 = false;
-        }
-        if (Input.GetKeyDown("m"))
-        {
-            GameData.door1 = true;
-            gtp.isAlarm = true;
-            gtp.alarm.Play();
-        }
-        if (Input.GetKeyDown("j"))
-        {
-            gtp.isAlarm = false;
-            GameData.door1 = false;
-            gtp.alarm.Stop();
-        }
+         if (Input.GetKeyDown("n"))
+         {
+             ctp.Alarm();
+             GameData.door1 = true;
+             ctp.isAlarm = true;
+         }
+         if (Input.GetKeyDown("h"))
+         {
+             ctp.isAlarm = false;
+             GameData.door1 = false;
+         }
+         if (Input.GetKeyDown("m"))
+         {
+             GameData.door1 = true;
+             gtp.isAlarm = true;
+             gtp.alarm.Play();
+         }
+         if (Input.GetKeyDown("j"))
+         {
+             gtp.isAlarm = false;
+             GameData.door1 = false;
+             gtp.alarm.Stop();
+         }*/
 
-
+            
         //death
-        if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene /*&& monster.isPlayerDetect*/ )
+        if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene && monster.isPlayerDetect )
         {
             StartCoroutine("Death");
         }

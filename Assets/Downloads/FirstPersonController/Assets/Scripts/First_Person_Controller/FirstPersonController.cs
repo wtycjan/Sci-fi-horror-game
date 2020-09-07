@@ -603,16 +603,26 @@ namespace VHS
             if (Input.GetKeyDown(KeyCode.Q) && breath<1)
             {
                 m_cameraController.ChangeRunFOV(false);
-                sounds2.Sound2();
+                if(!sounds2.IsPlaying())
+                    sounds2.Sound2();
                 isHoldingBreath = true;
             }
             else if (( Input.GetKeyUp(KeyCode.Q) && isHoldingBreath) || breath > 7)
             {
                 m_cameraController.ChangeRunFOV(true);
                 if (breath > 5)
-                    sounds2.Sound4();
+                {
+                    if (!sounds2.IsPlaying())
+                        sounds2.Sound4();
+                }
                 else
-                    sounds2.Sound3();
+                    {
+                    if (!sounds2.IsPlaying())
+                    {
+                        sounds2.Sound3();
+                    }
+                }
+                    
                 isHoldingBreath = false;
             }
 
