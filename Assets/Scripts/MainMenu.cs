@@ -5,9 +5,10 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Net;
 using System.Net.Sockets;
+using TMPro;
 public class MainMenu : MonoBehaviour
 {
-    public Text ip;
+    public TextMeshProUGUI ip;
     public GameObject canvas;
     public GameObject blackScreen;
     public AudioSource sounds;
@@ -33,7 +34,10 @@ public class MainMenu : MonoBehaviour
     {
         StartCoroutine("BeginGame");
     }
-
+    public void QuitButton()
+    {
+        Application.Quit();
+    }
     public string LocalIPAddress()
     {
         IPHostEntry host;
