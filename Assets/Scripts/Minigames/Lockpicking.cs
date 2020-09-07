@@ -8,6 +8,8 @@ public class Lockpicking : MonoBehaviour
     public Image codeScreen;
     public Material openMaterial;
     public int securityLvl = 1;
+    public bool isAlarm = false;
+    public AudioSource alarm;
 
     public void Interact()
     {
@@ -27,5 +29,11 @@ public class Lockpicking : MonoBehaviour
     {
         codeScreen.gameObject.SetActive(true);
         codeScreen.BroadcastMessage("BeginGame",securityLvl);
+    }
+
+    public void Alarm()
+    {
+        isAlarm = true;
+        alarm.Play();
     }
 }
