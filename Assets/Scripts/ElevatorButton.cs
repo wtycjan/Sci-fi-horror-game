@@ -8,6 +8,7 @@ public class ElevatorButton : MonoBehaviour
     bool interacting = false;
     public GameController gameController;
     public Text failedtxt;
+    public GameObject blackScreen; //end credits
     private Sounds sound;
     private void Start()
     {
@@ -24,8 +25,7 @@ public class ElevatorButton : MonoBehaviour
         interacting = true;
         if (GameData.level1)
         {
-            gameController.StartCoroutine("Restart");
-            sound.Sound5();
+            blackScreen.SetActive(true);
         }
             
         else

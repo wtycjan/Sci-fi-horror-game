@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using System;
 using System.Text;
 using VHS;
-
+using UnityEngine.Rendering.PostProcessing;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject door1;
@@ -18,14 +19,16 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject redButton;
     [SerializeField] private GameObject yellowButton;
     [SerializeField] private GameObject blueButton;
-    public Image blackScreen;
-    public Image blackScreen2;
+    public Image blackScreen;   //death
+    public Image blackScreen2; //intro
+    public GameObject pauseMenu;
     public MonsterAI monster;
     private FirstPersonController player;
     public RuntimeAnimatorController jumpAnim;
     public NetworkServerUI network;
     private Sounds sound;
-    private bool cutscene = false, cameraCutscene = false;
+    public bool cutscene = false;
+    private bool cameraCutscene = false;
     Quaternion startRot, endRot;
    /* [SerializeField] TypingInput tp;
     [SerializeField] TypingInput ctp;
@@ -44,7 +47,7 @@ public class GameController : MonoBehaviour
         StartCoroutine("UpdatePosition");
         //*************************
         //Enable before building
-        //StartCoroutine("Intro");
+        StartCoroutine("Intro");
         //*************************
     }
     private void Update()
@@ -104,6 +107,16 @@ public class GameController : MonoBehaviour
         if (player.transform.rotation != endRot && cameraCutscene)
             player.transform.rotation = Quaternion.Slerp(player.transform.rotation, Quaternion.AngleAxis(90, Vector3.left), Time.deltaTime * 2f);
 
+        //pause
+        if(Input.GetKeyDown(KeyCode.Escape) && GameData.canPause)
+        {
+            pauseMenu.SetActive(true);
+            GameData.canPause = false;
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
     }
     public IEnumerator Intro()
     {
@@ -112,6 +125,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(12f);
         Destroy(blackScreen2);
         OpenDoor5();
+        GameData.canPause = true;
     }
 
     void OpenDoor1()
@@ -137,14 +151,16 @@ public class GameController : MonoBehaviour
 
     public IEnumerator Death()
     {
+        GameData.canPause = false;
         cutscene = true;
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
         {
-            if (c == null)
+            if (c == null || c.gameObject.tag == "MainCamera")
             {
                 continue;
             }
+
             c.enabled = false;
         }
         MonoBehaviour[] scripts2 = monster.GetComponentsInChildren<MonoBehaviour>();
@@ -156,6 +172,7 @@ public class GameController : MonoBehaviour
             }
             c.enabled = false;
         }
+        monster.GetComponent<NavMeshAgent>().enabled = false;
         Vector3 lookpoint = monster.GetComponentInChildren<BoxCollider>().transform.position;
         player.transform.LookAt(lookpoint);
         lookpoint = player.GetComponentInChildren<BoxCollider>().transform.position;
@@ -166,7 +183,7 @@ public class GameController : MonoBehaviour
         sound.Sound1();
         yield return new WaitForSeconds(.05f);
         monster.GetComponent<Animator>().runtimeAnimatorController = jumpAnim;
-        monster.GetComponent<Rigidbody>().AddForce(monster.transform.forward* 100);
+        monster.GetComponent<Rigidbody>().AddForce(monster.transform.forward* 200);
         yield return new WaitForSeconds(.3f);
         sound.Sound2();
         cameraCutscene = true;

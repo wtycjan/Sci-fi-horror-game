@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 public class HackingGame : MonoBehaviour
 {
     public Text inputText;
@@ -174,13 +175,14 @@ public class HackingGame : MonoBehaviour
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
         {
-            if (c == null)
+            if (c == null || c.gameObject.tag == "MainCamera")
             {
                 continue;
             }
             c.enabled = false;
         }
         network.ServerSendMessage("OpenHelp");
+        GameData.canPause = false;
     }
     //Stop Hacking
     public void Alarm()
@@ -209,5 +211,6 @@ public class HackingGame : MonoBehaviour
         timer.timer = 0;
         timer.isCounting = false;
         gameObject.SetActive(false);
+        GameData.canPause = true;
     }
 }

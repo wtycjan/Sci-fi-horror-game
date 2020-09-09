@@ -9,10 +9,12 @@ public class GuitarHeroCircle : MonoBehaviour
     private bool isClickable = false;
     private GameObject ball;
     private LockpickingGame lockpick;
+    private Sounds sound;
     [SerializeField] Lockpicking terminalAlarm;
 
     void Start()
     {
+        sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
         col = GetComponent<CircleCollider2D>();
         anim = GetComponent<Animator>();
         lockpick = GetComponentInParent<LockpickingGame>();
@@ -34,6 +36,7 @@ public class GuitarHeroCircle : MonoBehaviour
         {
             Destroy(ball);
             lockpick.open--;
+            sound.Sound7();
         }
         else
         {

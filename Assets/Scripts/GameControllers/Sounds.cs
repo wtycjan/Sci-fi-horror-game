@@ -9,6 +9,9 @@ public class Sounds : MonoBehaviour
     public AudioClip sound3;
     public AudioClip sound4;
     public AudioClip sound5;
+    public AudioClip sound6;
+    public AudioClip sound7;
+    public AudioClip sound8;
     public AudioSource audioSource;
     void Start()
     {
@@ -35,6 +38,18 @@ public class Sounds : MonoBehaviour
     public void Sound5()
     {
         audioSource.PlayOneShot(sound5);
+    }
+    public void Sound6()
+    {
+        audioSource.PlayOneShot(sound6);
+    }
+    public void Sound7()
+    {
+        audioSource.PlayOneShot(sound7);
+    }
+    public void Sound8()
+    {
+        audioSource.PlayOneShot(sound8);
     }
     public void Sound1Loop()
     {

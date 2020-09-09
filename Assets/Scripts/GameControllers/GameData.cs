@@ -6,4 +6,5 @@
     public static string password1 = "";
     //door1 access
     public static bool door1 = false;
+    public static bool canPause = false;     //false
 }

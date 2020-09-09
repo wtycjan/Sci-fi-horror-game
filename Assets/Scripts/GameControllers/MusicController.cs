@@ -34,7 +34,7 @@ public class MusicController : MonoBehaviour
     private IEnumerator Wait()
     {
         yield return new WaitForSeconds(.4f);
-        music.audioSource.volume = .1f;
+        music.audioSource.volume = .15f;
         music.Sound1Loop();
     }
 }

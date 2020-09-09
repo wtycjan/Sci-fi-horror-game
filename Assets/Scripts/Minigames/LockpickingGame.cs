@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 public class LockpickingGame : MonoBehaviour
 {
     public GameObject prefabBall;
@@ -9,10 +10,15 @@ public class LockpickingGame : MonoBehaviour
     public GameObject player;
     public NetworkServerUI network;
     public Image codeScreen;
+    private Sounds sound;
     bool lockpicking = false;
     public int open;
     private int ball;
 
+    private void Start()
+    {
+        sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
+    }
     // Update is called once per frame
     private void Update()
     {
@@ -39,6 +45,7 @@ public class LockpickingGame : MonoBehaviour
         }
         codeScreen.gameObject.SetActive(false);
         network.ServerSendMessage("CloseLockpicking");
+        GameData.canPause = true;
     }
     void BeginGame(int x)
     {
@@ -47,7 +54,7 @@ public class LockpickingGame : MonoBehaviour
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
         {
-            if (c == null)
+            if (c == null || c.gameObject.tag == "MainCamera")
             {
                 continue;
             }
@@ -58,7 +65,8 @@ public class LockpickingGame : MonoBehaviour
         ball = x * 3 + 2;
         open = ball;
         StartCoroutine("BeginGame2");
-        
+        GameData.canPause = false;
+
     }
     public void DestroyBalls()
     {
@@ -73,6 +81,7 @@ public class LockpickingGame : MonoBehaviour
         {
             GameData.door1 = true;
             network.ServerSendMessage("UnlockDoor1");
+            sound.Sound8();
         }
         Close();
     }

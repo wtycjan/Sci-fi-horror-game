@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 public class Chest : MonoBehaviour
 {
     Animation anim;
@@ -32,7 +33,7 @@ public class Chest : MonoBehaviour
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
         {
-            if (c == null)
+            if (c == null || c.gameObject.tag == "MainCamera")
             {
                 continue;
             }
@@ -41,6 +42,7 @@ public class Chest : MonoBehaviour
 
         codeScreen.gameObject.SetActive(true);
         network.ServerSendMessage("OpenPasswords");
+        GameData.canPause = false;
     }
     public void Close()
     {
@@ -55,5 +57,6 @@ public class Chest : MonoBehaviour
         }
         codeScreen.gameObject.SetActive(false);
         network.ServerSendMessage("ClosePasswords");
+        GameData.canPause = true;
     }
 }
