@@ -13,10 +13,14 @@ public class JumpScare1 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        screen1.SetActive(false);
-        screen2.SetActive(false);
-        screen3.SetActive(false);
-        sound.Sound6();
-        Destroy(gameObject);
+        if(other.gameObject.tag=="Player")
+        {
+            screen1.SetActive(false);
+            screen2.SetActive(false);
+            screen3.SetActive(false);
+            sound.Sound6();
+            Destroy(gameObject);
+        }
+
     }
 }

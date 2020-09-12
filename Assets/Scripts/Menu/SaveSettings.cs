@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-
+using TMPro;
 
 
 
@@ -15,8 +15,8 @@ public class SaveSettings : MonoBehaviour
     [SerializeField] public Slider volumeSliderSound;
     [SerializeField] public Slider volumeSliderMusic;
     [SerializeField] public Toggle enableFullscreen;
-    [SerializeField] public Dropdown resolutionDropdown;
-    [SerializeField] public Dropdown graphicsDropdown;
+    [SerializeField] public TMP_Dropdown resolutionDropdown;
+    [SerializeField] public TMP_Dropdown graphicsDropdown;
 
     #region Player Pref Key Constants
 

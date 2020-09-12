@@ -41,7 +41,8 @@ AudioSource:
   m_GameObject: {fileID: 1534965302}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 9d319c2a8a49402449ef614ca01442b3,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -145,6 +146,9 @@ MonoBehaviour:
   sound3: {fileID: 8300000, guid: e0f2b8eb1be053447a6c2489dcad2ec1, type: 3}
   sound4: {fileID: 8300000, guid: 467c604aca21b3e42b261d7f86004a18, type: 3}
   sound5: {fileID: 0}
+  sound6: {fileID: 0}
+  sound7: {fileID: 0}
+  sound8: {fileID: 0}
   audioSource: {fileID: 1534965305}
 --- !u!1 &1734749122
 GameObject:
@@ -187,7 +191,8 @@ AudioSource:
   m_GameObject: {fileID: 1734749122}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 9d319c2a8a49402449ef614ca01442b3,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -291,6 +296,9 @@ MonoBehaviour:
   sound3: {fileID: 0}
   sound4: {fileID: 0}
   sound5: {fileID: 0}
+  sound6: {fileID: 0}
+  sound7: {fileID: 0}
+  sound8: {fileID: 0}
   audioSource: {fileID: 1734749125}
 --- !u!1 &1967861639
 GameObject:
@@ -544,7 +552,7 @@ Light:
   m_SpotAngle: 55
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -579,7 +587,7 @@ GameObject:
   - component: {fileID: 7412956538032912234}
   - component: {fileID: 7412956538032912241}
   - component: {fileID: 7412956538032912237}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -659,7 +667,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7412956538032912235}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
@@ -800,8 +808,8 @@ MonoBehaviour:
   movementInputData: {fileID: 11400000, guid: abad080c0665fdc4cb00444da1f990a9, type: 2}
   headBobData: {fileID: 11400000, guid: fd51ede42cc20a04da93c2d2fac1e05c, type: 2}
   crouchSpeed: 0.5
-  walkSpeed: 2
-  runSpeed: 6
+  walkSpeed: 1.7
+  runSpeed: 6.5
   jumpSpeed: 6
   moveBackwardsSpeedPercent: 0.7
   moveSideSpeedPercent: 0.85
@@ -955,7 +963,7 @@ MonoBehaviour:
     type: 2}
   interactionData: {fileID: 11400000, guid: 229de2e6b9a896344928fb2041804439, type: 2}
   uiPanel: {fileID: 0}
-  rayDistance: 2
+  rayDistance: 2.5
   raySphereRadius: 0.3
   interactableLayer:
     serializedVersion: 2

@@ -19,12 +19,15 @@ public class MainMenu : MonoBehaviour
     {
         ip.text = LocalIPAddress();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
     private void Update()
     {
         if(start)
         {
-            mainCamera.transform.Translate(mainCamera.transform.right * speed * Time.deltaTime, Space.Self);
+            mainCamera.transform.Translate(mainCamera.transform.right * speed/2 * Time.deltaTime, Space.Self);
+            mainCamera.transform.Translate(mainCamera.transform.up * speed / -5 * Time.deltaTime, Space.Self);
             mainCamera.transform.Translate(mainCamera.transform.forward * speed * Time.deltaTime, Space.Self);
             speed += .03f;
         }
@@ -32,7 +35,9 @@ public class MainMenu : MonoBehaviour
     }
     public void PlayButton()
     {
+        print("0");
         StartCoroutine("BeginGame");
+        print("0.5");
     }
     public void QuitButton()
     {
@@ -53,17 +58,27 @@ public class MainMenu : MonoBehaviour
         }
         return localIP;
     }
-    private IEnumerator BeginGame()
+    public IEnumerator BeginGame()
     {
+        print("sttart");
         StartCoroutine(AudioFadeOut.FadeOut(sounds, .4f));
+        print("1");
         yield return new WaitForSeconds(.5f);
+        print("2");
         sounds.GetComponent<Sounds>().Sound1();
+        print("3");
         canvas.SetActive(false);
+        print("4");
         start = true;
+        print("5");
         mainCamera.enabled = true;
+        print("6");
         yield return new WaitForSeconds(2.15f);
+        print("7");
         blackScreen.SetActive(true);
+        print("8");
         yield return new WaitForSeconds(1);
+        print("9");
         SceneManager.LoadScene(1);
     }
 }
