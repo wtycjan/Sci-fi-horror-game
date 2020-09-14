@@ -10,34 +10,55 @@ public class OpenDoorHandler : MonoBehaviour
     [SerializeField] private GameObject door3;
     [SerializeField] private GameObject door4;
     [SerializeField] private GameObject door5;
+    private bool isDoorOpeningNow = true;
  
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "Door (1)")
         {
+            while(isDoorOpeningNow)
+            {
+                StartCoroutine(allowOpenDoorOnce());
+                StartCoroutine(playOrStopAnimation());
+                door1.SendMessage("openMonsterDoor");
+            }
             
-            StartCoroutine(playOrStopAnimation());
-            door1.SendMessage("openMonsterDoor");
         }
         else if (collision.gameObject.name == "Door (2)")
         {
-            StartCoroutine(playOrStopAnimation());
-            door2.SendMessage("openMonsterDoor");
+            while (isDoorOpeningNow)
+            {
+                StartCoroutine(allowOpenDoorOnce());
+                StartCoroutine(playOrStopAnimation());
+                door2.SendMessage("openMonsterDoor");
+            }
         }
         else if (collision.gameObject.name == "Door (3)")
         {
-            StartCoroutine(playOrStopAnimation());
-            door3.SendMessage("openMonsterDoor");
+            while (isDoorOpeningNow)
+            {
+                StartCoroutine(allowOpenDoorOnce());
+                StartCoroutine(playOrStopAnimation());
+                door3.SendMessage("openMonsterDoor");
+            }
         }
         else if (collision.gameObject.name == "Door (4)")
         {
-            StartCoroutine(playOrStopAnimation());
-            door4.SendMessage("openMonsterDoor");
+            while (isDoorOpeningNow)
+            {
+                StartCoroutine(allowOpenDoorOnce());
+                StartCoroutine(playOrStopAnimation());
+                door4.SendMessage("openMonsterDoor");
+            }
         }
         else if (collision.gameObject.name == "Door (5)")
         {
-            StartCoroutine(playOrStopAnimation());
-            door5.SendMessage("openMonsterDoor");
+            while (isDoorOpeningNow)
+            {
+                StartCoroutine(allowOpenDoorOnce());
+                StartCoroutine(playOrStopAnimation());
+                door5.SendMessage("openMonsterDoor");
+            }
         }
         else
         {
@@ -55,6 +76,14 @@ public class OpenDoorHandler : MonoBehaviour
         
         SendMessage("prepareMonsterToWalk");
         gameObject.GetComponent<NavMeshAgent>().isStopped = false;
+    }
+
+    IEnumerator allowOpenDoorOnce()
+    {
+        isDoorOpeningNow = false;
+        yield return new WaitForSeconds(2f);
+        isDoorOpeningNow = true;
+
     }
     
 }
