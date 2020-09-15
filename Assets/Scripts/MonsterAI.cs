@@ -38,7 +38,7 @@ public class MonsterAI : MonoBehaviour
     void Start()
     {
 
-        monsterMesh.enabled = false;
+        //monsterMesh.enabled = false;
         prevPosition = transform.position;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
@@ -60,7 +60,7 @@ public class MonsterAI : MonoBehaviour
         checkIsDoorBlocked();
         checkPlayerDetection();
         rotateMonster();
-        showMonster();
+        //showMonster();
         if(!chestAlarm.isAlarm && !computerAlarm.isAlarm && !terminalAlarm.isAlarm)
         {
             if (makeNewTarget())
