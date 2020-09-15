@@ -75,7 +75,8 @@ public class OpenDoorButton : MonoBehaviour
 
     public IEnumerator CloseDoor()
     {
-        if(isMonsterCheckOpenDoor)
+        print("close");
+        if (isMonsterCheckOpenDoor)
         {
             isMonsterCheckOpenDoor = false;
         }
@@ -91,6 +92,7 @@ public class OpenDoorButton : MonoBehaviour
     }
     private void openMonsterDoor()
     {
+        print("monster down");
         StartCoroutine(OpenDoor());
         isMonsterInDoorRange = false;
         isMonsterNearbyAndOpen = true;

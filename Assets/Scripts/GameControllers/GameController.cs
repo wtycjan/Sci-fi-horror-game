@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject redButton;
     [SerializeField] private GameObject yellowButton;
     [SerializeField] private GameObject blueButton;
+    [SerializeField] private ParticleSystem[] deathEffects;
     public Image blackScreen;   //death
     public Image blackScreen2; //intro
     public GameObject pauseMenu;
@@ -63,6 +64,11 @@ public class GameController : MonoBehaviour
             OpenDoor4();
         if (Input.GetKeyDown("5"))
             OpenDoor5();
+        if (Input.GetKeyDown("9"))
+        {
+            turnOnDeathEffects();
+        }
+
         /* if (Input.GetKeyDown("b"))
          {
              tp.Alarm();
@@ -98,7 +104,7 @@ public class GameController : MonoBehaviour
              gtp.alarm.Stop();
          }*/
 
-            
+
         //death
         if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene && monster.isPlayerDetect )
         {
@@ -118,6 +124,15 @@ public class GameController : MonoBehaviour
         }
 
     }
+
+    private void turnOnDeathEffects()
+    {
+        foreach (ParticleSystem deathEffect in deathEffects)
+        {
+            deathEffect.Play();
+        }
+    }
+
     public IEnumerator Intro()
     {
         sound.Sound5();
@@ -185,6 +200,7 @@ public class GameController : MonoBehaviour
         monster.GetComponent<Animator>().runtimeAnimatorController = jumpAnim;
         monster.GetComponent<Rigidbody>().AddForce(monster.transform.forward* 200);
         yield return new WaitForSeconds(.3f);
+        turnOnDeathEffects();
         sound.Sound2();
         cameraCutscene = true;
         yield return new WaitForSeconds(.3f);
