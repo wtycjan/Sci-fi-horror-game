@@ -13,7 +13,7 @@ public class MonsterAI : MonoBehaviour
     public RuntimeAnimatorController idleAnim;
     NavMeshAgent agent;
     private Sounds sound;
-    public float runSpeed = 5f, normalSpeed = 1.5f;
+    public float runSpeed = 7f, normalSpeed = 1.5f;
     public float detectionRange = 2f;
     private Vector3 deltaPosition, prevPosition;
     private bool scream = false, charge = false, stop = false, isStay = false;
@@ -221,7 +221,6 @@ public class MonsterAI : MonoBehaviour
     {
         agent.speed = 0f;
         anim.runtimeAnimatorController = idleAnim;
-        scream = false;
         charge = false;
         isStay = true;
     }
@@ -234,8 +233,7 @@ public class MonsterAI : MonoBehaviour
         }
         else if (!scream)
         {
-            sound.Sound1();
-            scream = true;
+            StartCoroutine("stayBeforeAttack");
         }
         else
         {
@@ -275,8 +273,7 @@ public class MonsterAI : MonoBehaviour
         isPlayerDetect = true;
         agent.speed = runSpeed;
         anim.runtimeAnimatorController = runAnim;
-        float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move
-        agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
+        agent.SetDestination(player.transform.position);
         rotateMonster();
         //rbd.MovePosition(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
     }
@@ -338,6 +335,15 @@ public class MonsterAI : MonoBehaviour
         yield return new WaitForSeconds(timeWaitAndObserve);
         prepareMonsterToWalk();
         agent.isStopped = false;
+    }
+    IEnumerator stayBeforeAttack()
+    {
+        agent.isStopped = true;
+        sound.Sound1();
+        prepareMonsterToStay();
+        yield return new WaitForSeconds(2f);
+        agent.isStopped = false;
+        scream = true;
     }
 }
 
