@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
-    
+    public GameObject interactText;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -12,12 +12,17 @@ public class PauseMenu : MonoBehaviour
             Resume();
         }
     }
+    private void OnEnable()
+    {
+        interactText.SetActive(false);
+    }
     public void Resume()
     {
         gameObject.SetActive(false);
         GameData.canPause = true;
         Time.timeScale = 1;
         Cursor.visible = false;
+        interactText.SetActive(true);
     }
     public void Quit()
     {

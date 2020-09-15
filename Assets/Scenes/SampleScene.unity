@@ -13261,7 +13261,7 @@ GameObject:
   - component: {fileID: 587977782}
   - component: {fileID: 587977780}
   m_Layer: 5
-  m_Name: BlackSCreen2
+  m_Name: Intro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17371,7 +17371,7 @@ GameObject:
   - component: {fileID: 741535649}
   - component: {fileID: 741535652}
   m_Layer: 5
-  m_Name: BlackSCreen3
+  m_Name: EndCredits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17477,6 +17477,7 @@ MonoBehaviour:
   interactText: {fileID: 1958581692}
   horror: {fileID: 2013839701}
   monster: {fileID: 646962975}
+  network: {fileID: 2113858537}
 --- !u!4 &743457067 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 416390, guid: c76d2d3504ddb4847940a815cad04644,
@@ -22718,11 +22719,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -33628,6 +33629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9cdbce26fdeab478fcf9212795b3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactText: {fileID: 1958581692}
 --- !u!1001 &1204997558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37479,11 +37481,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -42176,11 +42178,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -45050,7 +45052,7 @@ GameObject:
   - component: {fileID: 1688880258}
   - component: {fileID: 1688880257}
   m_Layer: 5
-  m_Name: BlackSCreen
+  m_Name: DeathScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

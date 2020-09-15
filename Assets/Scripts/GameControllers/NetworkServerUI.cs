@@ -86,6 +86,10 @@ public class NetworkServerUI : MonoBehaviour
             NetworkServer.SendToAll(888, msg);
             //Debug.Log("msg sent" + msg.value);
     }
+    public void CloseServer()
+    {
+        NetworkServer.Shutdown();
+    }
 
 
     public string LocalIPAddress()

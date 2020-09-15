@@ -197,6 +197,8 @@ public class GameController : MonoBehaviour
         blackScreen.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(3f);
+        //network.CloseServer();
+        network.ServerSendMessage("Restart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public string RandomPassword()

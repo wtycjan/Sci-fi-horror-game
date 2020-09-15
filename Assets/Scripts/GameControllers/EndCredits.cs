@@ -10,6 +10,7 @@ public class EndCredits : MonoBehaviour
     private GameObject player;
     private Sounds sound, music;
     private GameController gameController;
+    public NetworkServerUI network;
     void Start()
     {
         sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
@@ -28,6 +29,7 @@ public class EndCredits : MonoBehaviour
 
     public IEnumerator Ending()
     {
+        network.ServerSendMessage("EndCredits");
         gameController.cutscene = true;
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
@@ -40,6 +42,7 @@ public class EndCredits : MonoBehaviour
             c.enabled = false;
         }
         yield return new WaitForSeconds(.5f);
+        network.CloseServer();
         music.audioSource.volume = 1;
         music.Sound2();
         text1.SetActive(true);
