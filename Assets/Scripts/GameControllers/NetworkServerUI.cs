@@ -72,7 +72,12 @@ public class NetworkServerUI : MonoBehaviour
             case "Blue":
                 gameController.SendMessage("BlueButtonPressed");
                 break;
-
+            case "StopHackTimer":
+                gameController.SendMessage("StopHackTimer");
+                break;
+            case "StopHacking":
+                gameController.SendMessage("StopHacking");
+                break;
         }
 
 

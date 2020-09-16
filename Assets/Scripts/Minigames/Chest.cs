@@ -9,13 +9,14 @@ public class Chest : MonoBehaviour
     public GameObject treasure;
     public Image codeScreen;
     private GameObject player;
-    public NetworkServerUI network;
+    private NetworkServerUI network;
     private Sounds sounds;
     void Start()
     {
         anim = GetComponent<Animation>();
         player = GameObject.FindGameObjectWithTag("Player");
         sounds = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
+        network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
     }
     public void Interact()
     {

@@ -12,6 +12,7 @@ TagManager:
   - Ball
   - Enemy
   - MusicController
+  - NetworkManager
   layers:
   - Default
   - TransparentFX

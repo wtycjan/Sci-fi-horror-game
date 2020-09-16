@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Lockpicking : MonoBehaviour
 {
     public Image codeScreen;
+    public Image tutoralScreen;
     public Material openMaterial;
     public int securityLvl = 1;
     public bool isAlarm = false;
@@ -13,7 +14,10 @@ public class Lockpicking : MonoBehaviour
 
     public void Interact()
     {
-        Open();
+        if (GameData.lockpickingTutoral == false)
+            Tutorial();
+        else
+            Open();
     }
     void Update()
     {
@@ -35,5 +39,23 @@ public class Lockpicking : MonoBehaviour
     {
         isAlarm = true;
         alarm.Play();
+    }
+    void Tutorial()
+    {
+        tutoralScreen.gameObject.SetActive(true);
+        GameData.canPause = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0;
+    }
+    public void CloseTutorial()
+    {
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        GameData.lockpickingTutoral = true;
+        tutoralScreen.gameObject.SetActive(false);
+        codeScreen.gameObject.SetActive(true);
+        codeScreen.BroadcastMessage("BeginGame", securityLvl);
     }
 }

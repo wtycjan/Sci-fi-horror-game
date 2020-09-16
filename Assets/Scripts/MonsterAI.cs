@@ -34,17 +34,22 @@ public class MonsterAI : MonoBehaviour
     [SerializeField] GameObject terminal;
     [SerializeField] Lockpicking terminalAlarm;
     [SerializeField] SkinnedMeshRenderer monsterMesh;
+    [SerializeField] Renderer monsterRenderer;
+    [SerializeField] List<Material> transparentShader;
+    [SerializeField] List<Material> visibleShader;
+    Material[] visibleMaterials;
+    Material[] transparetMaterials;
+
 
     void Start()
     {
-
-        monsterMesh.enabled = false;
+        visibleMaterials = visibleShader.ToArray();
+        transparetMaterials = transparentShader.ToArray();
         prevPosition = transform.position;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         sound = GetComponent<Sounds>();
         spawnMonster();
-
         setNewPointDestinationToMoster();
 
     }
@@ -60,7 +65,7 @@ public class MonsterAI : MonoBehaviour
         checkIsDoorBlocked();
         checkPlayerDetection();
         rotateMonster();
-        showMonster();
+        changeMonsterShader();
         if(!chestAlarm.isAlarm && !computerAlarm.isAlarm && !terminalAlarm.isAlarm)
         {
             if (makeNewTarget())
@@ -72,15 +77,15 @@ public class MonsterAI : MonoBehaviour
 
     }
 
-    private void showMonster()
+    private void changeMonsterShader()
     {
         if(Vector3.Distance(transform.position, player.transform.position) < 2f)
         {
-            monsterMesh.enabled = true;
+            monsterMesh.materials = visibleMaterials;
         }
         else
         {
-            monsterMesh.enabled = false;
+            monsterMesh.materials = transparetMaterials;
         }
     }
 
@@ -233,7 +238,8 @@ public class MonsterAI : MonoBehaviour
         }
         else if (!scream)
         {
-            StartCoroutine("stayBeforeAttack");
+            sound.Sound1();
+            scream = true;
         }
         else
         {
@@ -263,8 +269,7 @@ public class MonsterAI : MonoBehaviour
         isPlayerDetect = false;
         agent.speed = runSpeed;
         anim.runtimeAnimatorController = runAnim;
-        float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move
-        agent.SetDestination(Vector3.MoveTowards(transform.position, new Vector3(targetObject.transform.position.x, transform.position.y, targetObject.transform.position.z), step));
+        agent.SetDestination(targetObject.transform.position);
         rotateMonster();
     }
 
@@ -275,7 +280,6 @@ public class MonsterAI : MonoBehaviour
         anim.runtimeAnimatorController = runAnim;
         agent.SetDestination(player.transform.position);
         rotateMonster();
-        //rbd.MovePosition(Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), step));
     }
 
     private void setNewPointDestinationToMoster()
@@ -336,14 +340,6 @@ public class MonsterAI : MonoBehaviour
         prepareMonsterToWalk();
         agent.isStopped = false;
     }
-    IEnumerator stayBeforeAttack()
-    {
-        agent.isStopped = true;
-        sound.Sound1();
-        prepareMonsterToStay();
-        yield return new WaitForSeconds(2f);
-        agent.isStopped = false;
-        scream = true;
-    }
+
 }
 
