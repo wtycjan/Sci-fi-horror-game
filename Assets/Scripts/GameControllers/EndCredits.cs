@@ -10,13 +10,14 @@ public class EndCredits : MonoBehaviour
     private GameObject player;
     private Sounds sound, music;
     private GameController gameController;
-    public NetworkServerUI network;
+    private NetworkServerUI network;
     void Start()
     {
         sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
         music = GameObject.FindGameObjectWithTag("MusicController").GetComponent<Sounds>();
         player = GameObject.FindGameObjectWithTag("Player");
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
         sound.Stop();
         music.GetComponent<MusicController>().enabled = false;
         StartCoroutine(AudioFadeOut.FadeOut(music.audioSource, .3f));

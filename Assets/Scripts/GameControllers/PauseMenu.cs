@@ -21,6 +21,7 @@ public class PauseMenu : MonoBehaviour
         gameObject.SetActive(false);
         GameData.canPause = true;
         Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         interactText.SetActive(true);
     }

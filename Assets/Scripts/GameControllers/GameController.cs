@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject redButton;
     [SerializeField] private GameObject yellowButton;
     [SerializeField] private GameObject blueButton;
+    [SerializeField] private GameObject computer;
     [SerializeField] private ParticleSystem[] deathEffects;
     public Image blackScreen;   //death
     public Image blackScreen2; //intro
@@ -26,7 +27,7 @@ public class GameController : MonoBehaviour
     public MonsterAI monster;
     private FirstPersonController player;
     public RuntimeAnimatorController jumpAnim;
-    public NetworkServerUI network;
+    private NetworkServerUI network;
     private Sounds sound;
     public bool cutscene = false;
     private bool cameraCutscene = false;
@@ -40,11 +41,13 @@ public class GameController : MonoBehaviour
         GameData.password1= RandomPassword();
         GameData.level1 = false;
         GameData.door1 = false;
+        GameData.lockpickingTutoral = false;
     }
     private void Start()
     {
         sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
+        network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
         StartCoroutine("UpdatePosition");
         //*************************
         //Enable before building
@@ -245,6 +248,14 @@ public class GameController : MonoBehaviour
     void BlueButtonPressed()
     {
         blueButton.SendMessage("Interact");
+    }
+    void StopHackTimer()
+    {
+        computer.GetComponent<Tablet>().StopTimer();
+    }
+    void StopHacking()
+    {
+        computer.GetComponent<Tablet>().Completed();
     }
 
     public IEnumerator UpdatePosition()
