@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject redButton;
     [SerializeField] private GameObject yellowButton;
     [SerializeField] private GameObject blueButton;
+    [SerializeField] private GameObject flashlight;
+    [SerializeField] private GameObject pointLight;
     [SerializeField] private ParticleSystem[] deathEffects;
     public Image blackScreen;   //death
     public Image blackScreen2; //intro
@@ -45,12 +47,20 @@ public class GameController : MonoBehaviour
     {
         sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
+        setNewBrightness();
         StartCoroutine("UpdatePosition");
         //*************************
         //Enable before building
         StartCoroutine("Intro");
         //*************************
     }
+
+    private void setNewBrightness()
+    {
+        flashlight.GetComponent<Light>().intensity = PlayerPrefs.GetFloat("brightness-volume");
+        pointLight.GetComponent<Light>().intensity = PlayerPrefs.GetFloat("brightness-volume");
+    }
+
     private void Update()
     {
         //Debug only!
@@ -103,6 +113,8 @@ public class GameController : MonoBehaviour
              GameData.door1 = false;
              gtp.alarm.Stop();
          }*/
+
+        setNewBrightness();
 
 
         //death

@@ -8,6 +8,8 @@ using TMPro;
 public class SetttingsMenu : MonoBehaviour
 {
     public AudioMixer audioSoundsMixer;
+    public GameObject background;
+    Image backgroundImage;
     public AudioMixer audioMusicMixer;
     Resolution[] resolutions;
     public TMP_Dropdown resolutionDropdown;
@@ -17,7 +19,7 @@ public class SetttingsMenu : MonoBehaviour
     {
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
-
+        backgroundImage = background.GetComponent<Image>();
         List<string> options = new List<string>();
         int currentResolutionIndex = 0;
         for(int i = 0; i< resolutions.Length; i++)
@@ -43,6 +45,11 @@ public class SetttingsMenu : MonoBehaviour
     public void SetSoundsVolume(float volume)
     {
         audioSoundsMixer.SetFloat("volume", volume);
+    }
+    public void SetBrightness(float brightness)
+    {
+        brightness = brightness * 0.5f;
+        backgroundImage.color = new Color(brightness,brightness,brightness, 100);
     }
     public void SetQuality(int qualityIndex)
     {
