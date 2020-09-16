@@ -88,14 +88,8 @@
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
-    <Reference Include="Unity.Subsystem.Registration">
-      <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.Subsystem.Registration.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.AdaptivePerformance">
-      <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.AdaptivePerformance.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
       <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
@@ -106,14 +100,8 @@
     <Reference Include="Unity.Postprocessing.Editor">
       <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.AdaptivePerformance.Editor">
-      <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.AdaptivePerformance.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.AdaptivePerformance.Samsung.Android">
-      <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.AdaptivePerformance.Samsung.Android.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
