@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using System;
 using UnityEngine;
 
 namespace VHS
@@ -27,6 +28,8 @@ namespace VHS
                private float m_yaw;
                private float m_pitch;
 
+               private float mouseSensivity;
+
                private float m_desiredYaw;
                private float m_desiredPitch;
                 private float m_tilt;
@@ -45,6 +48,7 @@ namespace VHS
         #region BuiltIn Methods  
             void Awake()
             {
+                SetSensivity();
                 GetComponents();
                 InitValues();
                 InitComponents();
@@ -59,10 +63,15 @@ namespace VHS
                 HandleZoom();
                 //Peak();
             }
+
+        private void SetSensivity()
+        {
+            mouseSensivity = PlayerPrefs.GetFloat("sensivity-volume");
+        }
         #endregion
 
         #region Custom Methods
-            void GetComponents()
+        void GetComponents()
             {
                 m_pitchTranform = transform.GetChild(0).transform;
                 m_cam = GetComponentInChildren<Camera>();
@@ -82,8 +91,9 @@ namespace VHS
 
             void CalculateRotation()
             {
-                m_desiredYaw += camInputData.InputVector.x * sensitivity.x * Time.deltaTime;
-                m_desiredPitch -= camInputData.InputVector.y * sensitivity.y * Time.deltaTime;
+                SetSensivity();
+                m_desiredYaw += camInputData.InputVector.x * sensitivity.x * mouseSensivity * Time.deltaTime;
+                m_desiredPitch -= camInputData.InputVector.y * sensitivity.y * mouseSensivity * Time.deltaTime;
 
                 m_desiredPitch = Mathf.Clamp(m_desiredPitch,lookAngleMinMax.x,lookAngleMinMax.y);
             }
