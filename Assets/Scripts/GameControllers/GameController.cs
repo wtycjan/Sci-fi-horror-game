@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject blueButton;
     [SerializeField] private GameObject computer;
     [SerializeField] private ParticleSystem[] deathEffects;
+    [SerializeField] private GameObject flashlight;
+    [SerializeField] private GameObject pointLight;
     public Image blackScreen;   //death
     public Image blackScreen2; //intro
     public GameObject pauseMenu;
@@ -57,7 +59,7 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         //Debug only!
-        if (Input.GetKeyDown("1"))
+       /* if (Input.GetKeyDown("1"))
                 OpenDoor1();
         if (Input.GetKeyDown("2"))
             OpenDoor2();
@@ -67,46 +69,8 @@ public class GameController : MonoBehaviour
             OpenDoor4();
         if (Input.GetKeyDown("5"))
             OpenDoor5();
-        if (Input.GetKeyDown("9"))
-        {
-            turnOnDeathEffects();
-        }
-
-        /* if (Input.GetKeyDown("b"))
-         {
-             tp.Alarm();
-             GameData.door1 = true;
-             tp.isAlarm = true;
-         }
-        if (Input.GetKeyDown("g"))
-        {
-             tp.isAlarm = false;
-             GameData.door1 = false; 
-        }
-         if (Input.GetKeyDown("n"))
-         {
-             ctp.Alarm();
-             GameData.door1 = true;
-             ctp.isAlarm = true;
-         }
-         if (Input.GetKeyDown("h"))
-         {
-             ctp.isAlarm = false;
-             GameData.door1 = false;
-         }
-         if (Input.GetKeyDown("m"))
-         {
-             GameData.door1 = true;
-             gtp.isAlarm = true;
-             gtp.alarm.Play();
-         }
-         if (Input.GetKeyDown("j"))
-         {
-             gtp.isAlarm = false;
-             GameData.door1 = false;
-             gtp.alarm.Stop();
-         }*/
-
+        */
+        setNewBrightness();
 
         //death
         if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene && monster.isPlayerDetect )
@@ -127,6 +91,12 @@ public class GameController : MonoBehaviour
         }
 
     }
+    private void setNewBrightness()
+    {
+        flashlight.GetComponent<Light>().intensity = PlayerPrefs.GetFloat("brightness-volume");
+        pointLight.GetComponent<Light>().intensity = PlayerPrefs.GetFloat("brightness-volume");
+    }
+
 
     private void turnOnDeathEffects()
     {
@@ -138,10 +108,14 @@ public class GameController : MonoBehaviour
 
     public IEnumerator Intro()
     {
-        sound.Sound5();
-        blackScreen2.GetComponent<Animation>().Play();
-        yield return new WaitForSeconds(12f);
-        Destroy(blackScreen2);
+        if(!GameData.respawn)
+        {
+            sound.Sound5();
+            blackScreen2.GetComponent<Animation>().Play();
+            yield return new WaitForSeconds(11f);
+        }
+        yield return new WaitForSeconds(1f);
+        Destroy(blackScreen2.gameObject);
         OpenDoor5();
         GameData.canPause = true;
     }
@@ -169,6 +143,7 @@ public class GameController : MonoBehaviour
 
     public IEnumerator Death()
     {
+        GameData.respawn = true;
         GameData.canPause = false;
         cutscene = true;
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
