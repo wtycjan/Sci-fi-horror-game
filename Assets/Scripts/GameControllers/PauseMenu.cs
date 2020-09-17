@@ -22,12 +22,9 @@ public class PauseMenu : MonoBehaviour
         interactText.SetActive(false);
         network.ServerSendMessage("Pause");
     }
-    private void OnDisable()
-    {
-        network.ServerSendMessage("Unpause");
-    }
     public void Resume()
     {
+        network.ServerSendMessage("Unpause");
         gameObject.SetActive(false);
         GameData.canPause = true;
         Time.timeScale = 1;

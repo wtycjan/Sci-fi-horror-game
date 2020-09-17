@@ -8,6 +8,6 @@ public class SpaceShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(transform.forward * Time.deltaTime/11, Space.Self);
+        transform.Translate(transform.forward * Time.deltaTime/14, Space.Self);
     }
 }
