@@ -2237,20 +2237,5 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1891058123888012995, guid: 94d102ee6498cf246945489140ee53f1,
-        type: 3}
-      propertyPath: m_MinValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1891058123888012995, guid: 94d102ee6498cf246945489140ee53f1,
-        type: 3}
-      propertyPath: m_MaxValue
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1891058123888012995, guid: 94d102ee6498cf246945489140ee53f1,
-        type: 3}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94d102ee6498cf246945489140ee53f1, type: 3}

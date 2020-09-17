@@ -14,12 +14,14 @@ public class SetttingsMenu : MonoBehaviour
     Resolution[] resolutions;
     public TMP_Dropdown resolutionDropdown;
     private const string RESOLUTION_PREF = "resolution";
+    private const string BRIGHTNESS_PREF = "brightness-volume";
 
     private void Start()
     {
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
         backgroundImage = background.GetComponent<Image>();
+        SetBrightness(PlayerPrefs.GetFloat("brightness-volume"));
         List<string> options = new List<string>();
         int currentResolutionIndex = 0;
         for(int i = 0; i< resolutions.Length; i++)
@@ -50,6 +52,10 @@ public class SetttingsMenu : MonoBehaviour
     {
         brightness = brightness * 0.5f;
         backgroundImage.color = new Color(brightness,brightness,brightness, 100);
+    }
+    public void SetSensivity(float sensivity)
+    {
+        
     }
     public void SetQuality(int qualityIndex)
     {

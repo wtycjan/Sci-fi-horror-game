@@ -15,6 +15,7 @@ public class SaveSettings : MonoBehaviour
     [SerializeField] public Slider volumeSliderSound;
     [SerializeField] public Slider volumeSliderMusic;
     [SerializeField] public Slider brightnessSlider;
+    [SerializeField] public Slider sensivitySlider;
     [SerializeField] public Toggle enableFullscreen;
     [SerializeField] public TMP_Dropdown resolutionDropdown;
     [SerializeField] public TMP_Dropdown graphicsDropdown;
@@ -24,6 +25,7 @@ public class SaveSettings : MonoBehaviour
     private const string MUSIC_VOLUME_PREF = "music-volume";
     private const string SFX_VOLUME_PREF = "sound-volume";
     private const string BRIGHTNESS_PREF = "brightness-volume";
+    private const string SENSIVITY_PREF = "sensivity-volume";
 
 
     private const string FULLSCREEN_PREF = "fullscreen";
@@ -53,6 +55,7 @@ public class SaveSettings : MonoBehaviour
         volumeSliderMusic.value = PlayerPrefs.GetFloat(MUSIC_VOLUME_PREF, 1);
         volumeSliderSound.value = PlayerPrefs.GetFloat(SFX_VOLUME_PREF, 1);
         brightnessSlider.value = PlayerPrefs.GetFloat(BRIGHTNESS_PREF, 1);
+        sensivitySlider.value = PlayerPrefs.GetFloat(SENSIVITY_PREF, 1);
 
         enableFullscreen.isOn = GetBoolPref(FULLSCREEN_PREF);
         graphicsDropdown.value = PlayerPrefs.GetInt(GRAPHICS_PREF, 3);
@@ -85,6 +88,18 @@ public class SaveSettings : MonoBehaviour
 
 
     #endregion
+
+    #region Sensivity
+
+    public void OnChangeSensivity(Single value)
+    {
+        SetPref(SENSIVITY_PREF, value);
+    }
+
+
+    #endregion
+
+
 
 
     #region ScreenSettings
