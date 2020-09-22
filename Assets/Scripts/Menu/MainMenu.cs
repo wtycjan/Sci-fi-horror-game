@@ -21,6 +21,7 @@ public class MainMenu : MonoBehaviour
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        GameData.respawn = false;
     }
     private void Update()
     {

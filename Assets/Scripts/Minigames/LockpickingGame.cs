@@ -8,16 +8,21 @@ public class LockpickingGame : MonoBehaviour
     public GameObject prefabBall;
     GameObject[] gameObjects;
     public GameObject player;
-    public NetworkServerUI network;
+    private NetworkServerUI network;
     public Image codeScreen;
     private Sounds sound;
     bool lockpicking = false;
     public int open;
     private int ball;
 
+    private void Awake()
+    {
+        network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
+    }
     private void Start()
     {
         sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
+
     }
     // Update is called once per frame
     private void Update()
@@ -89,13 +94,13 @@ public class LockpickingGame : MonoBehaviour
     {
         yield return new WaitForSeconds(1.2f);
         StartCoroutine(BallHandle(ball));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         lockpicking = true;
     }
 
     private IEnumerator BallHandle(int x)
     {
-            yield return new WaitForSeconds(.8f);
+            yield return new WaitForSeconds(1.3f);
             GameObject btn = Instantiate(prefabBall, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
             btn.transform.SetParent(transform);
             int random = Random.Range(0, 3);
@@ -119,11 +124,12 @@ public class LockpickingGame : MonoBehaviour
             //move ballw
             while (btn.transform.localPosition.y > -230)
             {
-                btn.transform.localPosition = new Vector2(btn.transform.localPosition.x, btn.transform.localPosition.y - 5f);
+                btn.transform.localPosition = new Vector2(btn.transform.localPosition.x, btn.transform.localPosition.y - 2.5f);
                 yield return new WaitForSeconds(.01f);
             }
 
             Destroy(btn);
     }
+
 
 }

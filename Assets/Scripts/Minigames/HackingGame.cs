@@ -8,18 +8,23 @@ public class HackingGame : MonoBehaviour
     public Text inputText;
     private TimerHacking timer;
     public GameObject player;
-    public NetworkServerUI network;
+    private NetworkServerUI network;
     [SerializeField] Tablet tablet;
     private string phrase, phrase1= "system.Override();", phrase2="firewall.Bypass();", phrase3="mainframe.DisableAlgorithms();", phrase4="kernel.GrantAccess();";
     string[] Alphabet;
     public int securityLvl=1;
     private int phase = 1, i=0, lettersTyped=0;
     private bool stop = false;
+    private void Awake()
+    {
+        network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
+    }
     void Start()
     {
         timer = GetComponentInChildren<TimerHacking>();
         phrase = phrase1;
         Alphabet = new string[26] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+
     }
 
     void Update()
@@ -104,7 +109,7 @@ public class HackingGame : MonoBehaviour
                     switch (securityLvl)
                     {
                         case 1:
-                            network.ServerSendMessage("Blocks" + 20);
+                            network.ServerSendMessage("Blocks" + 20); 
                             break;
                         case 2:
                             network.ServerSendMessage("Blocks" + 18);
@@ -190,7 +195,7 @@ public class HackingGame : MonoBehaviour
         tablet.Alarm();
         Close();
     }
-    void Close()
+    public void Close()
     {
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
@@ -212,5 +217,9 @@ public class HackingGame : MonoBehaviour
         timer.isCounting = false;
         gameObject.SetActive(false);
         GameData.canPause = true;
+    }
+    public void StopTimer()
+    {
+        timer.isCounting = false;
     }
 }

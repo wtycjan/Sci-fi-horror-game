@@ -7,4 +7,6 @@
     //door1 access
     public static bool door1 = false;
     public static bool canPause = false;     //false
+    public static bool lockpickingTutoral = false;
+    public static bool respawn = false;
 }

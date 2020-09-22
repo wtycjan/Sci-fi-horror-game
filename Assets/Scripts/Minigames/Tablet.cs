@@ -19,4 +19,14 @@ public class Tablet : MonoBehaviour
         isAlarm = true;
         alarm.Play();
     }
+
+    public void StopTimer()
+    {
+        hackingScreen.GetComponent<HackingGame>().StopTimer();
+    }
+    public void Completed()
+    {
+        hackingScreen.GetComponent<HackingGame>().Close();
+        gameObject.layer = 0;
+    }
 }

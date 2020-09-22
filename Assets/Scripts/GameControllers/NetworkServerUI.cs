@@ -22,6 +22,7 @@ public class NetworkServerUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        NetworkServer.DisconnectAll();
         if (!NetworkServer.active)
         { 
         NetworkServer.Listen(25000);
@@ -72,7 +73,12 @@ public class NetworkServerUI : MonoBehaviour
             case "Blue":
                 gameController.SendMessage("BlueButtonPressed");
                 break;
-
+            case "StopHackTimer":
+                gameController.SendMessage("StopHackTimer");
+                break;
+            case "StopHacking":
+                gameController.SendMessage("StopHacking");
+                break;
         }
 
 
@@ -90,7 +96,6 @@ public class NetworkServerUI : MonoBehaviour
     {
         NetworkServer.Shutdown();
     }
-
 
     public string LocalIPAddress()
     {
