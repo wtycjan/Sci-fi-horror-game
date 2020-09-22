@@ -165,7 +165,9 @@ namespace VHS
 
             protected virtual void Update()
             {
-                if(m_yawTransform != null)
+                showBreathBar();
+                showStaminaBar();
+                if (m_yawTransform != null)
                     RotateTowardsCamera();
 
                 if(m_characterController)
@@ -203,15 +205,14 @@ namespace VHS
                     RechargeStamina();
                     RechargeBreath();
                     ChangeBreathSystem();
-                    showBreathBar();
-                    showStaminaBar();
                     m_previouslyGrounded = m_isGrounded;
                 }
             }
 
         private void showStaminaBar()
         {
-            if(staminaBar.BarValue >= 100f)
+     
+            if (staminaBar.BarValue >= 100f)
             {
                 staminaBarObject.SetActive(false);
             }
@@ -220,19 +221,22 @@ namespace VHS
                 staminaBarObject.SetActive(true);
             }
             staminaBar.BarValue = (maxStamina - stamina) * 20f;
+
         }
 
         private void showBreathBar()
         {
+           
             if (breathBar.BarValue >= 100f)
             {
                 breathBarObject.SetActive(false);
             }
             else
-            {
+            {   
                 breathBarObject.SetActive(true);
             }
             breathBar.BarValue = (maxBreath - breath) * 14.2857143f;
+
         }
 
         private void ChangeBreathSystem()
@@ -259,6 +263,8 @@ namespace VHS
         #region Initialize Methods    
         protected virtual void GetComponents()
                 {
+                    staminaBarObject.SetActive(false);
+                    breathBarObject.SetActive(false);
                     m_characterController = GetComponent<CharacterController>();
                     m_cameraController = GetComponentInChildren<CameraController>();
                     m_yawTransform = m_cameraController.transform;
@@ -267,6 +273,8 @@ namespace VHS
                     sounds = GameObject.FindGameObjectWithTag("PlayerSounds").GetComponent<Sounds>();
                     sounds2 = GameObject.FindGameObjectWithTag("PlayerSounds2").GetComponent<Sounds>();
                     sounds3 = GameObject.FindGameObjectWithTag("PlayerSounds3").GetComponent<Sounds>();
+
+       
                 }
 
                 protected virtual void InitVariables()
@@ -296,7 +304,7 @@ namespace VHS
 
                     m_walkRunSpeedDifference = runSpeed - walkSpeed;
 
-                     sounds3.StartNormalBreath();
+                    sounds3.StartNormalBreath();
                 }
             #endregion
 
