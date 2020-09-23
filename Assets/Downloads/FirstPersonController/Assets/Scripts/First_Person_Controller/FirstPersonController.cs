@@ -215,8 +215,8 @@ namespace VHS
             if (staminaBar.BarValue >= 100f)
             {
                 staminaBarObject.SetActive(false);
-            }
-            else
+            }                           
+            else if(m_duringRunAnimation)
             {
                 staminaBarObject.SetActive(true);
             }
@@ -226,12 +226,12 @@ namespace VHS
 
         private void showBreathBar()
         {
-           
+
             if (breathBar.BarValue >= 100f)
             {
                 breathBarObject.SetActive(false);
             }
-            else
+            else if (isHoldingBreath) 
             {   
                 breathBarObject.SetActive(true);
             }
@@ -263,8 +263,7 @@ namespace VHS
         #region Initialize Methods    
         protected virtual void GetComponents()
                 {
-                    staminaBarObject.SetActive(false);
-                    breathBarObject.SetActive(false);
+                    
                     m_characterController = GetComponent<CharacterController>();
                     m_cameraController = GetComponentInChildren<CameraController>();
                     m_yawTransform = m_cameraController.transform;
@@ -278,38 +277,54 @@ namespace VHS
                 }
 
                 protected virtual void InitVariables()
-                {   
-                    // Calculate where our character center should be based on height and skin width
-                    m_characterController.center = new Vector3(0f,m_characterController.height / 2f + m_characterController.skinWidth,0f);
+        {
+            // Calculate where our character center should be based on height and skin width
+            m_characterController.center = new Vector3(0f, m_characterController.height / 2f + m_characterController.skinWidth, 0f);
 
-                    m_initCenter = m_characterController.center;
-                    m_initHeight = m_characterController.height;
+            m_initCenter = m_characterController.center;
+            m_initHeight = m_characterController.height;
 
-                    m_crouchHeight = m_initHeight * crouchPercent;
-                    m_crouchCenter = (m_crouchHeight / 2f + m_characterController.skinWidth) * Vector3.up;
+            m_crouchHeight = m_initHeight * crouchPercent;
+            m_crouchCenter = (m_crouchHeight / 2f + m_characterController.skinWidth) * Vector3.up;
 
-                    m_crouchStandHeightDifference = m_initHeight - m_crouchHeight;
+            m_crouchStandHeightDifference = m_initHeight - m_crouchHeight;
 
-                    m_initCamHeight = m_yawTransform.localPosition.y;
-                    m_crouchCamHeight = m_initCamHeight - m_crouchStandHeightDifference;
+            m_initCamHeight = m_yawTransform.localPosition.y;
+            m_crouchCamHeight = m_initCamHeight - m_crouchStandHeightDifference;
 
-                    // Sphere radius not included. If you want it to be included just decrease by sphere radius at the end of this equation
-                    m_finalRayLength = rayLength + m_characterController.center.y;
+            // Sphere radius not included. If you want it to be included just decrease by sphere radius at the end of this equation
+            m_finalRayLength = rayLength + m_characterController.center.y;
 
-                    m_isGrounded = true;
-                    m_previouslyGrounded = true;
+            m_isGrounded = true;
+            m_previouslyGrounded = true;
 
-                    m_inAirTimer = 0f;
-                    m_headBob.CurrentStateHeight = m_initCamHeight;
+            m_inAirTimer = 0f;
+            m_headBob.CurrentStateHeight = m_initCamHeight;
 
-                    m_walkRunSpeedDifference = runSpeed - walkSpeed;
+            m_walkRunSpeedDifference = runSpeed - walkSpeed;
 
-                    sounds3.StartNormalBreath();
-                }
-            #endregion
+            sounds3.StartNormalBreath();
 
-            #region Smoothing Methods
-                protected virtual void SmoothInput()
+            createBars();
+
+        }
+
+        private void createBars()
+        {
+            breathBarObject.transform.position = new Vector4(-100f, 100f, 0f);
+            staminaBarObject.transform.position = new Vector4(-150f, -555f, 0f);
+            staminaBarObject.SetActive(true);
+            breathBarObject.SetActive(true);
+            breathBarObject.transform.position = new Vector4(128f, 640f, 0f);
+            staminaBarObject.transform.position = new Vector4(192f,  57f, 6f);
+            staminaBarObject.SetActive(false);
+            breathBarObject.SetActive(false);
+            
+        }
+        #endregion
+
+        #region Smoothing Methods
+        protected virtual void SmoothInput()
                 {
                     m_inputVector = movementInputData.InputVector.normalized;
                     m_smoothInputVector = Vector2.Lerp(m_smoothInputVector,m_inputVector,Time.deltaTime * smoothInputSpeed);
