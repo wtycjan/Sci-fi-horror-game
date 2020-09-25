@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using NaughtyAttributes;
+using System;
 
 namespace VHS
 {
@@ -92,18 +93,25 @@ namespace VHS
                     private CameraController m_cameraController;
                     private Sounds sounds;
                     private Sounds sounds2;
+                    private Sounds sounds3;
 
 
                     private RaycastHit m_hitInfo;
                     private IEnumerator m_CrouchRoutine;
                     private IEnumerator m_LandRoutine;
-                    private float stamina=0f, breath=0f;
+    
                     private bool rechargeStamina=false, tired=false;
                     public bool isHoldingBreath=false;
-                #endregion
 
-                #region Debug
-                    [Space]
+                    public float stamina = 0f, breath = 0f, maxBreath = 7f, maxStamina = 5f;
+                    [SerializeField] private ProgressBarCircle breathBar;
+                    [SerializeField] public GameObject breathBarObject;
+                    [SerializeField] private ProgressBar staminaBar;
+                    [SerializeField] public GameObject staminaBarObject;
+        #endregion
+
+        #region Debug
+        [Space]
                     [BoxGroup("DEBUG")][SerializeField][ReadOnly] private Vector2 m_inputVector;
                     [BoxGroup("DEBUG")][SerializeField][ReadOnly] private Vector2 m_smoothInputVector;
 
@@ -157,12 +165,15 @@ namespace VHS
 
             protected virtual void Update()
             {
-                if(m_yawTransform != null)
+                showBreathBar();
+                showStaminaBar();
+                if (m_yawTransform != null)
                     RotateTowardsCamera();
 
                 if(m_characterController)
                 {
-                    // Check if Grounded,Wall etc
+                // Check if Grounded,Wall etc
+        
                     CheckIfGrounded();
                     CheckIfWall();
 
@@ -193,26 +204,66 @@ namespace VHS
                     MovementSounds();
                     RechargeStamina();
                     RechargeBreath();
+                    ChangeBreathSystem();
                     m_previouslyGrounded = m_isGrounded;
                 }
             }
 
-            /*
-            
-                private void OnDrawGizmos()
-                {
-                    Gizmos.color = Color.yellow;
-                    Gizmos.DrawWireSphere((transform.position + m_characterController.center) - Vector3.up * m_finalRayLength, raySphereRadius);
-                }
-            
-             */
-            
+        private void showStaminaBar()
+        {
+     
+            if (staminaBar.BarValue >= 100f)
+            {
+                staminaBarObject.SetActive(false);
+            }                           
+            else if(m_duringRunAnimation)
+            {
+                staminaBarObject.SetActive(true);
+            }
+            staminaBar.BarValue = (maxStamina - stamina) * 20f;
+
+        }
+
+        private void showBreathBar()
+        {
+
+            if (breathBar.BarValue >= 100f)
+            {
+                breathBarObject.SetActive(false);
+            }
+            else if (isHoldingBreath) 
+            {   
+                breathBarObject.SetActive(true);
+            }
+            breathBar.BarValue = (maxBreath - breath) * 14.2857143f;
+
+        }
+
+        private void ChangeBreathSystem()
+        {
+            if (sounds2.IsPlaying() || isHoldingBreath)
+                sounds3.audioSource.Stop();
+            else
+                sounds3.StartNormalBreath();
+        }
+
+        /*
+
+            private void OnDrawGizmos()
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireSphere((transform.position + m_characterController.center) - Vector3.up * m_finalRayLength, raySphereRadius);
+            }
+
+         */
+
         #endregion
 
         #region Custom Methods
-            #region Initialize Methods    
-                protected virtual void GetComponents()
+        #region Initialize Methods    
+        protected virtual void GetComponents()
                 {
+                    
                     m_characterController = GetComponent<CharacterController>();
                     m_cameraController = GetComponentInChildren<CameraController>();
                     m_yawTransform = m_cameraController.transform;
@@ -220,39 +271,60 @@ namespace VHS
                     m_headBob = new HeadBob(headBobData, moveBackwardsSpeedPercent, moveSideSpeedPercent);
                     sounds = GameObject.FindGameObjectWithTag("PlayerSounds").GetComponent<Sounds>();
                     sounds2 = GameObject.FindGameObjectWithTag("PlayerSounds2").GetComponent<Sounds>();
+                    sounds3 = GameObject.FindGameObjectWithTag("PlayerSounds3").GetComponent<Sounds>();
+
+       
                 }
 
                 protected virtual void InitVariables()
-                {   
-                    // Calculate where our character center should be based on height and skin width
-                    m_characterController.center = new Vector3(0f,m_characterController.height / 2f + m_characterController.skinWidth,0f);
+        {
+            // Calculate where our character center should be based on height and skin width
+            m_characterController.center = new Vector3(0f, m_characterController.height / 2f + m_characterController.skinWidth, 0f);
 
-                    m_initCenter = m_characterController.center;
-                    m_initHeight = m_characterController.height;
+            m_initCenter = m_characterController.center;
+            m_initHeight = m_characterController.height;
 
-                    m_crouchHeight = m_initHeight * crouchPercent;
-                    m_crouchCenter = (m_crouchHeight / 2f + m_characterController.skinWidth) * Vector3.up;
+            m_crouchHeight = m_initHeight * crouchPercent;
+            m_crouchCenter = (m_crouchHeight / 2f + m_characterController.skinWidth) * Vector3.up;
 
-                    m_crouchStandHeightDifference = m_initHeight - m_crouchHeight;
+            m_crouchStandHeightDifference = m_initHeight - m_crouchHeight;
 
-                    m_initCamHeight = m_yawTransform.localPosition.y;
-                    m_crouchCamHeight = m_initCamHeight - m_crouchStandHeightDifference;
+            m_initCamHeight = m_yawTransform.localPosition.y;
+            m_crouchCamHeight = m_initCamHeight - m_crouchStandHeightDifference;
 
-                    // Sphere radius not included. If you want it to be included just decrease by sphere radius at the end of this equation
-                    m_finalRayLength = rayLength + m_characterController.center.y;
+            // Sphere radius not included. If you want it to be included just decrease by sphere radius at the end of this equation
+            m_finalRayLength = rayLength + m_characterController.center.y;
 
-                    m_isGrounded = true;
-                    m_previouslyGrounded = true;
+            m_isGrounded = true;
+            m_previouslyGrounded = true;
 
-                    m_inAirTimer = 0f;
-                    m_headBob.CurrentStateHeight = m_initCamHeight;
+            m_inAirTimer = 0f;
+            m_headBob.CurrentStateHeight = m_initCamHeight;
 
-                    m_walkRunSpeedDifference = runSpeed - walkSpeed;
-                }
-            #endregion
+            m_walkRunSpeedDifference = runSpeed - walkSpeed;
 
-            #region Smoothing Methods
-                protected virtual void SmoothInput()
+            sounds3.StartNormalBreath();
+
+            createBars();
+
+        }
+
+        private void createBars()
+        {
+            breathBarObject.transform.position = new Vector4(-100f, 100f, 0f);
+            staminaBarObject.transform.position = new Vector4(-150f, -555f, 0f);
+            staminaBarObject.SetActive(true);
+            breathBarObject.SetActive(true);
+            breathBarObject.transform.position = new Vector4(128f, 640f, 0f);
+            staminaBarObject.transform.position = new Vector4(192f,  57f, 6f);
+            staminaBarObject.SetActive(false);
+            breathBarObject.SetActive(false);
+            
+        }
+        #endregion
+
+        #region Smoothing Methods
+        protected virtual void SmoothInput()
                 {
                     m_inputVector = movementInputData.InputVector.normalized;
                     m_smoothInputVector = Vector2.Lerp(m_smoothInputVector,m_inputVector,Time.deltaTime * smoothInputSpeed);
@@ -523,6 +595,7 @@ namespace VHS
                         if(movementInputData.RunClicked && CanRun())
                         {
                             sounds.Sound2Loop();
+                            sounds3.StartRunBreathSound();
                             rechargeStamina = false;
                             m_duringRunAnimation = true;
                             m_cameraController.ChangeRunFOV(false);
@@ -531,7 +604,11 @@ namespace VHS
                         if(movementInputData.IsRunning && CanRun() && !m_duringRunAnimation)
                         {
                             if(!sounds.IsPlaying())
+                            {
+                                sounds3.StartRunBreathSound();
                                 sounds.Sound2Loop();
+                            }
+                                
                             m_duringRunAnimation = true;
                             rechargeStamina = false;
                             m_cameraController.ChangeRunFOV(false);
@@ -544,6 +621,7 @@ namespace VHS
                         if(m_duringRunAnimation)
                         {
                             m_duringRunAnimation = false;
+                            sounds3.StopRunBreath();
                             m_cameraController.ChangeRunFOV(true);
                         }
 
@@ -607,7 +685,7 @@ namespace VHS
                     sounds2.Sound2();
                 isHoldingBreath = true;
             }
-            else if (( Input.GetKeyUp(KeyCode.Q) && isHoldingBreath) || breath > 7)
+            else if (( Input.GetKeyUp(KeyCode.Q) && isHoldingBreath) || breath > maxBreath)
             {
                 m_cameraController.ChangeRunFOV(true);
                 if (breath > 5)
@@ -632,6 +710,7 @@ namespace VHS
         {
             if (movementInputData.HasInput && !sounds.IsPlaying() && !movementInputData.IsRunning &&!movementInputData.IsCrouching)
             {
+                sounds3.StopRunBreath();
                 sounds.Sound1Loop();
             }
             else if ((!movementInputData.HasInput && sounds.IsPlaying()) || movementInputData.CrouchClicked)

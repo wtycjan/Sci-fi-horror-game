@@ -37,11 +37,36 @@ public class Sounds : MonoBehaviour
     }
     public void Sound5()
     {
-        audioSource.PlayOneShot(sound5);
+        audioSource.PlayOneShot(sound4);
     }
     public void Sound6()
     {
-        audioSource.PlayOneShot(sound6);
+        audioSource.PlayOneShot(sound4);
+    }
+    public void StartRunBreathSound()
+    {
+        audioSource.volume = 1f;
+        audioSource.clip = sound5;
+        audioSource.Play();
+    }
+    public void StopRunBreath()
+    {
+        audioSource.clip = sound6;
+    }
+    public void StartNormalBreath()
+    {
+        if(audioSource.clip != sound5 && !audioSource.isPlaying)
+        {
+            audioSource.volume = 0.25f;
+            audioSource.loop = true;
+            audioSource.clip = sound6;
+            audioSource.Play();
+        }
+
+    }
+    public void StopNormalBreath()
+    {
+        audioSource.Stop();
     }
     public void Sound7()
     {
@@ -69,6 +94,7 @@ public class Sounds : MonoBehaviour
         audioSource.time = x;
         audioSource.Play();
     }
+
     public void Stop()
     {
         audioSource.loop = false;
