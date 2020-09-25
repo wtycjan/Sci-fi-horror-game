@@ -311,12 +311,12 @@ namespace VHS
 
         private void createBars()
         {
-            breathBarObject.transform.position = new Vector4(-100f, 100f, 0f);
-            staminaBarObject.transform.position = new Vector4(-150f, -555f, 0f);
+            //breathBarObject.transform.position = new Vector4(-100f, 100f, 0f);
+            //staminaBarObject.transform.position = new Vector4(-150f, -555f, 0f);
             staminaBarObject.SetActive(true);
             breathBarObject.SetActive(true);
-            breathBarObject.transform.position = new Vector4(128f, 640f, 0f);
-            staminaBarObject.transform.position = new Vector4(192f,  57f, 6f);
+            //breathBarObject.transform.position = new Vector4(128f, 640f, 0f);
+            //staminaBarObject.transform.position = new Vector4(192f,  57f, 6f);
             staminaBarObject.SetActive(false);
             breathBarObject.SetActive(false);
             
