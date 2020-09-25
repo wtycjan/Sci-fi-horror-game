@@ -103,7 +103,7 @@ namespace VHS
                     private bool rechargeStamina=false, tired=false;
                     public bool isHoldingBreath=false;
 
-                    public float stamina = 0f, breath = 0f, maxBreath = 7f, maxStamina = 5f;
+                    public float stamina = 0f, breath = 0f, maxBreath = 7f, maxStamina = 5.3f;
                     [SerializeField] private ProgressBarCircle breathBar;
                     [SerializeField] public GameObject breathBarObject;
                     [SerializeField] private ProgressBar staminaBar;
