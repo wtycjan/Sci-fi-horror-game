@@ -29,10 +29,11 @@ public class ProgressBar : MonoBehaviour
     public bool repeat = false;
     public float RepeatRate = 1f;
 
-    private Image bar, barBackground;
+    private Image bar;
+        public Image barBackground;
     private float nextPlay;
     private AudioSource audiosource;
-    private Text txtTitle;
+    private Animator animator;
     private float barValue;
     public float BarValue
     {
@@ -52,33 +53,33 @@ public class ProgressBar : MonoBehaviour
     private void Awake()
     {
         bar = transform.Find("Bar").GetComponent<Image>();
-        barBackground = GetComponent<Image>();
-        txtTitle = transform.Find("Text").GetComponent<Text>();
-        barBackground = transform.Find("BarBackground").GetComponent<Image>();
+        //barBackground = GetComponent<Image>();
         audiosource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
     {
-        txtTitle.text = Title;
-        txtTitle.color = TitleColor;
-        txtTitle.font = TitleFont;
-        txtTitle.fontSize = TitleFontSize;
-
         bar.color = BarColor;
-        barBackground.color = BarBackGroundColor; 
-        barBackground.sprite = BarBackGroundSprite;
+        //barBackground.color = BarBackGroundColor; 
+        //barBackground.sprite = BarBackGroundSprite;
 
         UpdateValue(barValue);
-
-
     }
 
+    public void Hide()
+    {
+        animator.SetBool("active", true);
+    }
+    public void Show()
+    {
+        animator.SetBool("active", false);
+        animator.SetBool("start", true);
+    }
     void UpdateValue(float val)
     {
         bar.fillAmount = val / 100;
         val = Convert.ToInt32(val);
-        txtTitle.text = Title + " " + val + "%";
 
         if (Alert >= val)
         {
@@ -97,9 +98,6 @@ public class ProgressBar : MonoBehaviour
         if (!Application.isPlaying)
         {           
             UpdateValue(50);
-            txtTitle.color = TitleColor;
-            txtTitle.font = TitleFont;
-            txtTitle.fontSize = TitleFontSize;
 
             bar.color = BarColor;
             barBackground.color = BarBackGroundColor;

@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour
         Cursor.visible = true;
         GameData.respawn = false;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         if(start)
         {

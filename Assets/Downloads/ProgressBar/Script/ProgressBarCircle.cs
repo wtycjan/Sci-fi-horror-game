@@ -29,7 +29,7 @@ public class ProgressBarCircle : MonoBehaviour {
     private Image bar, barBackground,Mask;
     private float nextPlay;
     private AudioSource audiosource;
-    private Text txtTitle;
+    private Animator animator;
     private float barValue;
     public float BarValue
     {
@@ -47,20 +47,15 @@ public class ProgressBarCircle : MonoBehaviour {
     private void Awake()
     {
 
-        txtTitle = transform.Find("Text").GetComponent<Text>();
         barBackground = transform.Find("BarBackgroundCircle").GetComponent<Image>();
         bar = transform.Find("BarCircle").GetComponent<Image>();
         audiosource = GetComponent<AudioSource>();
         Mask= transform.Find("Mask").GetComponent<Image>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
     {
-        txtTitle.text = Title;
-        txtTitle.color = TitleColor;
-        txtTitle.font = TitleFont;
-       
-
         bar.color = BarColor;
         Mask.color = MaskColor;
         barBackground.color = BarBackGroundColor;
@@ -76,7 +71,6 @@ public class ProgressBarCircle : MonoBehaviour {
        
         bar.fillAmount = -(val / 100) + 1f;
         val = Convert.ToInt32(val);
-        txtTitle.text = Title + " " + val + "%";
 
         if (Alert >= val)
         {
@@ -88,7 +82,15 @@ public class ProgressBarCircle : MonoBehaviour {
         }
 
     }
-
+    public void Hide()
+    {
+        animator.SetBool("active", true);
+    }
+    public void Show()
+    {
+        animator.SetBool("active", false);
+        animator.SetBool("start", true);
+    }
 
     private void Update()
     {
@@ -98,8 +100,6 @@ public class ProgressBarCircle : MonoBehaviour {
         {
            
             UpdateValue(50);
-            txtTitle.color = TitleColor;
-            txtTitle.font = TitleFont;
             Mask.color = MaskColor;
             bar.color = BarColor;
             barBackground.color = BarBackGroundColor;

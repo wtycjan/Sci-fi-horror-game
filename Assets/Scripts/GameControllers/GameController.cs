@@ -59,7 +59,7 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         //Debug only!
-       /* if (Input.GetKeyDown("1"))
+        if (Input.GetKeyDown("1"))
                 OpenDoor1();
         if (Input.GetKeyDown("2"))
             OpenDoor2();
@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour
             OpenDoor4();
         if (Input.GetKeyDown("5"))
             OpenDoor5();
-        */
+        
         setNewBrightness();
 
         //death
@@ -89,6 +89,10 @@ public class GameController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+
+        //Update Player Position
+        Vector2 pos = new Vector2(player.transform.position.x, player.transform.position.z);
+        network.ServerSendMessage("player: " + pos.x + " " + pos.y);
 
     }
     private void setNewBrightness()
@@ -118,6 +122,7 @@ public class GameController : MonoBehaviour
         Destroy(blackScreen2.gameObject);
         OpenDoor5();
         GameData.canPause = true;
+        network.ServerSendMessage("Unpause");
     }
 
     void OpenDoor1()
@@ -235,16 +240,15 @@ public class GameController : MonoBehaviour
 
     public IEnumerator UpdatePosition()
     {
-        Vector2 pos = new Vector2(player.transform.position.x, player.transform.position.z);
-        network.ServerSendMessage("player: " + pos.x + " " + pos.y);
+
         if (Vector3.Distance(monster.transform.position, player.transform.position) < 15f)
         {
-            pos = new Vector2(monster.transform.position.x, monster.transform.position.z);
+            Vector2 pos = new Vector2(monster.transform.position.x, monster.transform.position.z);
             network.ServerSendMessage("monster: " + pos.x + " " + pos.y);
         }
         else
             network.ServerSendMessage("monster: " + -999+ " " + -999);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         StartCoroutine("UpdatePosition");
     }
 }

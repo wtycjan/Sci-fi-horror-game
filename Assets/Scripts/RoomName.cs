@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class RoomName : MonoBehaviour
 {
-    private Text text;
+    private TextMeshProUGUI text;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject room;
 
-
     private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.tag == "Player" )
+        if(collision.gameObject.tag == "Player" && GameData.canPause)
         {
             StartCoroutine(ShowText());
         }
@@ -21,7 +21,7 @@ public class RoomName : MonoBehaviour
 
     private void Start()
     {
-        text = room.GetComponent<Text>();
+        text = room.GetComponent<TextMeshProUGUI>();
     }
     // Update is called once per frame
     void Update()
@@ -33,7 +33,7 @@ public class RoomName : MonoBehaviour
     {
         text.text = gameObject.name;
         room.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
         room.SetActive(false);
     }
 }

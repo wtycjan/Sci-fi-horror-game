@@ -22,7 +22,8 @@ public class NetworkServerUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        NetworkServer.DisconnectAll();
+        /*if(GameData.respawn)
+            NetworkServer.DisconnectAll();*/
         if (!NetworkServer.active)
         { 
         NetworkServer.Listen(25000);
@@ -47,43 +48,28 @@ public class NetworkServerUI : MonoBehaviour
         StringMessage msg = new StringMessage();
         msg.value = message.ReadMessage<StringMessage>().value;
 
-        switch (msg.value)
-        {
-            case "1":
-                gameController.SendMessage("OpenDoor1");
-                break;
-            case "2":
-                gameController.SendMessage("OpenDoor2");
-                break;
-            case "3":
-                gameController.SendMessage("OpenDoor3");
-                break;
-            case "4":
-                gameController.SendMessage("OpenDoor4");
-                break;
-            case "5":
-                gameController.SendMessage("OpenDoor5");
-                break;
-            case "Red":
-                gameController.SendMessage("RedButtonPressed");
-                break;
-            case "Yellow":
-                gameController.SendMessage("YellowButtonPressed");
-                break;
-            case "Blue":
-                gameController.SendMessage("BlueButtonPressed");
-                break;
-            case "StopHackTimer":
-                gameController.SendMessage("StopHackTimer");
-                break;
-            case "StopHacking":
-                gameController.SendMessage("StopHacking");
-                break;
-        }
-
+        if(msg.value=="1")
+            gameController.SendMessage("OpenDoor1");
+        if (msg.value == "2")
+            gameController.SendMessage("OpenDoor2");
+        if (msg.value == "3")
+            gameController.SendMessage("OpenDoor3");
+        if (msg.value == "4")
+            gameController.SendMessage("OpenDoor4");
+        if (msg.value == "5")
+            gameController.SendMessage("OpenDoor5");
+        if (msg.value == "Red")
+            gameController.SendMessage("RedButtonPressed");
+        if (msg.value == "Yellow")
+            gameController.SendMessage("YellowButtonPressed");
+        if (msg.value == "Blue")
+            gameController.SendMessage("BlueButtonPressed");
+        if (msg.value == "StopHackTimer")
+            gameController.SendMessage("StopHackTimer");
+        if (msg.value == "StopHacking")
+            gameController.SendMessage("StopHacking");
 
         Debug.Log(msg.value);
-        
     }
     public void ServerSendMessage(string message)
     {

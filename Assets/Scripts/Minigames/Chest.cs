@@ -11,12 +11,15 @@ public class Chest : MonoBehaviour
     private GameObject player;
     private NetworkServerUI network;
     private Sounds sounds;
+    public bool isAlarm = false;
+    public AudioSource alarm;
     void Start()
     {
+        network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
         anim = GetComponent<Animation>();
         player = GameObject.FindGameObjectWithTag("Player");
         sounds = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
-        network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
+
     }
     public void Interact()
     {
@@ -28,6 +31,20 @@ public class Chest : MonoBehaviour
         anim.Play();
         treasure.SetActive(true);
         sounds.Sound4();
+        Close();
+    }
+    public void StartAlarm()
+    {
+        Close();
+        isAlarm = true;
+        alarm.Play();
+        network.ServerSendMessage("Alarm1");
+    }
+    public void StopAlarm()
+    {
+        isAlarm = false;
+        alarm.Stop();
+        network.ServerSendMessage("Alarm0");
     }
     void Open()
     {
