@@ -15,7 +15,7 @@ public class TimerHacking : MonoBehaviour
         originalSize = rectangle.sizeDelta;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(isCounting)
         {

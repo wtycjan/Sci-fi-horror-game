@@ -11,7 +11,12 @@ public class Lockpicking : MonoBehaviour
     public int securityLvl = 1;
     public bool isAlarm = false;
     public AudioSource alarm;
+    private NetworkServerUI network;
 
+    private void Awake()
+    {
+        network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
+    }
     public void Interact()
     {
         if (GameData.lockpickingTutoral == false)
@@ -39,6 +44,13 @@ public class Lockpicking : MonoBehaviour
     {
         isAlarm = true;
         alarm.Play();
+        network.ServerSendMessage("Alarm2");
+    }
+    public void StopAlarm()
+    {
+        isAlarm = false;
+        alarm.Stop();
+        network.ServerSendMessage("Alarm0");
     }
     void Tutorial()
     {

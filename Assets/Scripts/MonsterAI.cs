@@ -28,7 +28,7 @@ public class MonsterAI : MonoBehaviour
     public bool isPlayerOpenDoor = false;
     public GameObject actualDoor;
     [SerializeField] GameObject chest;
-    [SerializeField] TypingInput chestAlarm;
+    [SerializeField] Chest chestAlarm;
     [SerializeField] GameObject computer;
     [SerializeField] Tablet computerAlarm;
     [SerializeField] GameObject terminal;
@@ -79,7 +79,7 @@ public class MonsterAI : MonoBehaviour
 
     private void changeMonsterShader()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) < 2f)
+        if(Vector3.Distance(transform.position, player.transform.position) < 2f && isPlayerDetect)
         {
             monsterMesh.materials = visibleMaterials;
         }
@@ -132,20 +132,17 @@ public class MonsterAI : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, chest.transform.position) < 1.5f)
         {
-            chestAlarm.isAlarm = false;
-            chestAlarm.alarm.Stop();
+            chestAlarm.StopAlarm();
             StartCoroutine("stayAndObserve");
         }
         if (Vector3.Distance(transform.position, computer.transform.position) < 1.5f)
         {
-            computerAlarm.isAlarm = false;
-            computerAlarm.alarm.Stop();
+            computerAlarm.StopAlarm();
             StartCoroutine("stayAndObserve");
         }
         if (Vector3.Distance(transform.position, terminal.transform.position) < 2f)
         {
-            terminalAlarm.isAlarm = false;
-            terminalAlarm.alarm.Stop();
+            terminalAlarm.StopAlarm();
             StartCoroutine("stayAndObserve");
         }
     }
@@ -199,11 +196,11 @@ public class MonsterAI : MonoBehaviour
         {
             detectionRange = 12f;
         }
-        else if ((playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsCrouching) || (!playerMovement.movementInputData.HasInput && !playerMovement.isHoldingBreath))
+        else if ((playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsCrouching && !playerMovement.isHoldingBreath) || (!playerMovement.movementInputData.HasInput && !playerMovement.isHoldingBreath))
         {
-            detectionRange = 4.5f;
+            detectionRange = 4.3f;
         }
-        else if (!playerMovement.movementInputData.HasInput && playerMovement.isHoldingBreath)
+        else if ((!playerMovement.movementInputData.HasInput && playerMovement.isHoldingBreath) || (playerMovement.movementInputData.IsCrouching && playerMovement.isHoldingBreath) )
         {
             detectionRange = 0f;
         }

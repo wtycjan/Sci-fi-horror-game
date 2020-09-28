@@ -40,8 +40,8 @@ public class GuitarHeroCircle : MonoBehaviour
         }
         else
         {
-            terminalAlarm.Alarm();
             lockpick.StopGame();
+            terminalAlarm.Alarm();
         }
 
 

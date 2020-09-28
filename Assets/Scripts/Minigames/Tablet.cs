@@ -8,7 +8,12 @@ public class Tablet : MonoBehaviour
     public int securityLvl=1;
     public bool isAlarm = false;
     public AudioSource alarm;
+    private NetworkServerUI network;
 
+    private void Awake()
+    {
+        network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
+    }
     public void Interact()
     {
         hackingScreen.gameObject.SetActive(true);
@@ -18,6 +23,13 @@ public class Tablet : MonoBehaviour
     {
         isAlarm = true;
         alarm.Play();
+        network.ServerSendMessage("Alarm3");
+    }
+    public void StopAlarm()
+    {
+        isAlarm = false;
+        alarm.Stop();
+        network.ServerSendMessage("Alarm0");
     }
 
     public void StopTimer()

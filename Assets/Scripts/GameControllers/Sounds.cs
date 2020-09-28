@@ -37,15 +37,15 @@ public class Sounds : MonoBehaviour
     }
     public void Sound5()
     {
-        audioSource.PlayOneShot(sound4);
+        audioSource.PlayOneShot(sound5);
     }
     public void Sound6()
     {
-        audioSource.PlayOneShot(sound4);
+        audioSource.PlayOneShot(sound6);
     }
     public void StartRunBreathSound()
     {
-        audioSource.volume = 1f;
+        audioSource.volume = .35f;
         audioSource.clip = sound5;
         audioSource.Play();
     }
@@ -57,7 +57,7 @@ public class Sounds : MonoBehaviour
     {
         if(audioSource.clip != sound5 && !audioSource.isPlaying)
         {
-            audioSource.volume = 0.25f;
+            audioSource.volume = 0.17f;
             audioSource.loop = true;
             audioSource.clip = sound6;
             audioSource.Play();

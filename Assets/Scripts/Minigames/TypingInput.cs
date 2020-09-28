@@ -10,8 +10,7 @@ public class TypingInput : MonoBehaviour
     public InputField myField;
     public Text osText;
     private Dictionary<string, System.Action<string, string>> commands;
-    public bool isAlarm = false;
-    public AudioSource alarm;
+
     void Start()
     {
         commands = new Dictionary<string, System.Action<string, string>>();
@@ -59,7 +58,7 @@ public class TypingInput : MonoBehaviour
     }
     private void UnlockChest(string command, string input)
     {
-        SendMessage("Close");
+        //SendMessage("Close");
         SendMessage("Unlock");
         commands.Remove(GameData.password1);
     }
@@ -75,8 +74,7 @@ public class TypingInput : MonoBehaviour
     }
     public void Alarm()
     {
-        isAlarm = true;
-        alarm.Play();
-        SendMessage("Close");
+        SendMessage("StartAlarm");
     }
+
 }

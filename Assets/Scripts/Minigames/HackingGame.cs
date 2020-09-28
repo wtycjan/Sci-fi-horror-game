@@ -192,8 +192,8 @@ public class HackingGame : MonoBehaviour
     //Stop Hacking
     public void Alarm()
     {
-        tablet.Alarm();
         Close();
+        tablet.Alarm();
     }
     public void Close()
     {
