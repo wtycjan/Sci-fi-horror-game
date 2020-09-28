@@ -216,6 +216,7 @@ public class MonsterAI : MonoBehaviour
             }
             else
             {
+ 
                 detectionRange = 4.3f;
             }
   
