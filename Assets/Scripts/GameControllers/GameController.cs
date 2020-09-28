@@ -9,6 +9,7 @@ using System;
 using System.Text;
 using VHS;
 using UnityEngine.Rendering.PostProcessing;
+using DigitalRuby.SimpleLUT;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject door1;
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private ParticleSystem[] deathEffects;
     [SerializeField] private GameObject flashlight;
     [SerializeField] private GameObject pointLight;
+    [SerializeField] private SimpleLUT gameBrightness;
     public Image blackScreen;   //death
     public Image blackScreen2; //intro
     public GameObject pauseMenu;
@@ -97,8 +99,16 @@ public class GameController : MonoBehaviour
     }
     private void setNewBrightness()
     {
-        flashlight.GetComponent<Light>().intensity = PlayerPrefs.GetFloat("brightness-volume");
-        pointLight.GetComponent<Light>().intensity = PlayerPrefs.GetFloat("brightness-volume");
+        if(monster.GetComponent<Animator>().runtimeAnimatorController == jumpAnim)
+        {
+            gameBrightness.Brightness = 0.1f;
+
+        }
+        else
+        {
+            gameBrightness.Brightness = PlayerPrefs.GetFloat("brightness-volume");
+        }
+
     }
 
 

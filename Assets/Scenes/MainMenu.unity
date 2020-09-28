@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.04439433, g: 0.04188624, b: 0.04585708, a: 1}
+  m_IndirectSpecularColor: {r: 0.044414505, g: 0.0418735, b: 0.045859963, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3350,6 +3350,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1522986243}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1612240522 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1186051454205965736, guid: cc62fb8c7536e5742ba5504bfbfa1448,
+    type: 3}
+  m_PrefabInstance: {fileID: 549529458194514702}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1619703719
 GameObject:
   m_ObjectHideFlags: 0
@@ -5026,6 +5038,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1186051454205965736, guid: cc62fb8c7536e5742ba5504bfbfa1448,
+        type: 3}
+      propertyPath: m_Value
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 549529456823158700, guid: cc62fb8c7536e5742ba5504bfbfa1448,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5227,6 +5244,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.0000019073486
       objectReference: {fileID: 0}
+    - target: {fileID: 549529458283034185, guid: cc62fb8c7536e5742ba5504bfbfa1448,
+        type: 3}
+      propertyPath: brightnessSlider
+      value: 
+      objectReference: {fileID: 1612240522}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc62fb8c7536e5742ba5504bfbfa1448, type: 3}
 --- !u!1001 &3036186771568515876

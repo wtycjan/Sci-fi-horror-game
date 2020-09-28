@@ -119,6 +119,7 @@
     <Compile Include="Assets\Downloads\FirstPersonController\Assets\Plugins\NaughtyAttributes\Scripts\Editor\Utility\IOUtility.cs" />
     <Compile Include="Assets\Downloads\FirstPersonController\Assets\Plugins\NaughtyAttributes\Scripts\Editor\Utility\PropertyUtility.cs" />
     <Compile Include="Assets\Downloads\FirstPersonController\Assets\Plugins\NaughtyAttributes\Scripts\Editor\Utility\ReflectionUtility.cs" />
+    <Compile Include="Assets\Downloads\SimpleLUT\Editor\SimpleLUT_Editor.cs" />
     <None Include="Assets\Downloads\UMotionEditor\Plugins\Windows\Editor\x64\AutodeskFbxSdkLicense.txt" />
     <None Include="Assets\Downloads\FirstPersonController\Assets\Plugins\NaughtyAttributes\Scripts\Editor\CodeGeneration\Templates\FieldDrawerDatabaseTemplate.txt" />
     <None Include="Assets\Downloads\UMotionEditor\Plugins\Windows\Editor\x64\UnityFbxSdkNativeLicense.txt" />

@@ -50,7 +50,9 @@ public class SetttingsMenu : MonoBehaviour
     }
     public void SetBrightness(float brightness)
     {
-        brightness = brightness * 0.5f;
+        brightness = brightness + 0.91f;
+        //brightness = brightness * 0.5f;
+        print(brightness);
         backgroundImage.color = new Color(brightness,brightness,brightness, 100);
     }
     public void SetSensivity(float sensivity)
