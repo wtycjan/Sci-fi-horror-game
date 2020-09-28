@@ -91,41 +91,45 @@ public class MonsterAI : MonoBehaviour
 
     private void moveMonster()
     {
+        if (isStay)
+        {
+            isPlayerDetect = false;
+            prepareMonsterToStay();
+        }
+        else if(isPlayerDetect || chestAlarm.isAlarm || computerAlarm.isAlarm || terminalAlarm.isAlarm || (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f))
+            responseMonsterToTrigger();
+        else
+        {
+            prepareMonsterToWalk();
+        }
+    }
+
+    private void responseMonsterToTrigger()
+    {
         if (isPlayerOpenDoor)
         {
             prepareMonsterRunToDoor(actualDoor);
         }
-        else if (chestAlarm.isAlarm)
+        if (chestAlarm.isAlarm)
         {
             prepareMonsterCheckAlarm(chest);
             turnOffAlarm();
         }
-        else if (computerAlarm.isAlarm)
+        if (computerAlarm.isAlarm)
         {
             prepareMonsterCheckAlarm(computer);
             turnOffAlarm();
         }
-        else if (terminalAlarm.isAlarm)
+        if (terminalAlarm.isAlarm)
         {
             prepareMonsterCheckAlarm(terminal);
             turnOffAlarm();
         }
-        else if (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
+        if (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
         {
             prepareMonsterToRun();
         }
-        else
-        {
-            if (isStay)
-            {
-                isPlayerDetect = false;
-                prepareMonsterToStay();
-            }
-            else
-            {
-                prepareMonsterToWalk();
-            }
-        }
+   
     }
 
     void turnOffAlarm()
@@ -194,11 +198,28 @@ public class MonsterAI : MonoBehaviour
     {
         if (playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsRunning && !playerMovement.movementInputData.IsCrouching)
         {
-            detectionRange = 12f;
+            if(computerAlarm.isAlarm || terminalAlarm.isAlarm || chestAlarm.isAlarm)
+            {
+                detectionRange = 6f;
+            }
+            else
+            {
+                detectionRange = 12f;
+            }
+
         }
         else if ((playerMovement.movementInputData.HasInput && playerMovement.movementInputData.IsCrouching && !playerMovement.isHoldingBreath) || (!playerMovement.movementInputData.HasInput && !playerMovement.isHoldingBreath))
         {
-            detectionRange = 4.3f;
+            if (computerAlarm.isAlarm || terminalAlarm.isAlarm || chestAlarm.isAlarm)
+            {
+                detectionRange = 2.15f;
+            }
+            else
+            {
+ 
+                detectionRange = 4.3f;
+            }
+  
         }
         else if ((!playerMovement.movementInputData.HasInput && playerMovement.isHoldingBreath) || (playerMovement.movementInputData.IsCrouching && playerMovement.isHoldingBreath) )
         {
@@ -206,7 +227,15 @@ public class MonsterAI : MonoBehaviour
         }
         else
         {
-            detectionRange = 6.7f;
+            if (computerAlarm.isAlarm || terminalAlarm.isAlarm || chestAlarm.isAlarm)
+            {
+                detectionRange = 3.35f;
+            }
+            else
+            {
+                detectionRange = 6.7f;
+            }
+       
         }
     }
 

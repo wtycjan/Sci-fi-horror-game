@@ -9,6 +9,7 @@ namespace VHS
     public class FirstPersonController : MonoBehaviour
     {
         #region Variables
+
         #region Private Serialized     
         #region Data
         [Space, Header("Data")]

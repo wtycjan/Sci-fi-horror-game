@@ -54,7 +54,7 @@ public class SaveSettings : MonoBehaviour
     {
         volumeSliderMusic.value = PlayerPrefs.GetFloat(MUSIC_VOLUME_PREF, 1);
         volumeSliderSound.value = PlayerPrefs.GetFloat(SFX_VOLUME_PREF, 1);
-        //brightnessSlider.value = PlayerPrefs.GetFloat(BRIGHTNESS_PREF, 1);
+        brightnessSlider.value = PlayerPrefs.GetFloat(BRIGHTNESS_PREF, 1);
         sensivitySlider.value = PlayerPrefs.GetFloat(SENSIVITY_PREF, 1);
 
         enableFullscreen.isOn = GetBoolPref(FULLSCREEN_PREF);

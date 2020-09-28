@@ -38552,7 +38552,7 @@ MonoBehaviour:
   stamina: 0
   breath: 0
   maxBreath: 7
-  maxStamina: 5
+  maxStamina: 5.4
   breathBar: {fileID: 0}
   breathBarObject: {fileID: 0}
   staminaBar: {fileID: 0}
