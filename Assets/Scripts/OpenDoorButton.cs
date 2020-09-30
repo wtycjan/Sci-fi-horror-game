@@ -11,6 +11,7 @@ public class OpenDoorButton : MonoBehaviour
     private bool isMonsterNearbyAndOpen = false, isMonsterClose = false;
     [SerializeField] private GameObject monster;
     public MonsterAI monsterScript;
+    int i = 0;
     void Start()
     {
         sounds = GetComponentInChildren<Sounds>();
@@ -19,8 +20,8 @@ public class OpenDoorButton : MonoBehaviour
 
     void Update()
     {
-        alarmMonsterAboutOpenDoor();
-        StartCoroutine(waitAndCloseDoor());
+        //alarmMonsterAboutOpenDoor();
+        //StartCoroutine(waitAndCloseDoor());
     }
 
     public IEnumerator waitAndCloseDoor()
@@ -51,6 +52,11 @@ public class OpenDoorButton : MonoBehaviour
     public IEnumerator OpenDoor()
     {
         detectIsMonsterInDoorRange();
+        if(isMonsterInDoorRange)
+        {
+            print("alarm");
+            alarmMonsterAboutOpenDoor();
+        }
         gameObject.GetComponent<BoxCollider>().enabled = false;
         doorAnim.SetBool("IsOpen", true);
         interacting = true;
@@ -63,7 +69,7 @@ public class OpenDoorButton : MonoBehaviour
 
     private void detectIsMonsterInDoorRange()
     {
-        if ((Vector3.Distance(transform.position, monster.transform.position) < 15))
+        if ((Vector3.Distance(transform.position, monster.transform.position) < 15f))
         {
             isMonsterInDoorRange = true;
         }
@@ -75,9 +81,10 @@ public class OpenDoorButton : MonoBehaviour
 
     public IEnumerator CloseDoor()
     {
-        if (isMonsterCheckOpenDoor)
+        detectIsMonsterInDoorRange();
+        if(isMonsterInDoorRange)
         {
-            isMonsterCheckOpenDoor = false;
+            alarmMonsterAboutOpenDoor();
         }
         gameObject.GetComponent<BoxCollider>().enabled = true;
         open = false;
@@ -99,12 +106,8 @@ public class OpenDoorButton : MonoBehaviour
 
     private void alarmMonsterAboutOpenDoor()
     {
-        if ((open && !isMonsterOpen && !isMonsterCheckOpenDoor && isMonsterInDoorRange) ||
-            (!isMonsterClose && !isMonsterCheckOpenDoor && isMonsterInDoorRange))
-        {
-            monsterScript.actualDoor = gameObject;
-            monsterScript.isPlayerOpenDoor = true;
-            isMonsterCheckOpenDoor = true;
-        }
+        monsterScript.actualDoor = gameObject;
+        monsterScript.isPlayerOpenCloseDoor = true;
+
     }
 }

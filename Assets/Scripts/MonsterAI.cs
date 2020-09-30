@@ -12,6 +12,7 @@ public class MonsterAI : MonoBehaviour
     public RuntimeAnimatorController runAnim;
     public RuntimeAnimatorController idleAnim;
     NavMeshAgent agent;
+    //public NavMeshSurface surface;
     private Sounds sound;
     public float runSpeed = 7f, normalSpeed = 1.5f;
     public float detectionRange = 2f;
@@ -25,7 +26,7 @@ public class MonsterAI : MonoBehaviour
     private int startSpotsIndex = 2;
 
     public VHS.FirstPersonController playerMovement;
-    public bool isPlayerOpenDoor = false;
+    public bool isPlayerOpenCloseDoor = false;
     public GameObject actualDoor;
     [SerializeField] GameObject chest;
     [SerializeField] Chest chestAlarm;
@@ -39,6 +40,7 @@ public class MonsterAI : MonoBehaviour
     [SerializeField] List<Material> visibleShader;
     Material[] visibleMaterials;
     Material[] transparetMaterials;
+    private bool isDoorCloseInFrontOfMonster = false;
 
 
     void Start()
@@ -47,6 +49,7 @@ public class MonsterAI : MonoBehaviour
         transparetMaterials = transparentShader.ToArray();
         prevPosition = transform.position;
         agent = GetComponent<NavMeshAgent>();
+        //GetComponent<NavMeshSurface>().BuildNavMesh();
         anim = GetComponent<Animator>();
         sound = GetComponent<Sounds>();
         spawnMonster();
@@ -62,6 +65,7 @@ public class MonsterAI : MonoBehaviour
 
     void Update()
     {
+        checkIsDoorCloseInFrontOfMontser();
         checkIsDoorBlocked();
         checkPlayerDetection();
         rotateMonster();
@@ -75,6 +79,11 @@ public class MonsterAI : MonoBehaviour
         }
         moveMonster();
 
+    }
+
+    private void checkIsDoorCloseInFrontOfMontser()
+    {
+        isDoorCloseInFrontOfMonster = GetComponent<OpenDoorHandler>().isDoorCloseInFronfOfMonster;
     }
 
     private void changeMonsterShader()
@@ -96,7 +105,7 @@ public class MonsterAI : MonoBehaviour
             isPlayerDetect = false;
             prepareMonsterToStay();
         }
-        else if(isPlayerDetect || chestAlarm.isAlarm || computerAlarm.isAlarm || terminalAlarm.isAlarm || (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f))
+        else if(isPlayerOpenCloseDoor|| chestAlarm.isAlarm || computerAlarm.isAlarm || terminalAlarm.isAlarm || (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f))
             responseMonsterToTrigger();
         else
         {
@@ -106,10 +115,31 @@ public class MonsterAI : MonoBehaviour
 
     private void responseMonsterToTrigger()
     {
-        if (isPlayerOpenDoor)
+        reposnseMonsterToAlarm();
+        responseMonsterToPlayer();
+
+    }
+
+    private void responseMonsterToPlayer()
+    {
+        if (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
+        {
+            prepareMonsterToRun();
+        }
+        else if (isPlayerDetect && isDoorCloseInFrontOfMonster)
+        {
+            Vector3 playerPositionBeforeDoorClose = player.transform.position;
+            isDoorCloseInFrontOfMonster = false;
+            agent.SetDestination(playerPositionBeforeDoorClose);
+        }
+        else if (isPlayerOpenCloseDoor)
         {
             prepareMonsterRunToDoor(actualDoor);
         }
+    }
+
+    private void reposnseMonsterToAlarm()
+    {
         if (chestAlarm.isAlarm)
         {
             prepareMonsterCheckAlarm(chest);
@@ -125,11 +155,6 @@ public class MonsterAI : MonoBehaviour
             prepareMonsterCheckAlarm(terminal);
             turnOffAlarm();
         }
-        if (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
-        {
-            prepareMonsterToRun();
-        }
-   
     }
 
     void turnOffAlarm()
@@ -324,7 +349,7 @@ public class MonsterAI : MonoBehaviour
             {
                 StartCoroutine("stayAndObserve");
             }
-            isPlayerOpenDoor = false;
+            isPlayerOpenCloseDoor = false;
             return true;
         }
         if(agent.pathStatus == NavMeshPathStatus.PathComplete)

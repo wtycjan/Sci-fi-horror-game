@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3372684}
   - component: {fileID: 2361056}
   - component: {fileID: 6434562}
-  - component: {fileID: 3249289050333205553}
   m_Layer: 0
   m_Name: cabinet_L_cutted
   m_TagString: Untagged
@@ -93,19 +92,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: ce77e936a9505b142a210040b9ab07e0, type: 3}
---- !u!208 &3249289050333205553
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111774}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1.5000001, y: 0.88400006, z: 1.5000001}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 1.5000001, y: 0.88400006, z: 1.5000001}
-  m_TimeToStationary: 0.5
