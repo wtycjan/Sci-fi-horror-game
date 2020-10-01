@@ -782,14 +782,6 @@
       <Project>{0F717BCF-E4DC-23C6-54A9-9FD30CAAC006}</Project>
       <Name>Assembly-CSharp-Editor-firstpass</Name>
     </ProjectReference>
-    <ProjectReference Include="UMotionSourceApplication.csproj">
-      <Project>{F76B7651-A0E1-6F86-021F-BEE232B568C1}</Project>
-      <Name>UMotionSourceApplication</Name>
-    </ProjectReference>
-    <ProjectReference Include="UMotionSourceEditor.csproj">
-      <Project>{E2511AF0-8F79-701C-593F-1C98E63CB104}</Project>
-      <Name>UMotionSourceEditor</Name>
-    </ProjectReference>
     <ProjectReference Include="NavMeshComponentsEditor.csproj">
       <Project>{50E08988-6496-488C-9FF0-0128ECD21ABD}</Project>
       <Name>NavMeshComponentsEditor</Name>
@@ -797,6 +789,14 @@
     <ProjectReference Include="NavMeshComponents.csproj">
       <Project>{1A9E9C13-9C86-7CF6-C18B-AAE209DB764B}</Project>
       <Name>NavMeshComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="UMotionSourceApplication.csproj">
+      <Project>{F76B7651-A0E1-6F86-021F-BEE232B568C1}</Project>
+      <Name>UMotionSourceApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="UMotionSourceEditor.csproj">
+      <Project>{E2511AF0-8F79-701C-593F-1C98E63CB104}</Project>
+      <Name>UMotionSourceEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
