@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3359412}
   - component: {fileID: 2327964}
   - component: {fileID: 6516002}
-  - component: {fileID: 8350672743603806584}
   m_Layer: 0
   m_Name: hydroponic
   m_TagString: Untagged
@@ -94,19 +93,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.8935103, y: 1.3640778, z: 1.6260911}
   m_Center: {x: 0.021408558, y: 0.6820389, z: 0.0005441904}
---- !u!208 &8350672743603806584
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 189446}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1.447, y: 1.075, z: 0.813}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0.021000002, y: 1.075, z: 0.001}
-  m_TimeToStationary: 0.5

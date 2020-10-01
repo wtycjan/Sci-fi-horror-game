@@ -49,6 +49,9 @@ MonoBehaviour:
   sound3: {fileID: 0}
   sound4: {fileID: 0}
   sound5: {fileID: 0}
+  sound6: {fileID: 0}
+  sound7: {fileID: 0}
+  sound8: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!82 &1710878954
 AudioSource:
@@ -217,6 +220,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   open: 0
   interacting: 0
+  isMonsterOpen: 0
+  isMonsterCheckOpenDoor: 0
+  isMonsterInDoorRange: 0
+  monster: {fileID: 0}
+  monsterScript: {fileID: 0}
 --- !u!65 &4863903557532968272
 BoxCollider:
   m_ObjectHideFlags: 0

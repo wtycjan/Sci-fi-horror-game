@@ -1,5 +1,92 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1406805417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1406805420}
+  - component: {fileID: 1406805419}
+  - component: {fileID: 1406805418}
+  m_Layer: 12
+  m_Name: IgnoreFogCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1406805420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406805417}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7412956538032912239}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1406805419
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406805417}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_GateFitMode: 2
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 26.991467
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!114 &1406805418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406805417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5670444ced7c2a7468c7600830a728d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  revertFogState: 0
 --- !u!1 &1534965302
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +98,7 @@ GameObject:
   - component: {fileID: 1534965303}
   - component: {fileID: 1534965305}
   - component: {fileID: 1534965304}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Audio Source
   m_TagString: PlayerSounds2
   m_Icon: {fileID: 0}
@@ -45,7 +132,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.9
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -161,7 +248,7 @@ GameObject:
   - component: {fileID: 1734749123}
   - component: {fileID: 1734749125}
   - component: {fileID: 1734749124}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Footsteps
   m_TagString: PlayerSounds
   m_Icon: {fileID: 0}
@@ -310,7 +397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1967861640}
   - component: {fileID: 1967861641}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Lookpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +443,7 @@ GameObject:
   - component: {fileID: 2061629065}
   - component: {fileID: 2061629064}
   - component: {fileID: 2061629063}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +534,7 @@ GameObject:
   - component: {fileID: 7949931059664143467}
   - component: {fileID: 3618644184566243340}
   - component: {fileID: 6131925970149048314}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System_A1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5143,7 +5230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2080169938827486346}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DeathPartialSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5185,7 +5272,7 @@ GameObject:
   - component: {fileID: 4390922738178045759}
   - component: {fileID: 1503993059656946047}
   - component: {fileID: 6928847060779701957}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System_A3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9883,7 +9970,7 @@ GameObject:
   - component: {fileID: 7141094884638624747}
   - component: {fileID: 2461202263143377844}
   - component: {fileID: 2790155135912720831}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System_B2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14581,7 +14668,7 @@ GameObject:
   - component: {fileID: 4838795271984308928}
   - component: {fileID: 4843646663088814514}
   - component: {fileID: 5146592740398912539}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System_A2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19279,7 +19366,7 @@ GameObject:
   - component: {fileID: 4279519999219514577}
   - component: {fileID: 7951481633229235083}
   - component: {fileID: 1020667769484695757}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System_B1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23977,7 +24064,7 @@ GameObject:
   - component: {fileID: 1325674406202610975}
   - component: {fileID: 7348454314439092327}
   - component: {fileID: 6620513836426435663}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System_B3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28674,13 +28761,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6032497564048809845}
   - component: {fileID: 6032497564048809834}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Flashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6032497564048809845
 Transform:
   m_ObjectHideFlags: 0
@@ -28743,13 +28830,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6032497565283669346}
   - component: {fileID: 6032497565283669347}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6032497565283669346
 Transform:
   m_ObjectHideFlags: 0
@@ -28813,7 +28900,7 @@ GameObject:
   - component: {fileID: 8140865645493669140}
   - component: {fileID: 6848576830177539492}
   - component: {fileID: 6537286795615326618}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System_C2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33511,7 +33598,7 @@ GameObject:
   - component: {fileID: 4933958660784466691}
   - component: {fileID: 6691403465653223754}
   - component: {fileID: 6369507743565474999}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System_C1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38211,7 +38298,8 @@ GameObject:
   - component: {fileID: 7412956538032912234}
   - component: {fileID: 7412956538032912241}
   - component: {fileID: 7412956538032912237}
-  m_Layer: 8
+  - component: {fileID: 1287008176}
+  m_Layer: 12
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -38231,6 +38319,7 @@ Transform:
   m_Children:
   - {fileID: 6032497565283669346}
   - {fileID: 6032497564048809845}
+  - {fileID: 1406805420}
   m_Father: {fileID: 7412956539410831267}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -38261,7 +38350,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -38360,6 +38449,27 @@ MonoBehaviour:
   x: 1
   y: 1
   z: 0
+--- !u!114 &1287008176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7412956538032912235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2fd0b11cfb2fb4ca4ed47adfcc3b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shader: {fileID: 4800000, guid: 9d7e8f87435780644abb4acdfd72a2f0, type: 3}
+  LookupTexture: {fileID: 0}
+  Amount: 1
+  TintColor: {r: 1, g: 1, b: 1, a: 1}
+  Hue: 0
+  Saturation: 0
+  Brightness: 0
+  Contrast: 0
+  Sharpness: 0
 --- !u!1 &7412956538445892596
 GameObject:
   m_ObjectHideFlags: 0
@@ -38551,8 +38661,8 @@ MonoBehaviour:
   isHoldingBreath: 0
   stamina: 0
   breath: 0
-  maxBreath: 7
-  maxStamina: 5.4
+  maxBreath: 8
+  maxStamina: 5.3
   breathBar: {fileID: 0}
   breathBarObject: {fileID: 0}
   staminaBar: {fileID: 0}
@@ -38644,7 +38754,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7412956539410831267}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Camera_Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38676,7 +38786,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7412956539622865381}
   - component: {fileID: 7412956539622865380}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Camera_Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38808,7 +38918,7 @@ GameObject:
   - component: {fileID: 1631017897798295840}
   - component: {fileID: 7840834605542051773}
   - component: {fileID: 9159751788375645210}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle System_C3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43506,7 +43616,7 @@ GameObject:
   - component: {fileID: 8413159040107143914}
   - component: {fileID: 1595196145624230695}
   - component: {fileID: 3451067171284153578}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BreathSystem
   m_TagString: PlayerSounds3
   m_Icon: {fileID: 0}
@@ -43640,8 +43750,8 @@ MonoBehaviour:
   sound2: {fileID: 0}
   sound3: {fileID: 0}
   sound4: {fileID: 0}
-  sound5: {fileID: 8300000, guid: 66961b3c23cad094dadfcdfe66ed66e3, type: 3}
-  sound6: {fileID: 8300000, guid: 7c4485cb888bcaf4abb3bcd1195e0af4, type: 3}
+  sound5: {fileID: 8300000, guid: 306d3cb6a56d4db4eb1737a2b151d39b, type: 3}
+  sound6: {fileID: 8300000, guid: f53856f596c7c4c418231a043195a041, type: 3}
   sound7: {fileID: 0}
   sound8: {fileID: 0}
   audioSource: {fileID: 1595196145624230695}
@@ -43655,6 +43765,10 @@ PrefabInstance:
     - target: {fileID: 1834194341294532, guid: d5f26854a8904624c8073139cd2eb346, type: 3}
       propertyPath: m_Name
       value: ChunkParticleSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834194341294532, guid: d5f26854a8904624c8073139cd2eb346, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4765838103219372, guid: d5f26854a8904624c8073139cd2eb346, type: 3}
       propertyPath: m_LocalPosition.x

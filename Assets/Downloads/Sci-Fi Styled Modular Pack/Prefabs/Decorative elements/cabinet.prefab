@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3374554}
   - component: {fileID: 2366016}
   - component: {fileID: 6402840}
-  - component: {fileID: 2722825515686228196}
   m_Layer: 0
   m_Name: cabinet
   m_TagString: Untagged
@@ -93,19 +92,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: dd8d5ab829c8a6c48aafbfe7a869bb4b, type: 3}
---- !u!208 &2722825515686228196
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 142160}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1, y: 0.88400006, z: 0.78200006}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 1, y: 0.88400006, z: 0.78200006}
-  m_TimeToStationary: 0.5

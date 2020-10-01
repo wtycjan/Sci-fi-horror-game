@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject door3;
     [SerializeField] private GameObject door4;
     [SerializeField] private GameObject door5;
+    [SerializeField] private GameObject door6;
     [SerializeField] private GameObject redButton;
     [SerializeField] private GameObject yellowButton;
     [SerializeField] private GameObject blueButton;
@@ -57,6 +58,7 @@ public class GameController : MonoBehaviour
         //Enable before building
         StartCoroutine("Intro");
         //*************************
+
     }
     private void Update()
     {
@@ -71,7 +73,9 @@ public class GameController : MonoBehaviour
             OpenDoor4();
         if (Input.GetKeyDown("5"))
             OpenDoor5();
-        
+        if (Input.GetKeyDown("6"))
+            OpenDoor6();
+
         setNewBrightness();
 
         //death
@@ -154,6 +158,10 @@ public class GameController : MonoBehaviour
     void OpenDoor5()
     {
         door5.SendMessage("Interact");
+    }
+    void OpenDoor6()
+    {
+        door6.SendMessage("Interact");
     }
 
     public IEnumerator Death()

@@ -10,80 +10,13 @@ public class OpenDoorHandler : MonoBehaviour
     [SerializeField] private GameObject door3;
     [SerializeField] private GameObject door4;
     [SerializeField] private GameObject door5;
-    private bool isDoorOpeningNow = true;
+    [SerializeField] private GameObject door6;
+    public bool isDoorCloseInFronfOfMonster = false;
+
  
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Door (1)")
-        {
-            while(isDoorOpeningNow)
-            {
-                StartCoroutine(allowOpenDoorOnce());
-                StartCoroutine(playOrStopAnimation());
-                door1.SendMessage("openMonsterDoor");
-            }
-            
-        }
-        else if (collision.gameObject.name == "Door (2)")
-        {
-            while (isDoorOpeningNow)
-            {
-                StartCoroutine(allowOpenDoorOnce());
-                StartCoroutine(playOrStopAnimation());
-                door2.SendMessage("openMonsterDoor");
-            }
-        }
-        else if (collision.gameObject.name == "Door (3)")
-        {
-            while (isDoorOpeningNow)
-            {
-                StartCoroutine(allowOpenDoorOnce());
-                StartCoroutine(playOrStopAnimation());
-                door3.SendMessage("openMonsterDoor");
-            }
-        }
-        else if (collision.gameObject.name == "Door (4)")
-        {
-            while (isDoorOpeningNow)
-            {
-                StartCoroutine(allowOpenDoorOnce());
-                StartCoroutine(playOrStopAnimation());
-                door4.SendMessage("openMonsterDoor");
-            }
-        }
-        else if (collision.gameObject.name == "Door (5)")
-        {
-            while (isDoorOpeningNow)
-            {
-                StartCoroutine(allowOpenDoorOnce());
-                StartCoroutine(playOrStopAnimation());
-                door5.SendMessage("openMonsterDoor");
-            }
-        }
-        else
-        {
-
-        }
+        isDoorCloseInFronfOfMonster = true;
     }
-
-    IEnumerator playOrStopAnimation()
-    {
-        
-        gameObject.GetComponent<NavMeshAgent>().isStopped = true;
-        SendMessage("prepareMonsterToStay");
-
-        yield return new WaitForSeconds(2f); 
-        
-        SendMessage("prepareMonsterToWalk");
-        gameObject.GetComponent<NavMeshAgent>().isStopped = false;
-    }
-
-    IEnumerator allowOpenDoorOnce()
-    {
-        isDoorOpeningNow = false;
-        yield return new WaitForSeconds(2f);
-        isDoorOpeningNow = true;
-
-    }
-    
+   
 }
