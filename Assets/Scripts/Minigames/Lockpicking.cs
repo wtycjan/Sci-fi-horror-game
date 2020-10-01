@@ -12,6 +12,7 @@ public class Lockpicking : MonoBehaviour
     public bool isAlarm = false;
     public AudioSource alarm;
     private NetworkServerUI network;
+    public OpenDoorButton doors;
 
     private void Awake()
     {
@@ -27,11 +28,13 @@ public class Lockpicking : MonoBehaviour
     void Update()
     {
         //if unlocked
-        if(GameData.door1)
+        if (GameData.door1)
         {
             GetComponentInChildren<Light>().color = Color.green;
             GetComponent<MeshRenderer>().material = openMaterial;
             gameObject.layer = 0; //isInteractable = false;
+            doors.UnlockDoor();
+            enabled = false;
         }
     }
     void Open()

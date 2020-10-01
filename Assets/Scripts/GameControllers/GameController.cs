@@ -134,7 +134,7 @@ public class GameController : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
         Destroy(blackScreen2.gameObject);
-        OpenDoor5();
+        door5.GetComponent<OpenDoorButton>().UnlockDoor();
         GameData.canPause = true;
         network.ServerSendMessage("Unpause");
     }
@@ -157,7 +157,10 @@ public class GameController : MonoBehaviour
     }
     void OpenDoor5()
     {
+        if(GameData.canPause)
         door5.SendMessage("Interact");
+        else
+            door5.GetComponent<OpenDoorButton>().UnlockDoor();
     }
     void OpenDoor6()
     {

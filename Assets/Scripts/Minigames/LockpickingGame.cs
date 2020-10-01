@@ -124,7 +124,7 @@ public class LockpickingGame : MonoBehaviour
             //move ballw
             while (btn.transform.localPosition.y > -230)
             {
-                btn.transform.localPosition = new Vector2(btn.transform.localPosition.x, btn.transform.localPosition.y - 2.5f);
+                btn.transform.localPosition = new Vector2(btn.transform.localPosition.x, btn.transform.localPosition.y - 2.35f);
                 yield return new WaitForSecondsRealtime(.01f);
             }
 

@@ -39,11 +39,11 @@ public class OpenDoorButton : MonoBehaviour
 
     public void Interact()
     {
-        if (open == false && !interacting)
+        if (open == false)
         { 
             StartCoroutine("OpenDoor");
         }
-        else if (open && !interacting)
+        else if (open)
         {
             isMonsterClose = false;
             StartCoroutine("CloseDoor");
@@ -51,6 +51,12 @@ public class OpenDoorButton : MonoBehaviour
     }
     public IEnumerator OpenDoor()
     {
+        if (interacting)
+        {
+            StopCoroutine("CloseDoor");
+        }
+        doorAnim.SetFloat("Open", -1f);
+
         detectIsMonsterInDoorRange();
         if(isMonsterInDoorRange)
         {
@@ -61,10 +67,11 @@ public class OpenDoorButton : MonoBehaviour
         doorAnim.SetBool("IsOpen", true);
         interacting = true;
         sounds.Sound1();
-        yield return new WaitForSeconds(.1f);
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitWhile(AnimatorIsPlaying2);
         open = true;
         interacting = false;
+        doorAnim.SetFloat("Open", 0f);
+        print("open_end");
     }
 
     private void detectIsMonsterInDoorRange()
@@ -81,6 +88,13 @@ public class OpenDoorButton : MonoBehaviour
 
     public IEnumerator CloseDoor()
     {
+        if (interacting)
+        {
+            StopCoroutine("OpenDoor");
+        }
+        doorAnim.SetBool("IsOpen", false);
+        doorAnim.SetFloat("Open", 1f);
+
         detectIsMonsterInDoorRange();
         if(isMonsterInDoorRange)
         {
@@ -90,11 +104,18 @@ public class OpenDoorButton : MonoBehaviour
         open = false;
         interacting = true;
         sounds.Sound2();
-        doorAnim.SetBool("IsOpen", false);
-        yield return new WaitForSeconds(.1f);
-        yield return new WaitForSeconds(1.3f);
+
+        yield return new WaitWhile(AnimatorIsPlaying);
+        doorAnim.SetFloat("Open", 0f);
         open = false;
         interacting = false;
+    }
+    public void UnlockDoor()
+    {
+        open = true;
+        doorAnim.SetBool("IsOpen", true);
+        sounds.Sound1();
+        gameObject.GetComponent<BoxCollider>().enabled = false;
     }
     private void openMonsterDoor()
     {
@@ -109,5 +130,15 @@ public class OpenDoorButton : MonoBehaviour
         monsterScript.actualDoor = gameObject;
         monsterScript.isPlayerOpenCloseDoor = true;
 
+    }
+    bool AnimatorIsPlaying()
+    {
+        return doorAnim.GetCurrentAnimatorStateInfo(0).length >
+               doorAnim.GetCurrentAnimatorStateInfo(0).normalizedTime + .52f;
+    }
+    bool AnimatorIsPlaying2()
+    {
+        return
+               doorAnim.GetCurrentAnimatorStateInfo(0).normalizedTime > .1f;
     }
 }
