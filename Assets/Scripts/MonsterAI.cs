@@ -126,11 +126,11 @@ public class MonsterAI : MonoBehaviour
         {
             prepareMonsterToRun();
         }
-        else if (isPlayerDetect && isDoorCloseInFrontOfMonster)
+        if (isPlayerDetect && isPlayerOpenCloseDoor)
         {
-            Vector3 playerPositionBeforeDoorClose = player.transform.position;
-            isDoorCloseInFrontOfMonster = false;
-            agent.SetDestination(playerPositionBeforeDoorClose);
+            isPlayerOpenCloseDoor = false;
+            GameObject playerPositionBeforeDoorClose = player;
+            prepareMonsterRunToDoor(playerPositionBeforeDoorClose);
         }
         else if (isPlayerOpenCloseDoor)
         {

@@ -18,5 +18,5 @@ public class OpenDoorHandler : MonoBehaviour
     {
         isDoorCloseInFronfOfMonster = true;
     }
-   
+
 }
