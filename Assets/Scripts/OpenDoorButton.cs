@@ -133,8 +133,8 @@ public class OpenDoorButton : MonoBehaviour
     }
     bool AnimatorIsPlaying()
     {
-        return doorAnim.GetCurrentAnimatorStateInfo(0).length >
-               doorAnim.GetCurrentAnimatorStateInfo(0).normalizedTime + .52f;
+
+        return doorAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < .95f;
     }
     bool AnimatorIsPlaying2()
     {
