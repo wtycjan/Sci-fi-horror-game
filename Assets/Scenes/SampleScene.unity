@@ -4645,7 +4645,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1, y: 0.88400006, z: 0.78200006}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 1, y: 0.88400006, z: 0.78200006}
   m_TimeToStationary: 0.5
@@ -15161,7 +15161,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1, y: 0.88400006, z: 0.78200006}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 1, y: 0.88400006, z: 0.78200006}
   m_TimeToStationary: 0.5
@@ -17600,7 +17600,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1, y: 0.88400006, z: 0.78200006}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 1, y: 0.88400006, z: 0.78200006}
   m_TimeToStationary: 0.5
@@ -18526,7 +18526,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1.5000001, y: 0.88400006, z: 1.5000001}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 1.5000001, y: 0.88400006, z: 1.5000001}
   m_TimeToStationary: 0.5
@@ -26600,7 +26600,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -29980,7 +29980,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1, y: 0.88400006, z: 0.78200006}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 1, y: 0.88400006, z: 0.78200006}
   m_TimeToStationary: 0.5
@@ -41577,7 +41577,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1.5000001, y: 0.88400006, z: 1.5000001}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 1.5000001, y: 0.88400006, z: 1.5000001}
   m_TimeToStationary: 0.5
@@ -52403,7 +52403,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1, y: 0.88400006, z: 0.78200006}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 1, y: 0.88400006, z: 0.78200006}
   m_TimeToStationary: 0.5
@@ -77765,6 +77765,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6563080286574624749, guid: 3a4d6d4e4bee4ae46ab7c06c6075d151,
+        type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 3acea884be9a3e0408b8fc9ad7ef662d,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a4d6d4e4bee4ae46ab7c06c6075d151, type: 3}
 --- !u!4 &6672144131690336408

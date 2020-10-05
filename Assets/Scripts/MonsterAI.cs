@@ -18,7 +18,7 @@ public class MonsterAI : MonoBehaviour
     public float detectionRange = 2f;
     private Vector3 deltaPosition, prevPosition;
     private bool scream = false, charge = false, stop = false, isStay = false;
-    public bool isPlayerDetect = false;
+    public bool isPlayerDetect = false, isRunning = false;
     public List<Transform> Spots;
     private Transform newSpot;
     private Transform spawnSpot;
@@ -102,10 +102,13 @@ public class MonsterAI : MonoBehaviour
     {
         if (isStay)
         {
+            isRunning = false;
             isPlayerDetect = false;
             prepareMonsterToStay();
         }
-        else if(isPlayerOpenCloseDoor|| chestAlarm.isAlarm || computerAlarm.isAlarm || terminalAlarm.isAlarm || (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f))
+        else if(isPlayerOpenCloseDoor|| chestAlarm.isAlarm || computerAlarm.isAlarm || terminalAlarm.isAlarm || isPlayerDetect
+            || (Vector3.Distance(transform.position, player.transform.position) < detectionRange 
+            && Vector3.Distance(transform.position, player.transform.position) > 1.5f))
             responseMonsterToTrigger();
         else
         {
@@ -128,14 +131,20 @@ public class MonsterAI : MonoBehaviour
         }
         if (isPlayerDetect && isPlayerOpenCloseDoor)
         {
-            isPlayerOpenCloseDoor = false;
-            GameObject playerPositionBeforeDoorClose = player;
-            prepareMonsterRunToDoor(playerPositionBeforeDoorClose);
+            prepareMosterIfDoorIsCloseInFrontOfHim();
         }
         else if (isPlayerOpenCloseDoor)
         {
             prepareMonsterRunToDoor(actualDoor);
         }
+    }
+
+    private void prepareMosterIfDoorIsCloseInFrontOfHim()
+    {
+        isPlayerOpenCloseDoor = false;
+        isRunning = true;
+        GameObject playerPositionBeforeDoorClose = player;
+        startMonsterRunToAlarm(playerPositionBeforeDoorClose);
     }
 
     private void reposnseMonsterToAlarm()
@@ -195,6 +204,7 @@ public class MonsterAI : MonoBehaviour
 
     private void startMonsterRunToAlarm(GameObject alarmSource)
     {
+ 
         agent.speed = runSpeed;
         anim.runtimeAnimatorController = runAnim;
         float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move
@@ -215,7 +225,7 @@ public class MonsterAI : MonoBehaviour
 
     private void checkPlayerDetection()
     {
-        if (!isPlayerDetect)
+        if (!isPlayerDetect || isRunning)
             checkPlayerMovementMode();
     }
 
@@ -336,6 +346,7 @@ public class MonsterAI : MonoBehaviour
     private void setNewPointDestinationToMoster()
     {
         isPlayerDetect = false;
+        isRunning = false;
         newSpot = Spots[UnityEngine.Random.Range(startSpotsIndex, Spots.Count)];
         agent.SetDestination(newSpot.transform.position);
     }
