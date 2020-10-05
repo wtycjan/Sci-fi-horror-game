@@ -130,15 +130,20 @@ public class MonsterAI : MonoBehaviour
         }
         if (isPlayerDetect && isPlayerOpenCloseDoor)
         {
-            isPlayerOpenCloseDoor = false;
-            detectionRange = 4.3f;
-            GameObject playerPositionBeforeDoorClose = player;
-            startMonsterRunToAlarm(playerPositionBeforeDoorClose);
+            prepareMosterIfDoorIsCloseInFrontOfHim();
         }
         else if (isPlayerOpenCloseDoor)
         {
             prepareMonsterRunToDoor(actualDoor);
         }
+    }
+
+    private void prepareMosterIfDoorIsCloseInFrontOfHim()
+    {
+        isPlayerOpenCloseDoor = false;
+        detectionRange = 4.3f;
+        GameObject playerPositionBeforeDoorClose = player;
+        startMonsterRunToAlarm(playerPositionBeforeDoorClose);
     }
 
     private void reposnseMonsterToAlarm()
