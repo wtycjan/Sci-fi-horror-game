@@ -2503,8 +2503,8 @@ MonoBehaviour:
   walkAnim: {fileID: 9100000, guid: 75d3a58b3d7879f41926561701407a48, type: 2}
   runAnim: {fileID: 9100000, guid: 6cc513001c84c714baa94b6d24a332c4, type: 2}
   idleAnim: {fileID: 9100000, guid: a8555c0cff30527479e32562cef9141f, type: 2}
-  runSpeed: 4.5
-  normalSpeed: 2.5
+  runSpeed: 4.3
+  normalSpeed: 2.3
   detectionRange: 2
   isPlayerDetect: 0
   isRunning: 0
