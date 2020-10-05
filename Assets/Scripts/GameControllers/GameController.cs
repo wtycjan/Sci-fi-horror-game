@@ -77,6 +77,7 @@ public class GameController : MonoBehaviour
             OpenDoor6();
 
         setNewBrightness();
+        UpdatePosition();
 
         //death
         if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene && monster.isPlayerDetect )
@@ -95,10 +96,6 @@ public class GameController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-
-        //Update Player Position
-        Vector2 pos = new Vector2(player.transform.position.x, player.transform.position.z);
-        network.ServerSendMessage("player: " + pos.x + " " + pos.y);
 
     }
     private void setNewBrightness()
@@ -172,10 +169,21 @@ public class GameController : MonoBehaviour
         GameData.respawn = true;
         GameData.canPause = false;
         cutscene = true;
+        //disable minigames
+        GameObject[] minigames = GameObject.FindGameObjectsWithTag("Minigame");
+        foreach (GameObject m in minigames)
+        {
+            if (m == null)
+            {
+                continue;
+            }
+            m.SetActive(false);
+        }
+        //disable player and monster mechanics
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
         foreach (MonoBehaviour c in scripts)
         {
-            if (c == null || c.gameObject.tag == "MainCamera")
+            if (c == null || c.gameObject.tag == "MainCamera")  //postprocess
             {
                 continue;
             }
@@ -259,17 +267,11 @@ public class GameController : MonoBehaviour
         computer.GetComponent<Tablet>().Completed();
     }
 
-    public IEnumerator UpdatePosition()
+    public void UpdatePosition()
     {
-
-        if (Vector3.Distance(monster.transform.position, player.transform.position) < 15f)
-        {
-            Vector2 pos = new Vector2(monster.transform.position.x, monster.transform.position.z);
-            network.ServerSendMessage("monster: " + pos.x + " " + pos.y);
-        }
-        else
-            network.ServerSendMessage("monster: " + -999+ " " + -999);
-        yield return new WaitForSeconds(.5f);
-        StartCoroutine("UpdatePosition");
+        Vector2 pos = new Vector2(player.transform.position.x, player.transform.position.z);
+        network.ServerSendMessage("player: " + pos.x + " " + pos.y);
+        pos = new Vector2(monster.transform.position.x, monster.transform.position.z);
+        network.ServerSendMessage("monster: " + pos.x + " " + pos.y);
     }
 }

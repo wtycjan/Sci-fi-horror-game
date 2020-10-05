@@ -11,6 +11,7 @@ public class MonsterAI : MonoBehaviour
     public RuntimeAnimatorController walkAnim;
     public RuntimeAnimatorController runAnim;
     public RuntimeAnimatorController idleAnim;
+    NetworkServerUI network;
     NavMeshAgent agent;
     //public NavMeshSurface surface;
     private Sounds sound;
@@ -52,6 +53,7 @@ public class MonsterAI : MonoBehaviour
         //GetComponent<NavMeshSurface>().BuildNavMesh();
         anim = GetComponent<Animator>();
         sound = GetComponent<Sounds>();
+        network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
         spawnMonster();
         setNewPointDestinationToMoster();
 
@@ -78,7 +80,7 @@ public class MonsterAI : MonoBehaviour
             }
         }
         moveMonster();
-
+        HandleState();
     }
 
     private void checkIsDoorCloseInFrontOfMontser()
@@ -402,6 +404,15 @@ public class MonsterAI : MonoBehaviour
         prepareMonsterToWalk();
         agent.isStopped = false;
     }
+    protected void HandleState()
+    {
 
+        if (anim.runtimeAnimatorController == idleAnim)
+            network.ServerSendMessage("MonsterState1");  //stand
+        else if (anim.runtimeAnimatorController == runAnim)
+            network.ServerSendMessage("MonsterState3");  //sprint
+        else
+            network.ServerSendMessage("MonsterState2");  //walk
+    }
 }
 
