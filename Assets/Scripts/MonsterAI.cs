@@ -105,7 +105,9 @@ public class MonsterAI : MonoBehaviour
             isPlayerDetect = false;
             prepareMonsterToStay();
         }
-        else if(isPlayerOpenCloseDoor|| chestAlarm.isAlarm || computerAlarm.isAlarm || terminalAlarm.isAlarm || (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f))
+        else if(isPlayerOpenCloseDoor|| chestAlarm.isAlarm || computerAlarm.isAlarm || terminalAlarm.isAlarm || isPlayerDetect
+            || (Vector3.Distance(transform.position, player.transform.position) < detectionRange 
+            && Vector3.Distance(transform.position, player.transform.position) > 1.5f))
             responseMonsterToTrigger();
         else
         {
@@ -129,8 +131,9 @@ public class MonsterAI : MonoBehaviour
         if (isPlayerDetect && isPlayerOpenCloseDoor)
         {
             isPlayerOpenCloseDoor = false;
+            detectionRange = 4.3f;
             GameObject playerPositionBeforeDoorClose = player;
-            prepareMonsterRunToDoor(playerPositionBeforeDoorClose);
+            startMonsterRunToAlarm(playerPositionBeforeDoorClose);
         }
         else if (isPlayerOpenCloseDoor)
         {
@@ -195,6 +198,7 @@ public class MonsterAI : MonoBehaviour
 
     private void startMonsterRunToAlarm(GameObject alarmSource)
     {
+ 
         agent.speed = runSpeed;
         anim.runtimeAnimatorController = runAnim;
         float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move
