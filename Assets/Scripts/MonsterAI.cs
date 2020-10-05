@@ -18,7 +18,7 @@ public class MonsterAI : MonoBehaviour
     public float detectionRange = 2f;
     private Vector3 deltaPosition, prevPosition;
     private bool scream = false, charge = false, stop = false, isStay = false;
-    public bool isPlayerDetect = false;
+    public bool isPlayerDetect = false, isRunning = false;
     public List<Transform> Spots;
     private Transform newSpot;
     private Transform spawnSpot;
@@ -102,6 +102,7 @@ public class MonsterAI : MonoBehaviour
     {
         if (isStay)
         {
+            isRunning = false;
             isPlayerDetect = false;
             prepareMonsterToStay();
         }
@@ -141,7 +142,7 @@ public class MonsterAI : MonoBehaviour
     private void prepareMosterIfDoorIsCloseInFrontOfHim()
     {
         isPlayerOpenCloseDoor = false;
-        detectionRange = 4.3f;
+        isRunning = true;
         GameObject playerPositionBeforeDoorClose = player;
         startMonsterRunToAlarm(playerPositionBeforeDoorClose);
     }
@@ -224,7 +225,7 @@ public class MonsterAI : MonoBehaviour
 
     private void checkPlayerDetection()
     {
-        if (!isPlayerDetect)
+        if (!isPlayerDetect || isRunning)
             checkPlayerMovementMode();
     }
 
@@ -345,6 +346,7 @@ public class MonsterAI : MonoBehaviour
     private void setNewPointDestinationToMoster()
     {
         isPlayerDetect = false;
+        isRunning = false;
         newSpot = Spots[UnityEngine.Random.Range(startSpotsIndex, Spots.Count)];
         agent.SetDestination(newSpot.transform.position);
     }
