@@ -60,13 +60,13 @@ public class OpenDoorButton : MonoBehaviour
         detectIsMonsterInDoorRange();
         if(isMonsterInDoorRange)
         {
-            print("alarm");
             alarmMonsterAboutOpenDoor();
         }
         gameObject.GetComponent<BoxCollider>().enabled = false;
         doorAnim.SetBool("IsOpen", true);
         interacting = true;
-        sounds.Sound1();
+        if(!sounds.IsPlaying())
+            sounds.Sound1();
         yield return new WaitWhile(AnimatorIsPlaying2);
         open = true;
         interacting = false;
@@ -103,7 +103,8 @@ public class OpenDoorButton : MonoBehaviour
         gameObject.GetComponent<BoxCollider>().enabled = true;
         open = false;
         interacting = true;
-        sounds.Sound2();
+        if(!sounds.IsPlaying())
+            sounds.Sound2();
 
         yield return new WaitWhile(AnimatorIsPlaying);
         doorAnim.SetFloat("Open", 0f);
