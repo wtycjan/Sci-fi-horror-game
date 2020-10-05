@@ -22,6 +22,7 @@ public class Tablet : MonoBehaviour
     public void Alarm()
     {
         isAlarm = true;
+        print("asdsad");
         alarm.Play();
         network.ServerSendMessage("Alarm3");
     }
