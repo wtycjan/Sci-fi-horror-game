@@ -7,6 +7,7 @@ public class OpenDoorButton : MonoBehaviour
 {
     private Animator doorAnim;
     private Sounds sounds;
+    private AudioSource audio;
     [SerializeField] private bool open = false, interacting = false, isMonsterOpen = false, isMonsterCheckOpenDoor = false, isMonsterInDoorRange = false;
     private bool isMonsterNearbyAndOpen = false, isMonsterClose = false;
     [SerializeField] private GameObject monster;
@@ -16,6 +17,7 @@ public class OpenDoorButton : MonoBehaviour
     {
         sounds = GetComponentInChildren<Sounds>();
         doorAnim = GetComponent<Animator>();
+        audio = GetComponentInChildren<AudioSource>();
     }
 
     void Update()
@@ -65,9 +67,12 @@ public class OpenDoorButton : MonoBehaviour
         gameObject.GetComponent<BoxCollider>().enabled = false;
         doorAnim.SetBool("IsOpen", true);
         interacting = true;
-        if(!sounds.IsPlaying())
-            sounds.Sound1();
+
+        sounds.Stop();
+        sounds.Sound1();
         yield return new WaitWhile(AnimatorIsPlaying2);
+        StartCoroutine(AudioFadeOut.FadeOut(audio, .35f));
+
         open = true;
         interacting = false;
         doorAnim.SetFloat("Open", 0f);
@@ -103,10 +108,12 @@ public class OpenDoorButton : MonoBehaviour
         gameObject.GetComponent<BoxCollider>().enabled = true;
         open = false;
         interacting = true;
-        if(!sounds.IsPlaying())
-            sounds.Sound2();
 
+        sounds.Stop();
+        sounds.Sound2();
         yield return new WaitWhile(AnimatorIsPlaying);
+        sounds.Stop();
+
         doorAnim.SetFloat("Open", 0f);
         open = false;
         interacting = false;
