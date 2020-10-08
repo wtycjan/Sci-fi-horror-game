@@ -56,7 +56,7 @@ public class GameController : MonoBehaviour
         StartCoroutine("UpdatePosition");
         //*************************
         //Enable before building
-        //StartCoroutine("Intro");
+        StartCoroutine("Intro");
         //*************************
 
     }
