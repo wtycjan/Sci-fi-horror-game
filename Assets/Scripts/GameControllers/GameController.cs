@@ -63,7 +63,7 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         //Debug only!
-        if (Input.GetKeyDown("1"))
+        /*if (Input.GetKeyDown("1"))
                 OpenDoor1();
         if (Input.GetKeyDown("2"))
             OpenDoor2();
@@ -75,6 +75,7 @@ public class GameController : MonoBehaviour
             OpenDoor5();
         if (Input.GetKeyDown("6"))
             OpenDoor6();
+            */
 
         setNewBrightness();
         UpdatePosition();

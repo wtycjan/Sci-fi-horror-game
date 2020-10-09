@@ -120,10 +120,15 @@ public class OpenDoorButton : MonoBehaviour
     }
     public void UnlockDoor()
     {
+        StartCoroutine("UnlockDoor2");
+    }
+    protected IEnumerator UnlockDoor2()
+    {
         open = true;
         doorAnim.SetBool("IsOpen", true);
-        sounds.Sound1();
         gameObject.GetComponent<BoxCollider>().enabled = false;
+        yield return new WaitForSeconds(.15f);
+        sounds.Sound1();
     }
     private void openMonsterDoor()
     {

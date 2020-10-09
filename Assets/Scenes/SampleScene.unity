@@ -34621,8 +34621,7 @@ PrefabInstance:
         type: 3}
       propertyPath: alarm
       value: 
-      objectReference: {fileID: 2433691613725713318, guid: 1c44249750b4f7843b39b8797de4445c,
-        type: 3}
+      objectReference: {fileID: 15272626}
     - target: {fileID: 6215800200857322134, guid: d26a35998424e5441924e2802e6a9eca,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -45612,6 +45611,12 @@ MonoBehaviour:
 --- !u!4 &1291310199 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8541978170872692791, guid: 0ffe5dc5b7bf0bd41aad309f00c1d6c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 8541978171895017461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1291310200 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1291310202, guid: 0ffe5dc5b7bf0bd41aad309f00c1d6c2,
     type: 3}
   m_PrefabInstance: {fileID: 8541978171895017461}
   m_PrefabAsset: {fileID: 0}
@@ -68782,8 +68787,7 @@ PrefabInstance:
         type: 3}
       propertyPath: alarm
       value: 
-      objectReference: {fileID: 2433691613162500352, guid: 1c44249750b4f7843b39b8797de4445c,
-        type: 3}
+      objectReference: {fileID: 1601902612}
     - target: {fileID: 1315438141972609, guid: 53574b247cb4fe6408308c6e34bd382b, type: 3}
       propertyPath: myField
       value: 
@@ -83260,8 +83264,7 @@ PrefabInstance:
     - target: {fileID: 1291310198, guid: 0ffe5dc5b7bf0bd41aad309f00c1d6c2, type: 3}
       propertyPath: alarm
       value: 
-      objectReference: {fileID: 6290691141387440795, guid: 1c44249750b4f7843b39b8797de4445c,
-        type: 3}
+      objectReference: {fileID: 1291310200}
     - target: {fileID: 1291310198, guid: 0ffe5dc5b7bf0bd41aad309f00c1d6c2, type: 3}
       propertyPath: doors
       value: 
