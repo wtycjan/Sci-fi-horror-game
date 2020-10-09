@@ -17,6 +17,13 @@ public class RoomName : MonoBehaviour
             StartCoroutine(ShowText());
         }
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player" && GameData.canPause)
+        {
+            StopAllCoroutines();
+        }
+    }
 
 
     private void Start()
@@ -31,6 +38,7 @@ public class RoomName : MonoBehaviour
 
     private IEnumerator ShowText()
     {
+        room.SetActive(false);
         text.text = gameObject.name;
         room.SetActive(true);
         yield return new WaitForSeconds(2.5f);
