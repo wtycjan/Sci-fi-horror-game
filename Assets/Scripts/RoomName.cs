@@ -31,6 +31,7 @@ public class RoomName : MonoBehaviour
 
     private IEnumerator ShowText()
     {
+        room.SetActive(false);
         text.text = gameObject.name;
         room.SetActive(true);
         yield return new WaitForSeconds(2.5f);

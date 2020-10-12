@@ -37,10 +37,8 @@ public class GameController : MonoBehaviour
     public bool cutscene = false;
     private bool cameraCutscene = false;
     Quaternion startRot, endRot;
-   /* [SerializeField] TypingInput tp;
-    [SerializeField] TypingInput ctp;
-    [SerializeField] Lockpicking gtp;
-    */
+
+
     private void Awake()
     {
         GameData.password1= RandomPassword();
