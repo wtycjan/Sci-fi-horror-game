@@ -45,8 +45,10 @@ public class Sounds : MonoBehaviour
     }
     public void StartRunBreathSound()
     {
-        audioSource.volume = .35f;
+        float x = Random.Range(0, 2f);
+        audioSource.volume = .22f;
         audioSource.clip = sound5;
+        audioSource.time = x;
         audioSource.Play();
     }
     public void StopRunBreath()
@@ -57,9 +59,11 @@ public class Sounds : MonoBehaviour
     {
         if(audioSource.clip != sound5 && !audioSource.isPlaying)
         {
+            float x = Random.Range(0, 2f);
             audioSource.volume = 0.17f;
             audioSource.loop = true;
             audioSource.clip = sound6;
+            audioSource.time = x;
             audioSource.Play();
         }
 
@@ -95,6 +99,14 @@ public class Sounds : MonoBehaviour
         audioSource.Play();
     }
 
+    public void PlayFromOffset(float x, int s)
+    {
+        if(s==1)
+            audioSource.clip = sound1;
+        else
+            audioSource.clip = sound2;
+        audioSource.PlayDelayed(x);
+    }
     public void Stop()
     {
         audioSource.loop = false;

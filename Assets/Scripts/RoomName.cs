@@ -9,12 +9,20 @@ public class RoomName : MonoBehaviour
     private TextMeshProUGUI text;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject room;
-
+    bool isRunning = false;
     private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.tag == "Player" && GameData.canPause)
+        if(collision.gameObject.tag == "Player" && GameData.canPause && text.text != gameObject.name)   //not in cinematic + not in the same room but different colliders
         {
             StartCoroutine(ShowText());
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player" && GameData.canPause && text.text != gameObject.name)
+        {
+            StopAllCoroutines();
+            
         }
     }
 

@@ -9,6 +9,7 @@ public class HackingGame : MonoBehaviour
     private TimerHacking timer;
     public GameObject player;
     private NetworkServerUI network;
+    public Text cursor;
     [SerializeField] Tablet tablet;
     private string phrase, phrase1= "system.Override();", phrase2="firewall.Bypass();", phrase3="mainframe.DisableAlgorithms();", phrase4="kernel.GrantAccess();";
     string[] Alphabet;
@@ -66,6 +67,10 @@ public class HackingGame : MonoBehaviour
             Alarm();
             timer.timer = 1;
         }
+        if (lettersTyped != 0)
+            cursor.gameObject.SetActive(false);
+        else
+            cursor.gameObject.SetActive(true);
     }
     void EnterCommand(string command)
     {
@@ -75,6 +80,7 @@ public class HackingGame : MonoBehaviour
                 if (command == phrase1)
                 {
                     inputText.text += "\nAccess granted. Security Level: " + securityLvl + "\n\nKernel:/ Mainframe:/ Firewall:/ > ";
+                    cursor.text = "\n\n\n                                                    |";
                     phase++;
                     lettersTyped = 0;
                     i = 0;
@@ -102,6 +108,7 @@ public class HackingGame : MonoBehaviour
                 if (command == phrase2)
                 {
                     inputText.text += "\nFirewall has been bypassed.\n\nKernel:/Mainframe:/ > ";
+                    cursor.text = "\n\n\n\n\n\n                                    |";
                     phase++;
                     lettersTyped = 0;
                     i = 0;
@@ -126,6 +133,7 @@ public class HackingGame : MonoBehaviour
                 if (command == phrase3)
                 {
                     inputText.text += "\nMainframe algorithms disabled.\n\nKernel:/ > ";
+                    cursor.text = "\n\n\n\n\n\n\n\n\n                |";
                     phase++;
                     lettersTyped = 0;
                     i = 0;
@@ -151,7 +159,8 @@ public class HackingGame : MonoBehaviour
                 {
                     inputText.text += "\nKernel breached...";
                     phase++;
-                    lettersTyped = 0;
+                    cursor.gameObject.SetActive(false);
+                    //lettersTyped = 0;
                     i = 0;
                     phrase = "";
                     stop = true;
@@ -208,11 +217,13 @@ public class HackingGame : MonoBehaviour
         }
         network.ServerSendMessage("CloseHelp");
         inputText.text = "";
+        cursor.text = "|";
         phase = 1;
         phrase = phrase1;
         lettersTyped = 0;
         i = 0;
         network.ServerSendMessage("HackingEnd");
+        timer.ResetTimer();
         timer.timer = 0;
         timer.isCounting = false;
         gameObject.SetActive(false);

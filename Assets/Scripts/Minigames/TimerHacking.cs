@@ -34,8 +34,12 @@ public class TimerHacking : MonoBehaviour
             }
             if (timer < 0)
             {
-                rectangle.sizeDelta = originalSize;
+                ResetTimer();
             }
         }
+    }
+    public void ResetTimer()
+    {
+        rectangle.sizeDelta = originalSize;
     }
 }
