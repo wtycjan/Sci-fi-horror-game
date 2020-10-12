@@ -9,4 +9,5 @@
     public static bool canPause = false;     //false
     public static bool lockpickingTutoral = false;
     public static bool respawn = false;
+    public static bool isGameActive = false;
 }

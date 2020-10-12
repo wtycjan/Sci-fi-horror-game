@@ -25,14 +25,14 @@ public class MainMenu : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(start)
+        if (start)
         {
-            mainCamera.transform.Translate(mainCamera.transform.right * speed/2 * Time.deltaTime, Space.Self);
+            mainCamera.transform.Translate(mainCamera.transform.right * speed / 2 * Time.deltaTime, Space.Self);
             mainCamera.transform.Translate(mainCamera.transform.up * speed / -5 * Time.deltaTime, Space.Self);
             mainCamera.transform.Translate(mainCamera.transform.forward * speed * Time.deltaTime, Space.Self);
             speed += .03f;
         }
-            
+
     }
     public void PlayButton()
     {

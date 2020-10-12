@@ -36,7 +36,11 @@ public class GameController : MonoBehaviour
     private Sounds sound;
     public bool cutscene = false;
     private bool cameraCutscene = false;
+    public float remaningTime = 600f;
+
+
     Quaternion startRot, endRot;
+
 
 
     private void Awake()
@@ -60,6 +64,7 @@ public class GameController : MonoBehaviour
     }
     private void Update()
     {
+
         //Debug only!
         /*if (Input.GetKeyDown("1"))
                 OpenDoor1();
@@ -74,7 +79,8 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown("6"))
             OpenDoor6();
             */
-
+        if (GameData.isGameActive)
+            updateRemaningTime();
         setNewBrightness();
         UpdatePosition();
 
@@ -94,6 +100,7 @@ public class GameController : MonoBehaviour
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            GameData.isGameActive = false;
         }
 
     }
@@ -126,13 +133,15 @@ public class GameController : MonoBehaviour
         {
             sound.Sound5();
             blackScreen2.GetComponent<Animation>().Play();
-            yield return new WaitForSeconds(11f);
+            yield return new WaitForSeconds(10);
         }
         yield return new WaitForSeconds(1f);
         Destroy(blackScreen2.gameObject);
         door5.GetComponent<OpenDoorButton>().UnlockDoor();
         GameData.canPause = true;
         network.ServerSendMessage("Unpause");
+        GameData.isGameActive = true;
+        
     }
 
     void OpenDoor1()
@@ -217,6 +226,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(.3f);
         monster.gameObject.SetActive(false);
         yield return new WaitForSeconds(.3f);
+        GameData.isGameActive = false;
         StartCoroutine("Restart");
     }
     public IEnumerator Restart()
@@ -227,7 +237,11 @@ public class GameController : MonoBehaviour
         //network.CloseServer();
         network.ServerSendMessage("Restart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        restartRemaningTime();
     }
+
+
+
     public string RandomPassword()
     {
         var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -272,5 +286,21 @@ public class GameController : MonoBehaviour
         network.ServerSendMessage("player: " + pos.x + " " + pos.y);
         pos = new Vector2(monster.transform.position.x, monster.transform.position.z);
         network.ServerSendMessage("monster: " + pos.x + " " + pos.y);
+    }
+    private void updateRemaningTime()
+    {
+        remaningTime = remaningTime - Time.deltaTime;
+        print(remaningTime);
+    }
+
+    public float getRemaningTime()
+    { 
+        return remaningTime;
+    }
+
+    private void restartRemaningTime()
+    {
+        remaningTime = 600f;
+        GameData.isGameActive = true;
     }
 }
