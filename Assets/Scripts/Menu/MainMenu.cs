@@ -25,14 +25,14 @@ public class MainMenu : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (start)
+        if(start)
         {
-            mainCamera.transform.Translate(mainCamera.transform.right * speed / 2 * Time.deltaTime, Space.Self);
+            mainCamera.transform.Translate(mainCamera.transform.right * speed/2 * Time.deltaTime, Space.Self);
             mainCamera.transform.Translate(mainCamera.transform.up * speed / -5 * Time.deltaTime, Space.Self);
             mainCamera.transform.Translate(mainCamera.transform.forward * speed * Time.deltaTime, Space.Self);
             speed += .03f;
         }
-
+            
     }
     public void PlayButton()
     {
@@ -68,7 +68,7 @@ public class MainMenu : MonoBehaviour
         mainCamera.enabled = true;
         yield return new WaitForSeconds(2.15f);
         blackScreen.SetActive(true);
-        yield return new WaitForSeconds(5);
-        SceneManager.LoadScene(1);
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

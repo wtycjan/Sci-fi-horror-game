@@ -36,7 +36,8 @@ public class GameController : MonoBehaviour
     private Sounds sound;
     public bool cutscene = false;
     private bool cameraCutscene = false;
-    public float remaningTime = 600f;
+    public float remaningTime = 600;
+
 
 
     Quaternion startRot, endRot;
@@ -45,7 +46,7 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        GameData.password1= RandomPassword();
+        GameData.password1 = RandomPassword();
         GameData.level1 = false;
         GameData.door1 = false;
         GameData.lockpickingTutoral = false;
@@ -64,7 +65,6 @@ public class GameController : MonoBehaviour
     }
     private void Update()
     {
-
         //Debug only!
         /*if (Input.GetKeyDown("1"))
                 OpenDoor1();
@@ -79,13 +79,12 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown("6"))
             OpenDoor6();
             */
-        if (GameData.isGameActive)
-            updateRemaningTime();
+        checkIsGameActive();
         setNewBrightness();
         UpdatePosition();
 
         //death
-        if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene && monster.isPlayerDetect )
+        if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene && monster.isPlayerDetect)
         {
             StartCoroutine("Death");
         }
@@ -93,7 +92,7 @@ public class GameController : MonoBehaviour
             player.transform.rotation = Quaternion.Slerp(player.transform.rotation, Quaternion.AngleAxis(90, Vector3.left), Time.deltaTime * 2f);
 
         //pause
-        if(Input.GetKeyDown(KeyCode.Escape) && GameData.canPause)
+        if (Input.GetKeyDown(KeyCode.Escape) && GameData.canPause)
         {
             pauseMenu.SetActive(true);
             GameData.canPause = false;
@@ -104,9 +103,16 @@ public class GameController : MonoBehaviour
         }
 
     }
+
+    private void checkIsGameActive()
+    {
+        if (GameData.isGameActive)
+            updateRemaningTime();
+    }
+
     private void setNewBrightness()
     {
-        if(monster.GetComponent<Animator>().runtimeAnimatorController == jumpAnim)
+        if (monster.GetComponent<Animator>().runtimeAnimatorController == jumpAnim)
         {
             gameBrightness.Brightness = 0.1f;
 
@@ -129,7 +135,7 @@ public class GameController : MonoBehaviour
 
     public IEnumerator Intro()
     {
-        if(!GameData.respawn)
+        if (!GameData.respawn)
         {
             sound.Sound5();
             blackScreen2.GetComponent<Animation>().Play();
@@ -141,7 +147,7 @@ public class GameController : MonoBehaviour
         GameData.canPause = true;
         network.ServerSendMessage("Unpause");
         GameData.isGameActive = true;
-        
+
     }
 
     void OpenDoor1()
@@ -162,8 +168,8 @@ public class GameController : MonoBehaviour
     }
     void OpenDoor5()
     {
-        if(GameData.canPause)
-        door5.SendMessage("Interact");
+        if (GameData.canPause)
+            door5.SendMessage("Interact");
         else
             door5.GetComponent<OpenDoorButton>().UnlockDoor();
     }
@@ -218,7 +224,7 @@ public class GameController : MonoBehaviour
         sound.Sound1();
         yield return new WaitForSeconds(.05f);
         monster.GetComponent<Animator>().runtimeAnimatorController = jumpAnim;
-        monster.GetComponent<Rigidbody>().AddForce(monster.transform.forward* 200);
+        monster.GetComponent<Rigidbody>().AddForce(monster.transform.forward * 200);
         yield return new WaitForSeconds(.3f);
         turnOnDeathEffects();
         sound.Sound2();
@@ -290,17 +296,16 @@ public class GameController : MonoBehaviour
     private void updateRemaningTime()
     {
         remaningTime = remaningTime - Time.deltaTime;
-        print(remaningTime);
     }
 
     public float getRemaningTime()
-    { 
-        return remaningTime;
+    {
+        return Convert.ToInt32(remaningTime);
     }
 
     private void restartRemaningTime()
     {
-        remaningTime = 600f;
+        remaningTime = 600;
         GameData.isGameActive = true;
     }
 }

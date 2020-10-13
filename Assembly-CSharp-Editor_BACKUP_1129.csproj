@@ -132,8 +132,17 @@
     <None Include="Assets\Downloads\FirstPersonController\Assets\Plugins\NaughtyAttributes\Scripts\Editor\CodeGeneration\Templates\PropertyMetaDatabaseTemplate.txt" />
     <None Include="Assets\Downloads\FirstPersonController\Assets\Plugins\NaughtyAttributes\Scripts\Editor\CodeGeneration\Templates\NativePropertyDrawerDbTemplate.txt" />
     <None Include="Assets\Downloads\FirstPersonController\Assets\Plugins\NaughtyAttributes\Scripts\Editor\CodeGeneration\Templates\PropertyGrouperDatabaseTemplate.txt" />
+    <Reference Include="Unity.Subsystem.Registration">
+      <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.Subsystem.Registration.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+<<<<<<< HEAD
+    </Reference>
+    <Reference Include="Unity.AdaptivePerformance">
+      <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.AdaptivePerformance.dll</HintPath>
+=======
+>>>>>>> master
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
       <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
@@ -143,6 +152,12 @@
     </Reference>
     <Reference Include="Unity.Postprocessing.Editor">
       <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+<<<<<<< HEAD
+    </Reference>
+    <Reference Include="Unity.AdaptivePerformance.Editor">
+      <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.AdaptivePerformance.Editor.dll</HintPath>
+=======
+>>>>>>> master
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>C:/Users/peepe/Desktop/Unity Projects/Sci-fi-horror-game/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
