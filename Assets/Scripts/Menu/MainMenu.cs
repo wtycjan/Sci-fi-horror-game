@@ -68,7 +68,7 @@ public class MainMenu : MonoBehaviour
         mainCamera.enabled = true;
         yield return new WaitForSeconds(2.15f);
         blackScreen.SetActive(true);
-        yield return new WaitForSeconds(5);
-        SceneManager.LoadScene(1);
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

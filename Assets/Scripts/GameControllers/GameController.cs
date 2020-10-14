@@ -36,14 +36,17 @@ public class GameController : MonoBehaviour
     private Sounds sound;
     public bool cutscene = false;
     private bool cameraCutscene = false;
+    public float remaningTime = 600;
+
+
+
     Quaternion startRot, endRot;
-   /* [SerializeField] TypingInput tp;
-    [SerializeField] TypingInput ctp;
-    [SerializeField] Lockpicking gtp;
-    */
+
+
+
     private void Awake()
     {
-        GameData.password1= RandomPassword();
+        GameData.password1 = RandomPassword();
         GameData.level1 = false;
         GameData.door1 = false;
         GameData.lockpickingTutoral = false;
@@ -76,12 +79,12 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown("6"))
             OpenDoor6();
             */
-
+        checkIsGameActive();
         setNewBrightness();
         UpdatePosition();
 
         //death
-        if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene && monster.isPlayerDetect )
+        if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene && monster.isPlayerDetect)
         {
             StartCoroutine("Death");
         }
@@ -89,19 +92,27 @@ public class GameController : MonoBehaviour
             player.transform.rotation = Quaternion.Slerp(player.transform.rotation, Quaternion.AngleAxis(90, Vector3.left), Time.deltaTime * 2f);
 
         //pause
-        if(Input.GetKeyDown(KeyCode.Escape) && GameData.canPause)
+        if (Input.GetKeyDown(KeyCode.Escape) && GameData.canPause)
         {
             pauseMenu.SetActive(true);
             GameData.canPause = false;
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            GameData.isGameActive = false;
         }
 
     }
+
+    private void checkIsGameActive()
+    {
+        if (GameData.isGameActive)
+            updateRemaningTime();
+    }
+
     private void setNewBrightness()
     {
-        if(monster.GetComponent<Animator>().runtimeAnimatorController == jumpAnim)
+        if (monster.GetComponent<Animator>().runtimeAnimatorController == jumpAnim)
         {
             gameBrightness.Brightness = 0.1f;
 
@@ -124,17 +135,19 @@ public class GameController : MonoBehaviour
 
     public IEnumerator Intro()
     {
-        if(!GameData.respawn)
+        if (!GameData.respawn)
         {
             sound.Sound5();
             blackScreen2.GetComponent<Animation>().Play();
-            yield return new WaitForSeconds(11f);
+            yield return new WaitForSeconds(10);
         }
         yield return new WaitForSeconds(1f);
         Destroy(blackScreen2.gameObject);
         door5.GetComponent<OpenDoorButton>().UnlockDoor();
         GameData.canPause = true;
         network.ServerSendMessage("Unpause");
+        GameData.isGameActive = true;
+
     }
 
     void OpenDoor1()
@@ -155,8 +168,8 @@ public class GameController : MonoBehaviour
     }
     void OpenDoor5()
     {
-        if(GameData.canPause)
-        door5.SendMessage("Interact");
+        if (GameData.canPause)
+            door5.SendMessage("Interact");
         else
             door5.GetComponent<OpenDoorButton>().UnlockDoor();
     }
@@ -211,7 +224,7 @@ public class GameController : MonoBehaviour
         sound.Sound1();
         yield return new WaitForSeconds(.05f);
         monster.GetComponent<Animator>().runtimeAnimatorController = jumpAnim;
-        monster.GetComponent<Rigidbody>().AddForce(monster.transform.forward* 200);
+        monster.GetComponent<Rigidbody>().AddForce(monster.transform.forward * 200);
         yield return new WaitForSeconds(.3f);
         turnOnDeathEffects();
         sound.Sound2();
@@ -219,6 +232,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(.3f);
         monster.gameObject.SetActive(false);
         yield return new WaitForSeconds(.3f);
+        GameData.isGameActive = false;
         StartCoroutine("Restart");
     }
     public IEnumerator Restart()
@@ -229,7 +243,11 @@ public class GameController : MonoBehaviour
         //network.CloseServer();
         network.ServerSendMessage("Restart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        restartRemaningTime();
     }
+
+
+
     public string RandomPassword()
     {
         var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -274,5 +292,20 @@ public class GameController : MonoBehaviour
         network.ServerSendMessage("player: " + pos.x + " " + pos.y);
         pos = new Vector2(monster.transform.position.x, monster.transform.position.z);
         network.ServerSendMessage("monster: " + pos.x + " " + pos.y);
+    }
+    private void updateRemaningTime()
+    {
+        remaningTime = remaningTime - Time.deltaTime;
+    }
+
+    public float getRemaningTime()
+    {
+        return Convert.ToInt32(remaningTime);
+    }
+
+    private void restartRemaningTime()
+    {
+        remaningTime = 600;
+        GameData.isGameActive = true;
     }
 }
