@@ -16670,6 +16670,7 @@ MonoBehaviour:
   monster: {fileID: 646962975}
   jumpAnim: {fileID: 9100000, guid: 54ff599963ec97843ad4d4ddeeb61810, type: 2}
   cutscene: 0
+  missionTime: 600
 --- !u!4 &568314479
 Transform:
   m_ObjectHideFlags: 0
@@ -36886,7 +36887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 10877412, guid: 10b4213a276bd0f4d93c345fd1420858, type: 3}
       propertyPath: m_Intensity
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 173154, guid: 10b4213a276bd0f4d93c345fd1420858, type: 3}
       propertyPath: m_StaticEditorFlags

@@ -36,7 +36,8 @@ public class GameController : MonoBehaviour
     private Sounds sound;
     public bool cutscene = false;
     private bool cameraCutscene = false;
-    public float remaningTime = 600;
+    public float missionTime = 600;
+    private float remaningTime;
 
 
 
@@ -50,6 +51,7 @@ public class GameController : MonoBehaviour
         GameData.level1 = false;
         GameData.door1 = false;
         GameData.lockpickingTutoral = false;
+        remaningTime = missionTime;
     }
     private void Start()
     {
@@ -66,7 +68,7 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         //Debug only!
-        /*if (Input.GetKeyDown("1"))
+        if (Input.GetKeyDown("1"))
                 OpenDoor1();
         if (Input.GetKeyDown("2"))
             OpenDoor2();
@@ -78,7 +80,7 @@ public class GameController : MonoBehaviour
             OpenDoor5();
         if (Input.GetKeyDown("6"))
             OpenDoor6();
-            */
+            
         checkIsGameActive();
         setNewBrightness();
         UpdatePosition();
@@ -182,6 +184,7 @@ public class GameController : MonoBehaviour
     {
         GameData.respawn = true;
         GameData.canPause = false;
+        GameData.isGameActive = false;
         cutscene = true;
         //disable minigames
         GameObject[] minigames = GameObject.FindGameObjectsWithTag("Minigame");
@@ -232,7 +235,6 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(.3f);
         monster.gameObject.SetActive(false);
         yield return new WaitForSeconds(.3f);
-        GameData.isGameActive = false;
         StartCoroutine("Restart");
     }
     public IEnumerator Restart()
@@ -243,7 +245,6 @@ public class GameController : MonoBehaviour
         //network.CloseServer();
         network.ServerSendMessage("Restart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        restartRemaningTime();
     }
 
 
@@ -295,7 +296,14 @@ public class GameController : MonoBehaviour
     }
     private void updateRemaningTime()
     {
-        remaningTime = remaningTime - Time.deltaTime;
+        if(remaningTime>0)
+            remaningTime = remaningTime - Time.deltaTime;
+        else
+        {
+            GameData.isGameActive = false;
+            StartCoroutine(Restart());
+        }
+
     }
 
     public float getRemaningTime()
@@ -303,9 +311,4 @@ public class GameController : MonoBehaviour
         return Convert.ToInt32(remaningTime);
     }
 
-    private void restartRemaningTime()
-    {
-        remaningTime = 600;
-        GameData.isGameActive = true;
-    }
 }

@@ -38,7 +38,7 @@ public class NetworkServerUI : MonoBehaviour
     void SendData()
     {
         ServerSendMessage("Pswd " + GameData.password1);
-        ServerSendMessage("Timer " + 600);
+        ServerSendMessage("Timer " + gameController.getRemaningTime());
         connections++;
     }
 
