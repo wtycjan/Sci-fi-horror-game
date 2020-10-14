@@ -24,6 +24,7 @@ public class NetworkServerUI : MonoBehaviour
     {
         /*if(GameData.respawn)
             NetworkServer.DisconnectAll();*/
+
         if (!NetworkServer.active)
         { 
         NetworkServer.Listen(25000);
@@ -33,14 +34,12 @@ public class NetworkServerUI : MonoBehaviour
         NetworkServer.RegisterHandler(888, ServerRecieveMessage);
     }
 
-    private void Update()
+
+    void SendData()
     {
-        //send data to any new connections
-        if(NetworkServer.connections.Count>connections)
-        {
-            ServerSendMessage("Pswd " + GameData.password1);
-            connections++;
-        }
+        ServerSendMessage("Pswd " + GameData.password1);
+        ServerSendMessage("Timer " + 600);
+        connections++;
     }
 
     void ServerRecieveMessage (NetworkMessage message)
@@ -68,6 +67,8 @@ public class NetworkServerUI : MonoBehaviour
             gameController.SendMessage("StopHackTimer");
         if (msg.value == "StopHacking")
             gameController.SendMessage("StopHacking");
+        if (msg.value == "RequestData")
+            SendData();
 
         Debug.Log(msg.value);
     }
