@@ -52,6 +52,7 @@ public class GameController : MonoBehaviour
         GameData.door1 = false;
         GameData.lockpickingTutoral = false;
         remaningTime = missionTime;
+
     }
     private void Start()
     {
@@ -86,7 +87,7 @@ public class GameController : MonoBehaviour
         UpdatePosition();
 
         //death
-        if (Vector3.Distance(monster.transform.position, player.transform.position) < 1.6f && !cutscene && monster.isPlayerDetect)
+        if (Vector3.Distance(monster.transform.position, player.transform.position) < 2f && !cutscene && monster.isPlayerDetect)
         {
             StartCoroutine("Death");
         }
@@ -149,6 +150,7 @@ public class GameController : MonoBehaviour
         GameData.canPause = true;
         network.ServerSendMessage("Unpause");
         GameData.isGameActive = true;
+        
 
     }
 

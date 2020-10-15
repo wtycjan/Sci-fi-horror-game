@@ -49,38 +49,57 @@ public class MonsterAI : MonoBehaviour
         visibleMaterials = visibleShader.ToArray();
         transparetMaterials = transparentShader.ToArray();
         prevPosition = transform.position;
-        agent = GetComponent<NavMeshAgent>();
-        //GetComponent<NavMeshSurface>().BuildNavMesh();
         anim = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+        //GetComponent<NavMeshSurface>().BuildNavMesh(); 
         sound = GetComponent<Sounds>();
         network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
         spawnMonster();
-        setNewPointDestinationToMoster();
-
+        if (!GameData.respawn)
+        {
+            StartCoroutine(waitWithStartMonsterMovewmentDruginIntro());
+        }
+           
+        else
+        {
+            spawnMonster();
+            setNewPointDestinationToMoster();
+        }
     }
+    private IEnumerator waitWithStartMonsterMovewmentDruginIntro()
+    {
+        yield return new WaitForSeconds(9f);
+        spawnMonster();
+        setNewPointDestinationToMoster();
+    }
+
 
     private void spawnMonster()
     {
-        spawnSpot = Spots[6];
+        spawnSpot = Spots[UnityEngine.Random.Range(5, Spots.Count)];
         transform.position = spawnSpot.position;
     }
 
     void Update()
     {
-        checkIsDoorCloseInFrontOfMontser();
-        checkIsDoorBlocked();
-        checkPlayerDetection();
-        rotateMonster();
-        changeMonsterShader();
-        if(!chestAlarm.isAlarm && !computerAlarm.isAlarm && !terminalAlarm.isAlarm)
+        if(GameData.isGameActive)
         {
-            if (makeNewTarget())
+            checkIsDoorCloseInFrontOfMontser();
+            checkIsDoorBlocked();
+            checkPlayerDetection();
+            rotateMonster();
+            changeMonsterShader();
+            if (!chestAlarm.isAlarm && !computerAlarm.isAlarm && !terminalAlarm.isAlarm)
             {
-                setNewPointDestinationToMoster();
+                if (makeNewTarget())
+                {
+                    setNewPointDestinationToMoster();
+                }
             }
+            moveMonster();
+            HandleState();
         }
-        moveMonster();
-        HandleState();
+        
     }
 
     private void checkIsDoorCloseInFrontOfMontser()
@@ -90,7 +109,7 @@ public class MonsterAI : MonoBehaviour
 
     private void changeMonsterShader()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) < 2f && isPlayerDetect)
+        if(Vector3.Distance(transform.position, player.transform.position) < 2.1f && isPlayerDetect)
         {
             monsterMesh.materials = visibleMaterials;
         }
