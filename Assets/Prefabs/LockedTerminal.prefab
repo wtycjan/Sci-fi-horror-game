@@ -15,13 +15,12 @@ GameObject:
   - component: {fileID: 1291310202}
   - component: {fileID: 1291310197}
   - component: {fileID: 1291310198}
-  - component: {fileID: 6126771568582493286}
   m_Layer: 10
   m_Name: LockedTerminal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 9
   m_IsActive: 1
 --- !u!4 &8541978170872692791
 Transform:
@@ -106,7 +105,8 @@ AudioSource:
   m_GameObject: {fileID: 8541978170873002881}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 9d319c2a8a49402449ef614ca01442b3,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: fd1a5b988468f6b4887466e3d6eee4e7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -118,9 +118,9 @@ AudioSource:
   Priority: 25
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -153,7 +153,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
   holdDuration: 1
   multipleUse: 0
   isInteractable: 1
-  tooltipMessage: (F) To override
+  tooltipMessage: (E) To override
 --- !u!114 &1291310198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,20 +223,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   codeScreen: {fileID: 0}
+  tutoralScreen: {fileID: 0}
   openMaterial: {fileID: 2100000, guid: c60bebb13b9994a439f1f71f40673b63, type: 2}
   securityLvl: 1
---- !u!114 &6126771568582493286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8541978170873002881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 413ca654ca61b5842938d5aceea6ac57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  isAlarm: 0
+  alarm: {fileID: 1291310202}
+  doors: {fileID: 0}
 --- !u!1 &8541978171835782423
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +244,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 9
   m_IsActive: 1
 --- !u!4 &8541978171835782422
 Transform:

@@ -16,6 +16,7 @@ public class SetttingsMenu : MonoBehaviour
     private const string RESOLUTION_PREF = "resolution";
     private const string BRIGHTNESS_PREF = "brightness-volume";
 
+
     private void Start()
     {
         resolutions = Screen.resolutions;
@@ -39,7 +40,9 @@ public class SetttingsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = PlayerPrefs.GetInt(RESOLUTION_PREF, currentResolutionIndex);
         resolutionDropdown.RefreshShownValue();
+
     }
+
     public void SetMusicVolume(float volume)
     {
         audioMusicMixer.SetFloat("volume", volume);

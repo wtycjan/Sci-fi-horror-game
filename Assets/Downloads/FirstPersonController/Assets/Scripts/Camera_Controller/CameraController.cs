@@ -48,12 +48,16 @@ namespace VHS
         #region BuiltIn Methods  
             void Awake()
             {
-                SetSensivity();
+
                 GetComponents();
                 InitValues();
                 InitComponents();
                 ChangeCursorState();
             }
+        void Start()
+        {
+            SetSensivity();
+        }
 
             void LateUpdate()
             {
@@ -66,7 +70,7 @@ namespace VHS
 
         private void SetSensivity()
         {
-            mouseSensivity = PlayerPrefs.GetFloat("sensivity-volume");
+            mouseSensivity = PlayerPrefs.GetFloat("sensivity-volume", 0.8f);
         }
         #endregion
 

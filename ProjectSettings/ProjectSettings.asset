@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Tyci
-  productName: 'Astrumis: In The Dark'
+  productName: Astrumis - Survivor
   defaultCursor: {fileID: 2800000, guid: f68fab0a6efc84a48b7cd56026bed486, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}

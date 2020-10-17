@@ -52,13 +52,13 @@ public class SaveSettings : MonoBehaviour
 
     void Start()
     {
-        volumeSliderMusic.value = PlayerPrefs.GetFloat(MUSIC_VOLUME_PREF, 1);
-        volumeSliderSound.value = PlayerPrefs.GetFloat(SFX_VOLUME_PREF, 1);
-        brightnessSlider.value = PlayerPrefs.GetFloat(BRIGHTNESS_PREF, 1);
-        sensivitySlider.value = PlayerPrefs.GetFloat(SENSIVITY_PREF, 1);
+        volumeSliderMusic.value = PlayerPrefs.GetFloat(MUSIC_VOLUME_PREF, 0);
+        volumeSliderSound.value = PlayerPrefs.GetFloat(SFX_VOLUME_PREF, 0);
+        brightnessSlider.value = PlayerPrefs.GetFloat(BRIGHTNESS_PREF, 0.2f);
+        sensivitySlider.value = PlayerPrefs.GetFloat(SENSIVITY_PREF, 0.8f);
 
         enableFullscreen.isOn = GetBoolPref(FULLSCREEN_PREF);
-        graphicsDropdown.value = PlayerPrefs.GetInt(GRAPHICS_PREF, 3);
+        graphicsDropdown.value = PlayerPrefs.GetInt(GRAPHICS_PREF, 5);
 
     }
 

@@ -23,8 +23,6 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject blueButton;
     [SerializeField] private GameObject computer;
     [SerializeField] private ParticleSystem[] deathEffects;
-    [SerializeField] private GameObject flashlight;
-    [SerializeField] private GameObject pointLight;
     [SerializeField] private SimpleLUT gameBrightness;
     public Image blackScreen;   //death
     public Image blackScreen2; //intro
@@ -64,26 +62,25 @@ public class GameController : MonoBehaviour
         //Enable before building
         StartCoroutine("Intro");
         //*************************
-
+        
     }
     private void Update()
     {
         //Debug only!
-        if (Input.GetKeyDown("1"))
-                OpenDoor1();
-        if (Input.GetKeyDown("2"))
-            OpenDoor2();
-        if (Input.GetKeyDown("3"))
-            OpenDoor3();
-        if (Input.GetKeyDown("4"))
-            OpenDoor4();
-        if (Input.GetKeyDown("5"))
-            OpenDoor5();
-        if (Input.GetKeyDown("6"))
-            OpenDoor6();
-            
-        checkIsGameActive();
+        //if (Input.GetKeyDown("1"))
+        //        OpenDoor1();
+        //if (Input.GetKeyDown("2"))
+        //    OpenDoor2();
+        //if (Input.GetKeyDown("3"))
+        //    OpenDoor3();
+        //if (Input.GetKeyDown("4"))
+        //    OpenDoor4();
+        //if (Input.GetKeyDown("5"))
+        //    OpenDoor5();
+        //if (Input.GetKeyDown("6"))
+        //    OpenDoor6();
         setNewBrightness();
+        checkIsGameActive();
         UpdatePosition();
 
         //death
@@ -115,15 +112,16 @@ public class GameController : MonoBehaviour
 
     private void setNewBrightness()
     {
-        if (monster.GetComponent<Animator>().runtimeAnimatorController == jumpAnim)
-        {
-            gameBrightness.Brightness = 0.1f;
+        //if (monster.GetComponent<Animator>().runtimeAnimatorController == jumpAnim)
+        //{
+        //    gameBrightness.Brightness = 0.1f;
 
-        }
-        else
-        {
-            gameBrightness.Brightness = PlayerPrefs.GetFloat("brightness-volume");
-        }
+        //}
+        //else
+        //{
+            
+        //}
+        gameBrightness.Brightness = PlayerPrefs.GetFloat("brightness-volume", 0.2f);
 
     }
 
