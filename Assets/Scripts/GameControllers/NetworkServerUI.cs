@@ -32,6 +32,7 @@ public class NetworkServerUI : MonoBehaviour
         }
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         NetworkServer.RegisterHandler(888, ServerRecieveMessage);
+        NetworkServer.maxDelay = 0.2f;
     }
 
 
