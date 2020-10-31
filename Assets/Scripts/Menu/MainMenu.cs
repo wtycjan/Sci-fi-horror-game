@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using TMPro;
 using System.Net.NetworkInformation;
+
 public class MainMenu : MonoBehaviour
 {
     public TextMeshProUGUI ip;
@@ -19,12 +20,12 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
-        ip.text = LocalIPAddress();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GameData.respawn = false;
         print("brghtness: " + PlayerPrefs.GetFloat("brightness-volume") + "\nsens: " + PlayerPrefs.GetFloat("sensivity-volume"));
+        ip.text = GetLocalIPv4();
     }
     private void FixedUpdate()
     {
@@ -51,7 +52,7 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
-    public string LocalIPAddress()
+    /*public string LocalMacIPAddress()
     {
         string localIP = "";
         foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
@@ -65,6 +66,54 @@ public class MainMenu : MonoBehaviour
                         localIP = ip.Address.ToString();
                     }
                 }
+            }
+        }
+        return localIP;
+    }*/
+
+    internal static string GetLocalIPv4()
+    {  // Checks your IP adress from the local network connected to a gateway. This to avoid issues with double network cards
+        string output = "";  // default output
+        foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces()) // Iterate over each network interface
+        {  
+            // Find the network interface which has been provided in the arguments, break the loop if found
+            if (item.OperationalStatus != OperationalStatus.Up)
+                continue;
+
+           IPInterfaceProperties adapterProperties = item.GetIPProperties();
+           if (adapterProperties.GatewayAddresses.Count == 0)
+                continue;
+
+            foreach (UnicastIPAddressInformation ip in adapterProperties.UnicastAddresses)
+            {   // If the IP is a local IPv4 adress
+                if (ip.Address.AddressFamily != System.Net.Sockets.AddressFamily.InterNetwork)
+                    continue;
+                if (IPAddress.IsLoopback(ip.Address))
+                    continue;
+                output = ip.Address.ToString();
+
+            }
+        }
+        // Return results
+        return output;
+    }
+
+
+    public string LocalIPAddress()
+    {
+        string localIP = "";
+        foreach (IPAddress ip in Dns.GetHostAddresses(Dns.GetHostName()))
+        {
+            //IPAddress ip = dnsIp.MapToIPv4();
+            System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping();
+            PingReply reply = ping.Send("google.com");
+            IPStatus status = reply.Status;
+
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                localIP = ip.ToString();
+               
+                //break;
             }
         }
         return localIP;

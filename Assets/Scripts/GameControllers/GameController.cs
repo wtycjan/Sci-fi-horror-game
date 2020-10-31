@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour
         sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
         network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
-        StartCoroutine("UpdatePosition");
+        StartCoroutine(UpdatePosition());
         //*************************
         //Enable before building
         StartCoroutine("Intro");
@@ -81,7 +81,6 @@ public class GameController : MonoBehaviour
         //    OpenDoor6();
         setNewBrightness();
         checkIsGameActive();
-        UpdatePosition();
 
         //death
         if (Vector3.Distance(monster.transform.position, player.transform.position) < 2f && !cutscene && monster.isPlayerDetect)
@@ -287,12 +286,14 @@ public class GameController : MonoBehaviour
         computer.GetComponent<Tablet>().Completed();
     }
 
-    public void UpdatePosition()
+    public IEnumerator UpdatePosition()
     {
         Vector2 pos = new Vector2(player.transform.position.x, player.transform.position.z);
         network.ServerSendMessage("player: " + pos.x + " " + pos.y);
         pos = new Vector2(monster.transform.position.x, monster.transform.position.z);
         network.ServerSendMessage("monster: " + pos.x + " " + pos.y);
+        yield return new WaitForSeconds(0.01f);
+        StartCoroutine(UpdatePosition());
     }
     private void updateRemaningTime()
     {

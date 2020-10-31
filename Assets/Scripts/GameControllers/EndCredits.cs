@@ -43,7 +43,6 @@ public class EndCredits : MonoBehaviour
             c.enabled = false;
         }
         yield return new WaitForSeconds(.5f);
-        network.CloseServer();
         music.audioSource.volume = 1;
         music.Sound2();
         text1.SetActive(true);
@@ -65,7 +64,9 @@ public class EndCredits : MonoBehaviour
         text5.SetActive(true);
         yield return new WaitForSeconds(5f);
         text5.SetActive(false);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2.5f);
+        network.CloseServer();
+        yield return new WaitForSeconds(.5f);
         SceneManager.LoadScene(0);
     }
 

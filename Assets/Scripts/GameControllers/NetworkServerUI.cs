@@ -58,6 +58,8 @@ public class NetworkServerUI : MonoBehaviour
             gameController.SendMessage("OpenDoor4");
         if (msg.value == "5")
             gameController.SendMessage("OpenDoor5");
+        if (msg.value == "6")
+            gameController.SendMessage("OpenDoor6");
         if (msg.value == "Red")
             gameController.SendMessage("RedButtonPressed");
         if (msg.value == "Yellow")
