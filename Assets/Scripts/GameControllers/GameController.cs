@@ -10,6 +10,7 @@ using System.Text;
 using VHS;
 using UnityEngine.Rendering.PostProcessing;
 using DigitalRuby.SimpleLUT;
+using System.Globalization;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject door1;
@@ -37,11 +38,10 @@ public class GameController : MonoBehaviour
     public float missionTime = 600;
     private float remaningTime;
 
-
-
     Quaternion startRot, endRot;
+    Vector4 startPositions;
 
-
+    NumberFormatInfo nfi;
 
     private void Awake()
     {
@@ -57,12 +57,16 @@ public class GameController : MonoBehaviour
         sound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sounds>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
         network = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkServerUI>();
+        startPositions =new Vector4(player.transform.position.x, player.transform.position.z, monster.transform.position.x, monster.transform.position.z);
+
+        nfi = new NumberFormatInfo();
+        nfi.NumberDecimalSeparator = ".";
+
         StartCoroutine(UpdatePosition());
         //*************************
         //Enable before building
         StartCoroutine("Intro");
         //*************************
-        
     }
     private void Update()
     {
@@ -100,7 +104,6 @@ public class GameController : MonoBehaviour
             Cursor.visible = true;
             GameData.isGameActive = false;
         }
-
     }
 
     private void checkIsGameActive()
@@ -280,19 +283,28 @@ public class GameController : MonoBehaviour
     void StopHackTimer()
     {
         computer.GetComponent<Tablet>().StopTimer();
+        GameData.password1Discovered = true;
     }
     void StopHacking()
     {
         computer.GetComponent<Tablet>().Completed();
     }
+    public void StartingPosition()
+    {
+        StopCoroutine(UpdatePosition());
+        network.ServerSendMessage("startPositions: " + Convert.ToString(startPositions.x, nfi) + " " + Convert.ToString(startPositions.y, nfi) + " " + Convert.ToString(startPositions.z, nfi) + " " + Convert.ToString(startPositions.w, nfi));
+        StartCoroutine(UpdatePosition());
+    }
 
     public IEnumerator UpdatePosition()
     {
-        Vector2 pos = new Vector2(player.transform.position.x, player.transform.position.z);
-        network.ServerSendMessage("player: " + pos.x + " " + pos.y);
-        pos = new Vector2(monster.transform.position.x, monster.transform.position.z);
-        network.ServerSendMessage("monster: " + pos.x + " " + pos.y);
         yield return new WaitForSeconds(0.01f);
+        Vector2 pos = new Vector2(player.transform.position.x, player.transform.position.z);
+        string msg = "player: " + Convert.ToString(pos.x, nfi) + " " + Convert.ToString(pos.y, nfi);
+        network.ServerSendMessage(msg);
+        pos = new Vector2(monster.transform.position.x, monster.transform.position.z);
+        msg = "monster: " + Convert.ToString(pos.x,nfi) + " " + Convert.ToString(pos.y,nfi);
+        network.ServerSendMessage(msg) ;
         StartCoroutine(UpdatePosition());
     }
     private void updateRemaningTime()

@@ -758,6 +758,7 @@
     <Compile Include="Assets\Scripts\DisableFog.cs" />
     <Compile Include="Assets\Scripts\ElevatorButton.cs" />
     <Compile Include="Assets\Scripts\FollowPath.cs" />
+    <Compile Include="Assets\Scripts\GameControllers\CustomManager.cs" />
     <Compile Include="Assets\Scripts\GameControllers\EndCredits.cs" />
     <Compile Include="Assets\Scripts\GameControllers\GameController.cs" />
     <Compile Include="Assets\Scripts\GameControllers\GameData.cs" />

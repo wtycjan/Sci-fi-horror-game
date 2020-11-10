@@ -26,13 +26,18 @@ public class NetworkServerUI : MonoBehaviour
             NetworkServer.DisconnectAll();*/
 
         if (!NetworkServer.active)
-        { 
-        NetworkServer.Listen(25000);
+        {
+            ConnectionConfig config = new ConnectionConfig();
+            config.AddChannel(QosType.ReliableSequenced);
+            config.AddChannel(QosType.UnreliableSequenced);
+            config.SendDelay = 0;
+            NetworkServer.Configure(config, 10);
+            NetworkServer.Listen(25000);
         
         }
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         NetworkServer.RegisterHandler(888, ServerRecieveMessage);
-        NetworkServer.maxDelay = 0.2f;
+        NetworkServer.maxDelay = 0.3f;
     }
 
 
@@ -40,6 +45,11 @@ public class NetworkServerUI : MonoBehaviour
     {
         ServerSendMessage("Pswd " + GameData.password1);
         ServerSendMessage("Timer " + gameController.getRemaningTime());
+        //gameController.StartingPosition();
+        if(GameData.password1Discovered)
+            ServerSendMessage("AddPassword " + GameData.password1);
+        if (GameData.door1)
+            ServerSendMessage("UnlockDoor1");
         connections++;
     }
 
