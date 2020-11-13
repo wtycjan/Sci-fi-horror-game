@@ -38236,7 +38236,7 @@ MonoBehaviour:
   Shader: {fileID: 4800000, guid: 9d7e8f87435780644abb4acdfd72a2f0, type: 3}
   LookupTexture: {fileID: 0}
   Amount: 1
-  TintColor: {r: 1, g: 1, b: 1, a: 1}
+  TintColor: {r: 0.7971698, g: 1, b: 0.8162597, a: 1}
   Hue: 0
   Saturation: 0
   Brightness: 0
