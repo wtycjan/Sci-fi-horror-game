@@ -2581,7 +2581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413ca654ca61b5842938d5aceea6ac57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terminalAlarm: {fileID: 0}
+  terminalAlarm: {fileID: 422061634}
 --- !u!95 &129276432
 Animator:
   serializedVersion: 3
@@ -3722,7 +3722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413ca654ca61b5842938d5aceea6ac57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terminalAlarm: {fileID: 0}
+  terminalAlarm: {fileID: 422061634}
 --- !u!58 &189105748
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5995,16 +5995,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab80d8fb400177041b87588563a2e93d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door1: {fileID: 0}
-  door2: {fileID: 0}
-  door3: {fileID: 0}
+  door1: {fileID: 487768629}
+  door2: {fileID: 1471679287}
+  door3: {fileID: 815330276}
   door4: {fileID: 0}
   door5: {fileID: 1935286212}
   door6: {fileID: 0}
   redButton: {fileID: 189105744}
   yellowButton: {fileID: 129276429}
   blueButton: {fileID: 1743663952}
-  computer: {fileID: 0}
+  computer: {fileID: 1605655800}
   deathEffects:
   - {fileID: 1496896267}
   - {fileID: 1496896266}
@@ -8469,6 +8469,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2216270888a4ced48b33b7b5641611e6, type: 3}
+--- !u!1 &487768629 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3227940826273725450, guid: 24ac526ada94664488006d10194bbebc,
+    type: 3}
+  m_PrefabInstance: {fileID: 172056881}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &499414390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13448,6 +13454,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32234a5734d32f644adeeabac5c5b8ed, type: 3}
+--- !u!1 &815330276 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3227940826273725450, guid: 24ac526ada94664488006d10194bbebc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1206314581}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &826956960
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18439,7 +18451,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 50017933}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1471679287}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f235f6c050743e54bb53d85797c137d4, type: 3}
@@ -20033,17 +20045,17 @@ PrefabInstance:
     - target: {fileID: 8014365383665208922, guid: a65e93b8b5683784d8c7295ca05ae3d7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.8
+      value: 2.76
       objectReference: {fileID: 0}
     - target: {fileID: 8014365383665208922, guid: a65e93b8b5683784d8c7295ca05ae3d7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.500999
+      value: -4.671
       objectReference: {fileID: 0}
     - target: {fileID: 8014365383665208922, guid: a65e93b8b5683784d8c7295ca05ae3d7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -26.8
+      value: 2.445
       objectReference: {fileID: 0}
     - target: {fileID: 8014365383665208922, guid: a65e93b8b5683784d8c7295ca05ae3d7,
         type: 3}
@@ -23259,7 +23271,7 @@ MonoBehaviour:
   inputText: {fileID: 2023336664}
   player: {fileID: 1496896269}
   cursor: {fileID: 1775966644}
-  tablet: {fileID: 0}
+  tablet: {fileID: 1605655804}
   securityLvl: 1
 --- !u!95 &1383386779
 Animator:
@@ -24734,6 +24746,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 410498, guid: 104703105626daa4f8b3f24af487d01d,
     type: 3}
   m_PrefabInstance: {fileID: 1459772733}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1471679287 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3227940826273725450, guid: 24ac526ada94664488006d10194bbebc,
+    type: 3}
+  m_PrefabInstance: {fileID: 50017933}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1471981637
 GameObject:
@@ -27195,6 +27213,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2216270888a4ced48b33b7b5641611e6, type: 3}
+--- !u!1 &1605655800 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6215800201844217442, guid: d26a35998424e5441924e2802e6a9eca,
+    type: 3}
+  m_PrefabInstance: {fileID: 638628036}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1605655804 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6215800200515431680, guid: d26a35998424e5441924e2802e6a9eca,
+    type: 3}
+  m_PrefabInstance: {fileID: 638628036}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605655800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f5e33b2c89d85b409246f51334a0223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1606854077
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30579,7 +30615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413ca654ca61b5842938d5aceea6ac57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terminalAlarm: {fileID: 0}
+  terminalAlarm: {fileID: 422061634}
 --- !u!95 &1743663954
 Animator:
   serializedVersion: 3
@@ -32914,7 +32950,7 @@ PrefabInstance:
     - target: {fileID: 6330180530983726744, guid: fa835c00e9fcceb4b83d680b5092c86e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6330180530983930580, guid: fa835c00e9fcceb4b83d680b5092c86e,
         type: 3}
@@ -32986,6 +33022,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.06770463
       objectReference: {fileID: 0}
+    - target: {fileID: 6330180530981635946, guid: fa835c00e9fcceb4b83d680b5092c86e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d73c12be5ae1ce34e926b04cb18fd462, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa835c00e9fcceb4b83d680b5092c86e, type: 3}
 --- !u!4 &1925915008 stripped
