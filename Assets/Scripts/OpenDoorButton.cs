@@ -118,9 +118,17 @@ public class OpenDoorButton : MonoBehaviour
         open = false;
         interacting = false;
     }
-    public void UnlockDoor()
+    public void UnlockDoorIntro()
     {
         StartCoroutine("UnlockDoor2");
+    }
+    public void LockDoor()
+    {
+        StartCoroutine("CloseDoor");
+    }
+    public void UnlockDoor()
+    {
+        StartCoroutine("OpenDoor");
     }
     protected IEnumerator UnlockDoor2()
     {

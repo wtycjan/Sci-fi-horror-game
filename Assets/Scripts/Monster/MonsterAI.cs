@@ -109,7 +109,7 @@ public class MonsterAI : MonoBehaviour
 
     private void changeMonsterShader()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) < 2.1f && isPlayerDetect)
+        if(Vector3.Distance(transform.position, player.transform.position) < 2.1f && isPlayerDetect && Math.Abs(transform.position.y- player.transform.position.y) < 2 )
         {
             monsterMesh.materials = visibleMaterials;
         }
@@ -129,7 +129,7 @@ public class MonsterAI : MonoBehaviour
         }
         else if(isPlayerOpenCloseDoor|| chestAlarm.isAlarm || computerAlarm.isAlarm || terminalAlarm.isAlarm || isPlayerDetect
             || (Vector3.Distance(transform.position, player.transform.position) < detectionRange 
-            && Vector3.Distance(transform.position, player.transform.position) > 1.5f))
+            && Vector3.Distance(transform.position, player.transform.position) > 1.5f && Math.Abs(transform.position.y - player.transform.position.y) < 1.5f))
             responseMonsterToTrigger();
         else
         {
@@ -146,7 +146,8 @@ public class MonsterAI : MonoBehaviour
 
     private void responseMonsterToPlayer()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f)
+        if (Vector3.Distance(transform.position, player.transform.position) < detectionRange && Vector3.Distance(transform.position, player.transform.position) > 1.5f
+            && Math.Abs(transform.position.y - player.transform.position.y) < 1.5f)
         {
             prepareMonsterToRun();
         }
@@ -369,6 +370,7 @@ public class MonsterAI : MonoBehaviour
         isPlayerDetect = false;
         isRunning = false;
         newSpot = Spots[UnityEngine.Random.Range(startSpotsIndex, Spots.Count)];
+        print(newSpot);
         agent.SetDestination(newSpot.transform.position);
     }
 
