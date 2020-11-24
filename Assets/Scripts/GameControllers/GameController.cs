@@ -46,8 +46,9 @@ public class GameController : MonoBehaviour
     {
         GameData.password1 = RandomPassword();
         GameData.level1 = false;
+        GameData.keycard1 = false; 
         GameData.door1 = false;
-        GameData.lockpickingTutoral = false;
+        GameData.password1Discovered = false;
         remaningTime = missionTime;
 
     }

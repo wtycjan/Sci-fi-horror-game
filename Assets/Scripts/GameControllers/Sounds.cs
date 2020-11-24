@@ -14,6 +14,8 @@ public class Sounds : MonoBehaviour
     public AudioClip sound8;
     public AudioClip sound9;
     public AudioClip sound10;
+    public AudioClip sound11;
+    public AudioClip sound12;
     public AudioSource audioSource;
     void Start()
     {
@@ -90,6 +92,15 @@ public class Sounds : MonoBehaviour
     {
         audioSource.PlayOneShot(sound10);
     }
+    public void Sound11()
+    {
+        audioSource.PlayOneShot(sound11);
+    }
+    public void Sound12()
+    {
+        audioSource.PlayOneShot(sound12);
+    }
+
     public void Sound1Loop()
     {
         float x = Random.Range(0, 4f);

@@ -149,6 +149,8 @@ MonoBehaviour:
   sound6: {fileID: 0}
   sound7: {fileID: 0}
   sound8: {fileID: 0}
+  sound9: {fileID: 0}
+  sound10: {fileID: 0}
   audioSource: {fileID: 1534965305}
 --- !u!1 &1734749122
 GameObject:
@@ -299,6 +301,8 @@ MonoBehaviour:
   sound6: {fileID: 0}
   sound7: {fileID: 0}
   sound8: {fileID: 0}
+  sound9: {fileID: 0}
+  sound10: {fileID: 0}
   audioSource: {fileID: 1734749125}
 --- !u!1 &1967861639
 GameObject:
@@ -38433,7 +38437,7 @@ MonoBehaviour:
   isHoldingBreath: 0
   stamina: 0
   breath: 0
-  maxBreath: 8
+  maxBreath: 9
   maxStamina: 5.3
   breathBar: {fileID: 0}
   breathBarObject: {fileID: 0}
@@ -43526,6 +43530,8 @@ MonoBehaviour:
   sound6: {fileID: 8300000, guid: f53856f596c7c4c418231a043195a041, type: 3}
   sound7: {fileID: 0}
   sound8: {fileID: 0}
+  sound9: {fileID: 0}
+  sound10: {fileID: 0}
   audioSource: {fileID: 1595196145624230695}
 --- !u!1001 &6443841880525034248
 PrefabInstance:

@@ -16,11 +16,11 @@ public class LoadScene : MonoBehaviour
 
     IEnumerator LoadAsyncOperation()
     {
-        AsyncOperation gameLevel = SceneManager.LoadSceneAsync(2);
+        AsyncOperation gameLevel = SceneManager.LoadSceneAsync(GameData.loadLevel);
 
         while (gameLevel.progress < 1)
         {
-            loadingBar.transform.Rotate(new Vector3(0, 0, 30));
+            loadingBar.transform.Rotate(new Vector3(0, 0, 5));
             yield return new WaitForEndOfFrame();
 
         }

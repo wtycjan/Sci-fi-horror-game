@@ -6,6 +6,7 @@ public class Intro2 : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private GameObject elevatorDoor;
+    [SerializeField] private GameObject explosion, sparks1, sparks2;
     private NetworkServerUI network;
     private Sounds sound;
     public Image blackScreen; //intro
@@ -23,7 +24,7 @@ public class Intro2 : MonoBehaviour
     {
         if (!GameData.respawn)
         {
-            sound.Sound5();
+            sound.Sound11();
             blackScreen.GetComponent<Animation>().Play();
             yield return new WaitForSeconds(4.5f);
             sound.Sound9();
@@ -31,13 +32,20 @@ public class Intro2 : MonoBehaviour
             sound.Sound10();
             yield return new WaitForSeconds(4);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
+        sound.Sound9();
+        explosion.SetActive(true);
+        yield return new WaitForSeconds(.5f);
         Destroy(blackScreen.gameObject);
         elevatorDoor.GetComponent<OpenDoorButton>().UnlockDoorIntro();
         GameData.canPause = true;
         network.ServerSendMessage("Unpause");
         GameData.isGameActive = true;
-
+        yield return new WaitForSeconds(1f);
+        sparks1.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        sparks2.SetActive(true);
+        Destroy(gameObject);
 
     }
 }
