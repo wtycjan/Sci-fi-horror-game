@@ -27,6 +27,7 @@ public class LevelComplete : MonoBehaviour
     }
     public IEnumerator Ending()
     {
+        GameData.respawn = false;
         network.ServerSendMessage("Pause");
         gameController.cutscene = true;
         yield return new WaitForSeconds(2.5f);

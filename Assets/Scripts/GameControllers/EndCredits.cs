@@ -30,6 +30,7 @@ public class EndCredits : MonoBehaviour
 
     public IEnumerator Ending()
     {
+        GameData.respawn = false;
         network.ServerSendMessage("EndCredits");
         gameController.cutscene = true;
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();

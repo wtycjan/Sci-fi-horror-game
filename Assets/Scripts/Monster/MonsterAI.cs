@@ -98,6 +98,7 @@ public class MonsterAI : MonoBehaviour
             }
             moveMonster();
             HandleState();
+            checkPlayerYPosition();
         }
         
     }
@@ -117,6 +118,15 @@ public class MonsterAI : MonoBehaviour
         {
             monsterMesh.materials = transparetMaterials;
         }
+    }
+    private void checkPlayerYPosition()
+    {
+        if(Math.Abs(transform.position.y - player.transform.position.y) < 1.5f)
+        {
+            sound.Volume(1);
+        }
+        else
+            sound.Volume(0);
     }
 
     private void moveMonster()

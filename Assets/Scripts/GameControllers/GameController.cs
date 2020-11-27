@@ -165,7 +165,6 @@ public class GameController : MonoBehaviour
 
     public IEnumerator Death()
     {
-        GameData.respawn = true;
         GameData.canPause = false;
         GameData.isGameActive = false;
         cutscene = true;
@@ -223,7 +222,9 @@ public class GameController : MonoBehaviour
     public IEnumerator Restart()
     {
         blackScreen.gameObject.SetActive(true);
-
+        GameData.canPause = false;
+        GameData.isGameActive = false;
+        GameData.respawn = true;
         yield return new WaitForSeconds(3f);
         //network.CloseServer();
         network.ServerSendMessage("Restart");
