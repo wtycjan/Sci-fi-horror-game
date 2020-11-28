@@ -42,6 +42,7 @@ public class Clipboard : MonoBehaviour
         screen.gameObject.SetActive(true);
         GameData.canPause = false;
         network.ServerSendMessage("SavePassword");
+        network.ServerSendMessage("OpenPasswords");
     }
     public void Close()
     {
@@ -56,5 +57,6 @@ public class Clipboard : MonoBehaviour
         }
         screen.gameObject.SetActive(false);
         GameData.canPause = true;
+        network.ServerSendMessage("ClosePasswords");
     }
 }
