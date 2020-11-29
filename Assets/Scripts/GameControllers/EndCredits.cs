@@ -30,6 +30,7 @@ public class EndCredits : MonoBehaviour
 
     public IEnumerator Ending()
     {
+        GameData.respawn = false;
         network.ServerSendMessage("EndCredits");
         gameController.cutscene = true;
         MonoBehaviour[] scripts = player.GetComponentsInChildren<MonoBehaviour>();
@@ -67,7 +68,8 @@ public class EndCredits : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         network.CloseServer();
         yield return new WaitForSeconds(.5f);
-        SceneManager.LoadScene(0);
+        GameData.loadLevel = 0;
+        SceneManager.LoadScene(1);
     }
 
 }

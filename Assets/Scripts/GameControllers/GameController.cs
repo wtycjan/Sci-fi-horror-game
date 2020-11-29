@@ -26,7 +26,6 @@ public class GameController : MonoBehaviour
     [SerializeField] private ParticleSystem[] deathEffects;
     [SerializeField] private SimpleLUT gameBrightness;
     public Image blackScreen;   //death
-    public Image blackScreen2; //intro
     public GameObject pauseMenu;
     public MonsterAI monster;
     private FirstPersonController player;
@@ -47,8 +46,9 @@ public class GameController : MonoBehaviour
     {
         GameData.password1 = RandomPassword();
         GameData.level1 = false;
+        GameData.keycard1 = false; 
         GameData.door1 = false;
-        GameData.lockpickingTutoral = false;
+        GameData.password1Discovered = false;
         remaningTime = missionTime;
 
     }
@@ -63,10 +63,8 @@ public class GameController : MonoBehaviour
         nfi.NumberDecimalSeparator = ".";
 
         StartCoroutine(UpdatePosition());
-        //*************************
-        //Enable before building
-        StartCoroutine("Intro");
-        //*************************
+
+
     }
     private void Update()
     {
@@ -136,23 +134,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public IEnumerator Intro()
-    {
-        if (!GameData.respawn)
-        {
-            sound.Sound5();
-            blackScreen2.GetComponent<Animation>().Play();
-            yield return new WaitForSeconds(10);
-        }
-        yield return new WaitForSeconds(1f);
-        Destroy(blackScreen2.gameObject);
-        door5.GetComponent<OpenDoorButton>().UnlockDoor();
-        GameData.canPause = true;
-        network.ServerSendMessage("Unpause");
-        GameData.isGameActive = true;
-        
-
-    }
 
     void OpenDoor1()
     {
@@ -184,7 +165,6 @@ public class GameController : MonoBehaviour
 
     public IEnumerator Death()
     {
-        GameData.respawn = true;
         GameData.canPause = false;
         GameData.isGameActive = false;
         cutscene = true;
@@ -242,7 +222,9 @@ public class GameController : MonoBehaviour
     public IEnumerator Restart()
     {
         blackScreen.gameObject.SetActive(true);
-
+        GameData.canPause = false;
+        GameData.isGameActive = false;
+        GameData.respawn = true;
         yield return new WaitForSeconds(3f);
         //network.CloseServer();
         network.ServerSendMessage("Restart");
@@ -299,11 +281,11 @@ public class GameController : MonoBehaviour
     public IEnumerator UpdatePosition()
     {
         yield return new WaitForSeconds(0.01f);
-        Vector2 pos = new Vector2(player.transform.position.x, player.transform.position.z);
-        string msg = "player: " + Convert.ToString(pos.x, nfi) + " " + Convert.ToString(pos.y, nfi);
+        Vector3 pos = new Vector3(player.transform.position.x, player.transform.position.z, player.transform.position.y);
+        string msg = "player: " + Convert.ToString(pos.x, nfi) + " " + Convert.ToString(pos.y, nfi) + " " + Convert.ToString(pos.z, nfi);
         network.ServerSendMessage(msg);
-        pos = new Vector2(monster.transform.position.x, monster.transform.position.z);
-        msg = "monster: " + Convert.ToString(pos.x,nfi) + " " + Convert.ToString(pos.y,nfi);
+        pos = new Vector3(monster.transform.position.x, monster.transform.position.z, monster.transform.position.y);
+        msg = "monster: " + Convert.ToString(pos.x,nfi) + " " + Convert.ToString(pos.y,nfi) + " " + Convert.ToString(pos.z, nfi);
         network.ServerSendMessage(msg) ;
         StartCoroutine(UpdatePosition());
     }

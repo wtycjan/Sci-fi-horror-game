@@ -6,10 +6,11 @@ public class SpiderControl : MonoBehaviour
 {
     private Vector3 deltaPosition, prevPosition;
     // Start is called before the first frame update
+    public float destroyTime=2.2f;
     void Start()
     {
         prevPosition = transform.position;
-        Destroy(gameObject, 2.2f);
+        Destroy(gameObject, destroyTime);
     }
 
     // Update is called once per frame

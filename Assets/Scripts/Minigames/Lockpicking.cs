@@ -33,7 +33,7 @@ public class Lockpicking : MonoBehaviour
             GetComponentInChildren<Light>().color = Color.green;
             GetComponent<MeshRenderer>().material = openMaterial;
             gameObject.layer = 0; //isInteractable = false;
-            doors.UnlockDoor();
+            doors.UnlockDoorIntro();
             enabled = false;
         }
     }

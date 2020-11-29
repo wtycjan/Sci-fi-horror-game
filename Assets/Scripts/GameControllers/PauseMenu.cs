@@ -43,6 +43,7 @@ public class PauseMenu : MonoBehaviour
         network.ServerSendMessage("ExitGame");
         yield return new WaitForSeconds(.1f);
         network.CloseServer();
-        SceneManager.LoadScene(0);
+        GameData.loadLevel = 0;
+        SceneManager.LoadScene(1);
     }
 }

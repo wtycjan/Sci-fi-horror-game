@@ -104,7 +104,7 @@ namespace VHS
         private bool rechargeStamina = false, tired = false;
         public bool isHoldingBreath = false;
 
-        public float stamina = 0f, breath = 0f, maxBreath = 8f, maxStamina = 5.3f;
+        public float stamina = 0f, breath = 0f, maxBreath = 9f, maxStamina = 5.3f;
         [SerializeField] private ProgressBarCircle breathBar;
         [SerializeField] public GameObject breathBarObject;
         [SerializeField] private ProgressBar staminaBar;
@@ -680,7 +680,7 @@ namespace VHS
 
         protected virtual void HoldBreath()
         {
-            if (Input.GetKeyDown(KeyCode.Q) && breath < 1)
+            if (Input.GetKeyDown(KeyCode.Q) && breath < maxBreath/2)
             {
                 m_cameraController.ChangeRunFOV(false);
                 if (!sounds2.IsPlaying())
@@ -690,7 +690,7 @@ namespace VHS
             else if ((Input.GetKeyUp(KeyCode.Q) && isHoldingBreath) || breath > maxBreath)
             {
                 m_cameraController.ChangeRunFOV(true);
-                if (breath > 5)
+                if (breath > ((maxBreath/2)+1) )
                 {
                     if (!sounds2.IsPlaying())
                         sounds2.Sound4();

@@ -44,9 +44,10 @@ public class MainMenu : MonoBehaviour
         //}
             
     }
-    public void PlayButton()
+    public void PlayButton(int i)
     {
         StartCoroutine("BeginGame");
+        GameData.loadLevel = i;
     }
     public void QuitButton()
     {
@@ -130,6 +131,6 @@ public class MainMenu : MonoBehaviour
         yield return new WaitForSeconds(2.15f);
         blackScreen.SetActive(true);
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(1);
     }
 }

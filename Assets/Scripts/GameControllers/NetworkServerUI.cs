@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NetworkServerUI : MonoBehaviour
 {
@@ -43,9 +44,9 @@ public class NetworkServerUI : MonoBehaviour
 
     void SendData()
     {
+        ServerSendMessage("LoadLevel: " + (GameData.loadLevel-1) );
         ServerSendMessage("Pswd " + GameData.password1);
         ServerSendMessage("Timer " + gameController.getRemaningTime());
-        //gameController.StartingPosition();
         if(GameData.password1Discovered)
             ServerSendMessage("AddPassword " + GameData.password1);
         if (GameData.door1)
