@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6215800200856007026}
   - component: {fileID: 6215800200854898376}
   - component: {fileID: 6215800200850571394}
-  - component: {fileID: 156877207}
   m_Layer: 0
   m_Name: ComputerTerminal
   m_TagString: Untagged
@@ -95,22 +94,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: a0d8f320763fe4945b863868635a92f5, type: 3}
---- !u!208 &156877207
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6215800200857098126}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 2.098, y: 1.0380001, z: 0.88400006}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1.0380001, z: 1.019}
-  m_TimeToStationary: 0.5
 --- !u!1 &6215800201844217442
 GameObject:
   m_ObjectHideFlags: 0

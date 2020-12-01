@@ -183,16 +183,19 @@ public class MonsterAI : MonoBehaviour
     {
         if (chestAlarm.isAlarm)
         {
+            print("ch");
             prepareMonsterCheckAlarm(chest);
             turnOffAlarm();
         }
         if (computerAlarm.isAlarm)
         {
+            print(agent.destination + "com");
             prepareMonsterCheckAlarm(computer);
             turnOffAlarm();
         }
         if (terminalAlarm.isAlarm)
         {
+            print("ty");
             prepareMonsterCheckAlarm(terminal);
             turnOffAlarm();
         }
@@ -200,12 +203,12 @@ public class MonsterAI : MonoBehaviour
 
     void turnOffAlarm()
     {
-        if (Vector3.Distance(transform.position, chest.transform.position) < 1.5f)
+        if (Vector3.Distance(transform.position, chest.transform.position) < 2.5f)
         {
             chestAlarm.StopAlarm();
             StartCoroutine("stayAndObserve");
         }
-        if (Vector3.Distance(transform.position, computer.transform.position) < 1.5f)
+        if (Vector3.Distance(transform.position, computer.transform.position) < 2.5f)
         {
             computerAlarm.StopAlarm();
             StartCoroutine("stayAndObserve");
@@ -236,7 +239,8 @@ public class MonsterAI : MonoBehaviour
 
     private void startMonsterRunToAlarm(GameObject alarmSource)
     {
- 
+        print(agent.destination + "sad");
+        print(alarmSource.transform.position + "ssssss");
         agent.speed = runSpeed;
         anim.runtimeAnimatorController = runAnim;
         float step = normalSpeed * 100 * Time.deltaTime; // calculate distance to move

@@ -37,6 +37,10 @@ public class GameController : MonoBehaviour
     public float missionTime = 600;
     private float remaningTime;
 
+    public Chest chest;
+    public Tablet tabelt;
+    public Lockpicking inne;
+
     Quaternion startRot, endRot;
     Vector4 startPositions;
 
@@ -81,6 +85,18 @@ public class GameController : MonoBehaviour
         //    OpenDoor5();
         //if (Input.GetKeyDown("6"))
         //    OpenDoor6();
+        if (Input.GetKeyDown("1"))
+            chest.isAlarm = true;
+        if (Input.GetKeyDown("2"))
+            tabelt.isAlarm = true;
+        if (Input.GetKeyDown("3"))
+            inne.isAlarm = true;
+        if (Input.GetKeyDown("4"))
+            chest.isAlarm = false;
+        if (Input.GetKeyDown("5"))
+            tabelt.isAlarm = false;
+        if (Input.GetKeyDown("6"))
+            inne.isAlarm = false;
         setNewBrightness();
         checkIsGameActive();
 
