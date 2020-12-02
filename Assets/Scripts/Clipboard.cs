@@ -16,10 +16,14 @@ public class Clipboard : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         pswd.text = GameData.password1;
     }
-    private void Update()
+    private void LateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && screen.gameObject.activeSelf)
+        {
             Close();
+            GameData.canPause = true;
+        }
+            
     }
     public void Interact()
     {
@@ -56,7 +60,7 @@ public class Clipboard : MonoBehaviour
             c.enabled = true;
         }
         screen.gameObject.SetActive(false);
-        GameData.canPause = true;
+
         network.ServerSendMessage("ClosePasswords");
     }
 }
