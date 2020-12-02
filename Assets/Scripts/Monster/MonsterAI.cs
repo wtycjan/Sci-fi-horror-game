@@ -203,7 +203,7 @@ public class MonsterAI : MonoBehaviour
 
     void turnOffAlarm()
     {
-        if (Vector3.Distance(transform.position, chest.transform.position) < 2.5f)
+        if (Vector3.Distance(transform.position, chest.transform.position) < 3f)
         {
             chestAlarm.StopAlarm();
             StartCoroutine("stayAndObserve");
