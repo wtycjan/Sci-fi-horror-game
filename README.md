@@ -1,8 +1,11 @@
-# Astrumis - Survivor is a multiplayer co-op horror game
+# Astrumis - Survivor
+
 
 ## Overview 
 
-made in the Unity Engine using C#
+Multiplayer co-op horror game
+
+Made in the Unity Engine using C#
 
 Trailer
 
